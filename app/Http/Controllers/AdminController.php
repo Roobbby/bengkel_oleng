@@ -23,7 +23,7 @@ class AdminController extends Controller
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        $data = User::where('role', 1)->orderBy('created_at', 'desc')->get();
+        $data = User::where('role', '1')->orderBy('created_at', 'desc')->get();
         return view('back.admin_manage',compact('data'));
     }
 

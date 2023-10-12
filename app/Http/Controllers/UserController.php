@@ -22,7 +22,7 @@ class UserController extends Controller
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        $data = User::where('role', 2)->orderBy('created_at', 'desc')->get();
+        $data = User::where('role', '2')->orderBy('created_at', 'desc')->get();
         return view('back.user_manage',compact('data'));
     }
 
