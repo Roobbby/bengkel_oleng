@@ -24,9 +24,7 @@ Route::get('/', function () {
     return view('front.index');
 });
 
-//Route::get('/home', function () {
-//    return view('home');
-//});
+    //Auth Routes
     Route::get('/register', [AuthController::class, 'Register'])->name('register');
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
@@ -36,16 +34,20 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth','PreventBackHistory'])->group(function(){
-    //tambah PreventBackHistory
-    Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
-    //ganti ProfileController
+    Route::get('/home', [HomeController::class, 'Index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'Profile'])->name('profile');
     Route::post('/profile/store', [ProfileController::class, 'ProfileStore'])->name('profile.store');
     Route::get('/change/password', [ProfileController::class, 'ChangePassword'])->name('change.password');
     Route::post('/update/password', [ProfileController::class, 'UpdatePassword'])->name('update.password');
-    //tambah session (ketika login expried pindahkan ke halaman login),
-    Route::get('/home', [HomeController::class, 'Index'])->name('home');
-    Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
+    Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
+ 
+
+    //super admin manage
+    Route::get('/manage/superadmin', [SuperAdminController::class, 'Index'])->name('manage.super.admin');
+    Route::resource('superadmin', SuperAdminController::class);
+    Route::patch('/superadmin/toggle-status/{id}', [SuperAdminController::class,'toggleStatus'])->name('superadmin.toggleStatus');
+
     //admin manage
     Route::get('/manage/admin', [AdminController::class, 'Index'])->name('manage.admin');
     Route::resource('admin', AdminController::class);
@@ -56,9 +58,6 @@ Route::middleware(['auth','PreventBackHistory'])->group(function(){
     Route::resource('user', UserController::class);
     Route::patch('/user/toggle-status/{id}', [UserController::class,'toggleStatus'])->name('user.toggleStatus');
     
-    //super admin manage
-    Route::get('/manage/superadmin', [SuperAdminController::class, 'Index'])->name('manage.super.admin');
-    Route::resource('superadmin', SuperAdminController::class);
-    Route::patch('/superadmin/toggle-status/{id}', [SuperAdminController::class,'toggleStatus'])->name('superadmin.toggleStatus');
+ 
 }); 
 

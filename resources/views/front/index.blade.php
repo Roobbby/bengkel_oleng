@@ -50,7 +50,7 @@
     <!-- Hero: End -->
 
     <!-- Useful features: Start -->
-    <section id="landingFeatures" class="section-py landing-features">
+    {{-- <section id="landingFeatures" class="section-py landing-features">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">Useful Features</span>
@@ -114,11 +114,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Useful features: End -->
 
     <!-- Real customers reviews: Start -->
-    <section id="landingReviews" class="section-py bg-body landing-reviews pb-0">
+    {{-- <section id="landingReviews" class="section-py bg-body landing-reviews pb-0">
       <!-- What people say slider: Start -->
       <div class="container">
         <div class="row align-items-center gx-0 gy-4 g-lg-5">
@@ -399,11 +399,11 @@
         </div>
       </div>
       <!-- Logo slider: End -->
-    </section>
+    </section> --}}
     <!-- Real customers reviews: End -->
 
     <!-- Our great team: Start -->
-    <section id="landingTeam" class="section-py landing-team">
+    {{-- <section id="landingTeam" class="section-py landing-team">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">Our Great Team</span>
@@ -469,11 +469,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Our great team: End -->
 
     <!-- Pricing plans: Start -->
-    <section id="landingPricing" class="section-py bg-body landing-pricing">
+    {{-- <section id="landingPricing" class="section-py bg-body landing-pricing">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">Pricing Plans</span>
@@ -763,11 +763,11 @@
           <!-- Standard Plan: End -->
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Pricing plans: End -->
 
     <!-- Fun facts: Start -->
-    <section id="landingFunFacts" class="section-py landing-fun-facts">
+    {{-- <section id="landingFunFacts" class="section-py landing-fun-facts">
       <div class="container">
         <div class="row gy-3">
           <div class="col-sm-6 col-lg-3">
@@ -820,11 +820,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Fun facts: End -->
 
     <!-- FAQ: Start -->
-    <section id="landingFAQ" class="section-py bg-body landing-faq">
+    {{-- <section id="landingFAQ" class="section-py bg-body landing-faq">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">FAQ</span>
@@ -966,11 +966,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- FAQ: End -->
 
     <!-- CTA: Start -->
-    <section id="landingCTA" class="section-py landing-cta p-lg-0 pb-0">
+    {{-- <section id="landingCTA" class="section-py landing-cta p-lg-0 pb-0">
       <div class="container">
         <div class="row align-items-center gy-5 gy-lg-0">
           <div class="col-lg-6 text-center text-lg-start">
@@ -986,11 +986,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- CTA: End -->
 
     <!-- Contact Us: Start -->
-    <section id="landingContact" class="section-py bg-body landing-contact">
+    {{-- <section id="landingContact" class="section-py bg-body landing-contact">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">Contact US</span>
@@ -1073,7 +1073,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Contact Us: End -->
   </div>
 
