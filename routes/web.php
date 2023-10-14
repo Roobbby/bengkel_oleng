@@ -21,16 +21,18 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('front.index');
+    return redirect('/bengkel_oleng');
 });
 
+
     //Auth Routes
+    Route::get('/bengkel_oleng', [HomeController::class, 'Haut'])->name('haut');
     Route::get('/register', [AuthController::class, 'Register'])->name('register');
     Route::get('/register/user', [AuthController::class, 'RegisterUser'])->name('register.user');
+    Route::post('/register/user/store',[AuthController::class, 'RegisterUserStore'])->name('register.user.store');
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
-    Route::get('/haut', [HomeController::class, 'Haut'])->name('haut');
     Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
 
 

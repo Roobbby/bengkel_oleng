@@ -12,7 +12,7 @@
                 <div class="card-body">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center mb-4 mt-2">
-                    <a href="index.html" class="app-brand-link gap-2">
+                    <a href="{{ route('haut') }}" class="app-brand-link gap-2">
                     <span class="app-brand-logo demo">
                         <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -47,7 +47,7 @@
                 <p class="mb-4">Make your app management easy and fun!</p>
     
                 <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                    <input type="text" name="role" value=2>
+                    <input type="text" name="role" value=2 readonly>
                     <div class="mb-3">
                     <label for="sapaan" class="form-label">sapaan</label>
                     <input
@@ -88,7 +88,8 @@
                         id="telp"
                         name="telp"
                         placeholder="Enter your telp"
-                        autofocus />
+                        autofocus 
+                        pattern="[0-9]*"/>
                     </div>
                     </div>
                     <div class="mb-3">
@@ -175,6 +176,21 @@
                 acceptTermsCheckbox.on('change', function() {
                     checkCheckboxStatus();
                 });
+            });
+        </script>
+        <script>
+            document.getElementById('telp').addEventListener('input', function(e) {
+                // Menghapus karakter selain angka dari nilai input
+                this.value = this.value.replace(/\D/g, '');
+
+                // Validasi nomor seluler WhatsApp
+                var inputValue = this.value;
+                if (inputValue.startsWith('0') || inputValue.startsWith('6') || inputValue.startsWith('2'))  {
+                    inputValue = inputValue.slice(1);
+                }
+
+                // Memperbarui nilai input dengan nomor yang sudah divalidasi
+                this.value = inputValue;
             });
         </script>
 @endsection

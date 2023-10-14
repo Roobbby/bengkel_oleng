@@ -22,8 +22,36 @@ class AuthController extends Controller
 
     public function RegisterUser()
     {
-        $role = 'user'; 
-        return view('back.auth.register_user', compact('role'));
+        return view('back.auth.register_user');
+    }
+
+    public function RegisterUserStore(Request $request)
+    {
+         $validateUser = $request->valudate([
+            'sapaan' => 'required|max:50',
+            'panggilan' => 'required|max:50',
+            'name' => 'required|max:100',
+            'telp' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'role' => 'required|integer',
+         ]);
+         
+         $validateUser['password'] = Hash::make($validateUser['password']);
+
+         $user = new User([
+            'sapaan' => $validatedUser['sapaan'],
+            'panggilan' => $validatedUser['panggilan'],
+            'name' => $validatedUser['name'],
+            'telp' => $validatedUser['telp'],
+            'email' => $validatedUser['email'],
+            'role' => $validatedUser['role'],
+         ]);
+
+         if ($user->save()) {
+            return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+        } else {
+            return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
+        }
     }
 
     public function Login()
