@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username')->nullable();
+            $table->string('sapaan')->nullable();
+            $table->string('panggilan')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('telp')->nullable();
+            $table->string('telp')->unique();
             $table->string('foto')->nullable();
-            $table->string('stnk')->nullable();
+            //sa = 0, a = 1, u = 2
             $table->enum('role',['0','1','2'])->default('2');
+            //0 = off, 1 = on
             $table->enum('status',['0','1'])->default('0');
-            $table->enum('gender',['laki-laki','perempuan'])->nullable();
-            $table->text('alamat')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -260,7 +260,7 @@
                     value="{{ $profileData->email }}"
                     placeholder="john.doe.007" />
                 </div>
-      
+                {{-- //option Value
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="modalEditGender">Gender</label>
                   <select
@@ -272,7 +272,7 @@
                     <option value="laki-laki" {{ $profileData->gender == 'laki-laki' ? 'selected' : ''}}>Laki-Laki</option>
                     <option value="perempuan" {{ $profileData->gender == 'perempuan' ? 'selected' : ''}}>Perempuan</option>
                   </select>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="modalEditUserPhone">Phone Number</label>
                   <div class="input-group">
@@ -286,17 +286,6 @@
                       placeholder=" " />
                   </div>
                 </div>
-                <div class="col-12">
-                  <label class="form-label" for="modalEditAlamat">Alamat</label>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      id="modalEditAlamat"
-                      name="alamat"
-                      class="form-control"
-                      value="{{ $profileData->alamat }}"
-                      placeholder="john.doe.007" />
-                  </div>
                 </div>
                
                 <div class="col-12 text-center">

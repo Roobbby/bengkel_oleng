@@ -234,7 +234,7 @@
                 </button>
                 <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(1.2945px, 38.835px, 0px);" data-popper-placement="bottom-start">
                   <li>
-                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Join With Us</a>
+                    <a href="{{ route('register.user') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Join With Us</a>
                   </li>
                   <li>
                     <hr class="dropdown-divider">

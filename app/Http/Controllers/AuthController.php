@@ -20,6 +20,12 @@ class AuthController extends Controller
         return view('back.auth.register', compact('role'));
     }
 
+    public function RegisterUser()
+    {
+        $role = 'user'; 
+        return view('back.auth.register_user', compact('role'));
+    }
+
     public function Login()
     {
        return view('back.auth.login');

@@ -30,9 +30,8 @@ class ProfileController extends Controller
         $data->name = $request->name;
         $data->username = $request->username;
         $data->email = $request->email;
-        $data->gender = $request->gender;
         $data->telp = $request->telp;
-        $data->alamat = $request->alamat;
+        
 
         if ($request->file('foto')) {
             $file = $request->file('foto');
