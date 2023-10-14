@@ -9,7 +9,6 @@
         <div class="container">
           <div class="hero-text-box text-center">
             <h1 class="text-primary hero-title display-6 fw-bold">One dashboard to manage all your businesses</h1>
-            {{-- <h1 class="text-primary hero-title display-6 fw-bold">Saya Minta Maaf</h1> --}}
             <h2 class="hero-sub-title h6 mb-4 pb-1">
               Production-ready & easy to use Admin Template<br class="d-none d-lg-block" />
               for Reliability and Customizability.

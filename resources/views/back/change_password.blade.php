@@ -1,3 +1,4 @@
+{{-- tidak terpakai --}}
 @extends('back.layout.index')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Change Password')
 

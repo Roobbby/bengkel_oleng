@@ -122,7 +122,7 @@
               <li class="nav-item">
                 <a class="nav-link fw-medium" aria-current="page" href="landing-page.html#landingHero">Home</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
               </li>
               <li class="nav-item">
@@ -133,8 +133,8 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-medium" href="landing-page.html#landingContact">Contact us</a>
-              </li>
-              <li class="nav-item mega-dropdown">
+              </li> --}}
+              {{-- <li class="nav-item mega-dropdown">
                 <a
                   href="javascript:void(0);"
                   class="nav-link dropdown-toggle navbar-ex-14-mega-dropdown mega-dropdown fw-medium"
@@ -189,7 +189,7 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> --}}
             </ul>
           </div>
           <div class="landing-menu-overlay d-lg-none"></div>
@@ -223,10 +223,27 @@
 
             <!-- navbar button: Start -->
             <li>
-              <a href="{{ route('register') }}" class="btn btn-primary" target=""
+              {{-- <a href="{{ route('register') }}" class="btn btn-primary" target=""
                 ><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span
                 ><span class="d-none d-md-block">Login/Register</span></a
-              >
+              > --}}
+ 
+              <div class="btn-group" id="dropdown-icon-demo">
+                <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light show " data-bs-toggle="dropdown" aria-expanded="true">
+                  <i class="ti ti-login ti-xs me-1"></i> Regiter/Login
+                </button>
+                <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(1.2945px, 38.835px, 0px);" data-popper-placement="bottom-start">
+                  <li>
+                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Join With Us</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a href="{{ route('login') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-login scaleX-n1-rtl"></i>Login</a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <!-- navbar button: End -->
           </ul>
@@ -243,7 +260,7 @@
     <!-- / Sections:End -->
 
     <!-- Footer: Start -->
-    <footer class="landing-footer bg-body footer-text">
+    {{-- <footer class="landing-footer bg-body footer-text">
       <div class="footer-top">
         <div class="container">
           <div class="row gx-0 gy-4 g-md-5">
@@ -378,10 +395,7 @@
           </div>
         </div>
       </div>
-    </footer>
-
-
-
+    </footer> --}}
 
     <!-- Footer: End -->
 
@@ -394,6 +408,7 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="/asset/assets/vendor/js/dropdown-hover.js"></script>
     <script src="/asset/assets/vendor/libs/nouislider/nouislider.js"></script>
     <script src="/asset/assets/vendor/libs/swiper/swiper.js"></script>
 
