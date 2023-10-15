@@ -24,7 +24,7 @@ class AdminController extends Controller
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
         $data = User::where('role', '1')->orderBy('created_at', 'desc')->get();
-        return view('back.admin_manage',compact('data'));
+        return view('back.admin.admin_manage',compact('data'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('back.create_admin');
+        return view('back.admin.create_admin');
     }
 
     /**
@@ -100,7 +100,7 @@ class AdminController extends Controller
     public function edit(string $id)
     {
         $data =  User::find($id);
-        return view('back.edit_admin', compact('data'));
+        return view('back.admin.edit_admin', compact('data'));
     }
 
     /**

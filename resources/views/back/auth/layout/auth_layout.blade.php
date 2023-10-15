@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="/asset/assets/vendor/css/pages/page-auth.css" />
 
     <!-- Helpers -->
+   
     <script src="/asset/assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
@@ -72,7 +73,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-
     <script src="/asset/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/asset/assets/vendor/libs/popper/popper.js"></script>
     <script src="/asset/assets/vendor/js/bootstrap.js"></script>

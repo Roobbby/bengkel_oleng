@@ -230,11 +230,30 @@
  
               <div class="btn-group" id="dropdown-icon-demo">
                 <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light show " data-bs-toggle="dropdown" aria-expanded="true">
-                  <i class="ti ti-login ti-xs me-1"></i> Regiter/Login
+                  <i class="ti ti-login ti-xs me-1"></i> Join OR Login
                 </button>
                 <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(1.2945px, 38.835px, 0px);" data-popper-placement="bottom-start">
                   <li>
-                    <a href="{{ route('register.user') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Join With Us</a>
+                    <a href="{{ route('register.online') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Join With Us</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a href="{{ route('login') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-login scaleX-n1-rtl"></i>Login</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="btn-group" id="dropdown-icon-demo">
+                <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light show " data-bs-toggle="dropdown" aria-expanded="true">
+                  <i class="ti ti-login ti-xs me-1"></i> Register/Login
+                </button>
+                <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(1.2945px, 38.835px, 0px);" data-popper-placement="bottom-start">
+                  <li>
+                    <a href="{{ route('register.online') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Registrasi Online</a>
+                  </li>
+                  <li>
+                    <a href="{{ route('register.online') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Registrasi Offline</a>
                   </li>
                   <li>
                     <hr class="dropdown-divider">

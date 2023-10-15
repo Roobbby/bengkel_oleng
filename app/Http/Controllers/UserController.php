@@ -23,7 +23,7 @@ class UserController extends Controller
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
         $data = User::where('role', '2')->orderBy('created_at', 'desc')->get();
-        return view('back.user_manage',compact('data'));
+        return view('back.users.user_manage',compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('back.create_user');
+        return view('back.users.create_user');
     }
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $data =  User::find($id);
-        return view('back.edit_user', compact('data'));
+        return view('back.users.edit_user', compact('data'));
     }
 
     /**

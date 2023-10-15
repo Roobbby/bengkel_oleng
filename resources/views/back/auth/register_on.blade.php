@@ -46,36 +46,48 @@
                 <h4 class="mb-1 pt-2">Adventure starts here 🚀</h4>
                 <p class="mb-4">Make your app management easy and fun!</p>
     
-                <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                <form id="formAuthentication" class="mb-3" action="{{ route('register.online.store')}}" method="POST">
+                    @csrf
+                    @if (session('alert') === 'success')
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @elseif (session('alert') === 'error')
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     <input type="text" name="role" value=2 readonly>
                     <div class="mb-3">
-                    <label for="sapaan" class="form-label">sapaan</label>
+                    <label for="sapaan" class="form-label">Sapaan</label>
                     <input
                         type="text"
                         class="form-control"
                         id="sapaan"
                         name="sapaan"
-                        placeholder="Enter your sapaan"
+                        placeholder="Massukan Sapaan"
                         autofocus />
                     </div>
                     <div class="mb-3">
-                    <label for="panggilan" class="form-label">panggilan</label>
+                    <label for="panggilan" class="form-label">Panggilan</label>
                     <input
                         type="text"
                         class="form-control"
                         id="panggilan"
                         name="panggilan"
-                        placeholder="Enter your panggilan"
+                        placeholder="Massukan Panggilan"
                         autofocus />
                     </div>
                     <div class="mb-3">
-                    <label for="name" class="form-label">name</label>
+                    <label for="name" class="form-label">Nama</label>
                         <input
                         type="text"
                         class="form-control"
                         id="name"
                         name="name"
-                        placeholder="Enter your name"
+                        placeholder="Massukan Nama"
                         autofocus />
                     </div>
                     <div class="mb-3">
@@ -87,17 +99,19 @@
                         class="form-control phone-number-mask"
                         id="telp"
                         name="telp"
-                        placeholder="Enter your telp"
+                        placeholder="Massukan Nomer WhatsApp"
                         autofocus 
                         pattern="[0-9]*"/>
                     </div>
+                    <div id="checkWhatsApp"></div>
                     </div>
                     <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <div class="input-group">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Massukan Email" />
                     <span class="input-group-text">@</span>
                     </div>
+                    <div id="checkEmail"></div>
                     </div>
                     <div class="mb-3 form-password-toggle">
                     <label class="form-label" for="password">Password</label>
@@ -109,7 +123,7 @@
                         name="password"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password" />
-                        <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                       
                     </div>
                     </div>
                     <div class="mb-3 form-password-toggle">
@@ -122,8 +136,9 @@
                         name="password_confirm"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password" />
-                        <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                        
                     </div>
+                    <div id="password-error" class="text-danger"></div>
                     </div>
     
                     <div class="mb-3">
@@ -141,7 +156,7 @@
     
                 <p class="text-center">
                     <span>Already have an account?</span>
-                    <a href="auth-login-basic.html">
+                    <a href="{{ route('login') }}">
                     <span>Sign in instead</span>
                     </a>
                 </p>
@@ -154,6 +169,71 @@
     
         <!-- / Content -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         {{-- script untuk nomer whatsapp --}}
+         <script>
+            $(document).ready(function() {
+                $('#telp').on('keyup', function() {
+                    var telp = $(this).val();
+    
+                    // Hapus pesan jika input kosong
+                    if (telp === '') {
+                        $('#checkWhatsApp').empty();
+                        return;
+                    }
+    
+                    $.ajax({
+                        url: '{{ route('checkWhatsApp') }}',
+                        type: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'telp': telp
+                        }, 
+                        success: function(response) {
+                            if (response.available) {
+                                $('#checkWhatsApp').html(
+                                    '<p class="text-success">WhatsApp tersedia.</p>');
+                            } else {
+                                $('#checkWhatsApp').html(
+                                    '<p class="text-danger">WhatsApp sudah terpakai.</p>');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+         {{-- script untuk Email --}}
+         <script>
+            $(document).ready(function() {
+                $('#email').on('keyup', function() {
+                    var email = $(this).val();
+    
+                    // Hapus pesan jika input kosong
+                    if (email === '') {
+                        $('#checkEmail').empty();
+                        return;
+                    }
+    
+                    $.ajax({
+                        url: '{{ route('checkEmail') }}',
+                        type: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'email': email
+                        }, 
+                        success: function(response) {
+                            if (response.available) {
+                                $('#checkEmail').html(
+                                    '<p class="text-success">Email tersedia.</p>');
+                            } else {
+                                $('#checkEmail').html(
+                                    '<p class="text-danger">Email sudah terpakai.</p>');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        {{-- script untuk validasi checkbox dan submit --}}
         <script>
             $(document).ready(function() {
                 var acceptTermsCheckbox = $('#acceptTerms');
@@ -178,6 +258,8 @@
                 });
             });
         </script>
+
+        {{-- Script untuk validasi nomor --}}
         <script>
             document.getElementById('telp').addEventListener('input', function(e) {
                 // Menghapus karakter selain angka dari nilai input
@@ -193,4 +275,23 @@
                 this.value = inputValue;
             });
         </script>
+
+        {{-- script untuk password dan confrim password --}}
+        <script>
+            $(document).ready(function() {
+                $('#password_confirm').on('input', function() {
+                    var password = $('#password').val();
+                    var confirmPassword = $(this).val();
+                    var errorDiv = $('#password-error');
+            
+                    if (password === confirmPassword) {
+                        errorDiv.text(''); // Password sesuai, hapus pesan kesalahan
+                    } else {
+                        errorDiv.text('Password Tidak Cocok');
+                    }
+                });
+            });
+        </script>
+       
+        
 @endsection

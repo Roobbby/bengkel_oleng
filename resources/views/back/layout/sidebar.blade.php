@@ -86,18 +86,39 @@
                 <div data-i18n="Page 1">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
-          <a href="{{ route('admin.index') }}" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-user-cog"></i>
-              <div data-i18n="Page 3">Admin Management</div>
-          </a>
-        </li>
         <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
           <a href="{{ route('user.index') }}" class="menu-link">
               <i class="menu-icon tf-icons ti ti-user-edit"></i>
               <div data-i18n="Page 4">User Management</div>
           </a>
         </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+          <a href="{{ route('user.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-user-edit"></i>
+              <div data-i18n="Page 4">Data Transaksi</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+          <a href="{{ route('user.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-user-edit"></i>
+              <div data-i18n="Page 4">WhatsApp</div>
+          </a>
+        </li>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Profile &amp; Settings</span>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">Profile</div>
+            </a>
+          </li>
+          <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">Settings</div>
+            </a>
+          </li>
          @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
           <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
               <a href="{{ route('dashboard') }}" class="menu-link">
@@ -108,13 +129,40 @@
           <li class="menu-item">
               <a href="#" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 5">Service</div>
+                  <div data-i18n="Page 5">POST</div>
               </a>
           </li>
           <li class="menu-item">
               <a href="#" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 6">Invoice</div>
+                  <div data-i18n="Page 5"> Data Pelanggan</div>
+              </a>
+          </li>
+          <li class="menu-item">
+              <a href="#" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-home"></i>
+                  <div data-i18n="Page 5">Data Transaksi</div>
+              </a>
+          </li>
+          <li class="menu-item">
+              <a href="#" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-home"></i>
+                  <div data-i18n="Page 6">Data Spearpart</div>
+              </a>
+          </li>
+          <li class="menu-item">
+              <a href="#" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-home"></i>
+                  <div data-i18n="Page 6">Laporan</div>
+              </a>
+          </li>
+          <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Profile</span>
+        </li>
+          <li class="menu-item">
+              <a href="#" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-home"></i>
+                  <div data-i18n="Page 6">Profile</div>
               </a>
           </li>
       @endif

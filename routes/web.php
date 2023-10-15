@@ -27,13 +27,16 @@ Route::get('/', function () {
 
     //Auth Routes
     Route::get('/bengkel_oleng', [HomeController::class, 'Haut'])->name('haut');
+    Route::get('/register/online', [AuthController::class, 'RegisterOnline'])->name('register.online');
+    Route::post('/register/online/store',[AuthController::class, 'RegisterOnlineStore'])->name('register.online.store');
     Route::get('/register', [AuthController::class, 'Register'])->name('register');
-    Route::get('/register/user', [AuthController::class, 'RegisterUser'])->name('register.user');
-    Route::post('/register/user/store',[AuthController::class, 'RegisterUserStore'])->name('register.user.store');
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
     Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
+    Route::post('/check-whatsapp', [AuthController::class, 'checkWhatsApp'])->name('checkWhatsApp');
+    Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('checkEmail');
+
 
 
 Route::middleware(['auth','PreventBackHistory'])->group(function(){

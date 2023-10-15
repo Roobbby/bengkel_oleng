@@ -20,12 +20,12 @@ class AuthController extends Controller
         return view('back.auth.register', compact('role'));
     }
 
-    public function RegisterUser()
+    public function RegisterOnline()
     {
-        return view('back.auth.register_user');
+        return view('back.auth.register_on');
     }
 
-    public function RegisterUserStore(Request $request)
+    public function RegisterOnlineStore(Request $request)
     {
          $validateUser = $request->valudate([
             'sapaan' => 'required|max:50',
@@ -48,10 +48,15 @@ class AuthController extends Controller
          ]);
 
          if ($user->save()) {
-            return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Registrasi berhasil. Silakan login.');
+            return redirect()->route('login');
         } else {
-            return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Terjadi kesalahan. Silakan coba lagi.');
+            return back();
         }
+        
     }
 
     public function Login()
@@ -129,5 +134,36 @@ class AuthController extends Controller
             return response()->json(['available' => true]);
         }
     }
+  
+    public function checkWhatsApp(Request $request) {
+        $telp = $request->input('telp');
+
+        // Cek apakah username sudah ada di database
+        $telp = User::where('telp', $telp)->first();
+
+        if ($telp) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
+    }
+
+    public function checkEmail(Request $request){
+        $email = $request->input('email');
+
+        // Cek apakah username sudah ada di database
+        $email = User::where('email', $email)->first();
+
+        if ($email) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
+    }
+
 
 }
