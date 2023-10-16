@@ -19,10 +19,12 @@ $user = App\Models\User::find($id);
             <thead>
               <tr>
                 <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Foto</th>
-                <th>Status</th>
+                <th>Nama</th>
+                <th>WhatsApp</th> 
+                <th>Nama Bengkel</th>
+                <th>Alamat</th>
+                <th>Link Gmap</th>
+                <th>Link Page</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -32,7 +34,7 @@ $user = App\Models\User::find($id);
                     <td>{{$loop->iteration}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email }}</td>
-                    <td><img src="{{ (!empty($user->foto)) ? url('image/profile/'.$user->foto) : url('image/default-avatar.png') }}" width="50" alt=""></td>
+                    <td><img src="{{ (!empty($user->foto_profile)) ? url('image/profile/'.$user->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
                     <td>  
                     @if ($user->status == 0)
                     <form method="POST" action="{{ route('user.toggleStatus', $user->id) }}">

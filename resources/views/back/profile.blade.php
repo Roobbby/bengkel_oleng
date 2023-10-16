@@ -84,18 +84,12 @@
                         @endswitch
                     </span>
                   </li>
-                  <li class="mb-2 pt-1">
-                    <span class="fw-medium me-1">Gender :</span>
-                    <span>{{ $profileData->gender }}</span>
-                  </li>
+                 
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Contact :</span>
                     <span>{{ $profileData->telp }}</span>
                   </li>
-                  <li class="pt-1">
-                    <span class="fw-medium me-1">Alamat :</span>
-                    <span>{{ $profileData->alamat }}</span>
-                  </li>
+          
                 </ul>
                 <div class="d-flex justify-content-center">
                   <a
@@ -260,8 +254,8 @@
                     value="{{ $profileData->email }}"
                     placeholder="john.doe.007" />
                 </div>
-                {{-- //option Value
-                <div class="col-12 col-md-6">
+                //option Value
+                {{-- <div class="col-12 col-md-6">
                   <label class="form-label" for="modalEditGender">Gender</label>
                   <select
                     id="modalEditGender"

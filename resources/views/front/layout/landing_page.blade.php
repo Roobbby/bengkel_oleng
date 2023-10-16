@@ -253,7 +253,7 @@
                     <a href="{{ route('register.online') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Registrasi Online</a>
                   </li>
                   <li>
-                    <a href="{{ route('register.online') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Registrasi Offline</a>
+                    <a href="{{ route('register.offline') }}" class="dropdown-item d-flex align-items-center"><i class="ti ti-registered scaleX-n1-rtl"></i>Registrasi Offline</a>
                   </li>
                   <li>
                     <hr class="dropdown-divider">

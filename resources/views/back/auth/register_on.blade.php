@@ -59,7 +59,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <input type="text" name="role" value=2 readonly>
+                    <input type="hidden" name="role" value=2 readonly>
                     <div class="mb-3">
                     <label for="sapaan" class="form-label">Sapaan</label>
                     <input

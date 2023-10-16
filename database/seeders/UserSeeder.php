@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'telp' => '082136340073',
                 'role' => '1',
-                'status' => '0',
+                'status' => '1',
             ],
 
             //user
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'telp' => '082136340074',
                 'role' => '2',
-                'status' => '0',
+                'status' => '1',
             ],
 
         ]);

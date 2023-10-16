@@ -29,6 +29,7 @@ Route::get('/', function () {
     Route::get('/bengkel_oleng', [HomeController::class, 'Haut'])->name('haut');
     Route::get('/register/online', [AuthController::class, 'RegisterOnline'])->name('register.online');
     Route::post('/register/online/store',[AuthController::class, 'RegisterOnlineStore'])->name('register.online.store');
+    Route::get('/register/offline',[AuthController::class, 'RegisterOffline'])->name('register.offline');
     Route::get('/register', [AuthController::class, 'Register'])->name('register');
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');

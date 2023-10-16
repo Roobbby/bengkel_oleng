@@ -25,26 +25,34 @@ class AuthController extends Controller
         return view('back.auth.register_on');
     }
 
+    public function RegisterOffline()
+    {
+        return view ('back.auth.register_off');    
+    }
+
     public function RegisterOnlineStore(Request $request)
     {
-         $validateUser = $request->valudate([
+         $validateUser = $request->validate([
             'sapaan' => 'required|max:50',
             'panggilan' => 'required|max:50',
             'name' => 'required|max:100',
             'telp' => 'required|unique:users',
             'email' => 'required|unique:users',
             'role' => 'required|integer',
+            'password' => 'required',
          ]);
          
          $validateUser['password'] = Hash::make($validateUser['password']);
+         
 
          $user = new User([
-            'sapaan' => $validatedUser['sapaan'],
-            'panggilan' => $validatedUser['panggilan'],
-            'name' => $validatedUser['name'],
-            'telp' => $validatedUser['telp'],
-            'email' => $validatedUser['email'],
-            'role' => $validatedUser['role'],
+            'sapaan' => $validateUser['sapaan'],
+            'panggilan' => $validateUser['panggilan'],
+            'name' => $validateUser['name'],
+            'telp' => $validateUser['telp'],
+            'email' => $validateUser['email'],
+            'password' => $validateUser['password'],
+            'role' => $validateUser['role'],
          ]);
 
          if ($user->save()) {
