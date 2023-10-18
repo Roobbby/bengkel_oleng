@@ -16,7 +16,7 @@
                 <div class="d-flex align-items-center flex-column">
                   <img
                     class="img-fluid rounded mb-2 pt-1 mt-4"
-                    src="{{ (!empty($profileData->foto)) ? url('image/profile/'.$profileData->foto) : url('image/default-avatar.png') }} " 
+                    src="{{ (!empty($profileData->foto_profile)) ? url('image/profile/'.$profileData->foto_profile) : url('image/default-avatar.png') }} " 
                     height="100"
                     width="100"
                     alt="profile"  />
