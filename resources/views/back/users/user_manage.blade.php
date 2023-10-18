@@ -34,6 +34,9 @@ $user = App\Models\User::find($id);
                     <td>{{$loop->iteration}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email }}</td>
+                    <td>{{$user->email }}</td>
+                    <td>{{$user->email }}</td>
+
                     <td><img src="{{ (!empty($user->foto_profile)) ? url('image/profile/'.$user->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
                     <td>  
                     @if ($user->status == 0)
@@ -47,24 +50,30 @@ $user = App\Models\User::find($id);
                     @endif
                     </td>
                     <td>
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="ti ti-dots-vertical"></i>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li> <a  data-bs-toggle="modal" data-bs-target="#modal-view{{ $user->id }}" class="btn btn-sm btn-primary"><i class="ti ti-eye" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="View Data"></i></a>
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Edit Data"></i></a>
-                             <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->id }}" class="btn btn-sm btn-danger"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Hapus Data"></i></a>
-                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="ti ti-brand-cashapp" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Transaksi"></i></a>
-                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info"><i class="ti ti-user-dollar" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Pelanggan"></i></a>
-                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-dark"><i class="ti ti-tool" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Sparepart"></i></a></li>
-                          </ul>
-                        </div>
-               
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="ti ti-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li> 
+                            <a data-bs-toggle="modal" data-bs-target="#modal-view{{ $user->id }}" class="btn btn-sm btn-primary mb-2"><i class="ti ti-eye" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="View Data"></i></a>
+
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning mb-2"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Edit Data"></i></a>
+
+                            <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->id }}" class="btn btn-sm btn-danger mb-2"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Hapus Data"></i></a>
+                            
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-success "><i class="ti ti-brand-cashapp " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Transaksi"></i></a>
+
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info "><i class="ti ti-user-dollar " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Pelanggan"></i></a>
+
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-dark "><i class="ti ti-tool" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Sparepart"></i></a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                     {{-- Modal --}}
                     <div class="modal fade" id="modal-delete{{ $user->id }}">
@@ -191,10 +200,12 @@ $user = App\Models\User::find($id);
             <tfoot>
               <tr>
                 <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Foto</th>
-                <th>Status</th>
+                <th>Nama</th>
+                <th>WhatsApp</th> 
+                <th>Nama Bengkel</th>
+                <th>Alamat</th>
+                <th>Link Gmap</th>
+                <th>Link Page</th>
                 <th>Action</th>
               </tr>
             </tfoot>

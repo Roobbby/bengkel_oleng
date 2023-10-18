@@ -81,12 +81,7 @@
                       <span class="align-middle">Change Password</span>
                     </a>
                   </li> --}}
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="ti ti-settings me-2 ti-sm"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li>
+             
                   <li>
                     <div class="dropdown-divider"></div>
                   </li>

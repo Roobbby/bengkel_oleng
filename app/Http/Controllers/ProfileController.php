@@ -33,12 +33,12 @@ class ProfileController extends Controller
         $data->telp = $request->telp;
         
 
-        if ($request->file('foto')) {
-            $file = $request->file('foto');
-            @unlink(public_path('image/profile/'.$data->foto));
+        if ($request->file('foto_profile')) {
+            $file = $request->file('foto_profile');
+            @unlink(public_path('image/profile/'.$data->foto_profile));
             $filename = date('YmdHi').$file->getClientOriginalName(); //23232.aaryian.png
             $file->move(public_path('image/profile'),$filename);
-            $data['foto'] = $filename;
+            $data['foto_profile'] = $filename;
         }
         
         $data->save();

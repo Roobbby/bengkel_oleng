@@ -87,7 +87,7 @@
                  
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Contact :</span>
-                    <span>{{ $profileData->telp }}</span>
+                    <span>0{{ $profileData->telp }}</span>
                   </li>
           
                 </ul>
@@ -213,13 +213,13 @@
                 <div class="card-body">
                    <div class="d-flex align-items-start align-items-sm-center gap-4">
                       <label for=""></label>
-                      <img src="{{ (!empty($profileData->foto)) ? url('image/profile/'.$profileData->foto) : url('image/default-avatar.png') }}" alt="profile" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar">
+                      <img src="{{ (!empty($profileData->foto_profile)) ? url('image/profile/'.$profileData->foto_profile) : url('image/default-avatar.png') }}" alt="profile" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar">
                         <div class="button-wrapper">
                           <label for="upload" class="btn btn-primary me-2 mb-3 waves-effect waves-light" tabindex="0">
                               <span class="d-none d-sm-block">Upload new photo</span>
                               <i class="ti ti-upload d-block d-sm-none"></i>
                           </label>
-                          <input type="file" id="upload" class="account-file-input" name="foto" hidden="" accept="image/png, image/jpeg, image/jpg, image/gif, image/svg+xml">
+                          <input type="file" id="upload" class="account-file-input" name="foto_profile" hidden="" accept="image/png, image/jpeg, image/jpg, image/gif, image/svg+xml">
                           <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
                         </div>
                    </div>
@@ -254,8 +254,8 @@
                     value="{{ $profileData->email }}"
                     placeholder="john.doe.007" />
                 </div>
-                //option Value
-                {{-- <div class="col-12 col-md-6">
+                {{-- //option Value
+                <div class="col-12 col-md-6">
                   <label class="form-label" for="modalEditGender">Gender</label>
                   <select
                     id="modalEditGender"
