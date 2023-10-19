@@ -22,21 +22,25 @@
                     alt="profile"  />
                   <div class="user-info text-center">
                     <h4 class="mb-2">{{ $profileData->name }}</h4>
-                    <span class="badge bg-label-secondary mt-1">
-                      @switch($profileData->role)
-                            @case(0)
-                                Super Admin
-                                @break
-                            @case(1)
-                                Admin
-                                @break
-                            @case(2)
-                                User
-                                @break
-                            @default
-                                Role Tidak Diketahui
-                        @endswitch
-                    </span>
+                    @switch($profileData->role)
+                     @case(0)
+                      <span class="badge bg-label-info mt-1">
+                           Super Admin
+                       </span>
+                      @break
+                      @case(1)
+                        <span class="badge bg-label-primary mt-1">
+                            Admin
+                        </span>
+                          @break
+                      @case(2)
+                        <span class="badge bg-label-danger  mt-1">
+                           User
+                        </span>
+                          @break
+                      @default
+                          Role Tidak Diketahui
+                  @endswitch
                   </div>
                 </div>
               </div>
@@ -46,6 +50,14 @@
                   <li class="mb-2">
                     <span class="fw-medium me-1">Username:</span>
                     <span>{{ $profileData->username }}</span>
+                  </li>
+                  <li class="mb-2 pt-1">
+                    <span class="fw-medium me-1">Sapaan :</span>
+                    <span>{{ $profileData->sapaan }}</span>
+                  </li>
+                  <li class="mb-2 pt-1">
+                    <span class="fw-medium me-1">Panggilan :</span>
+                    <span>{{ $profileData->panggilan }}</span>
                   </li>
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Email :</span>

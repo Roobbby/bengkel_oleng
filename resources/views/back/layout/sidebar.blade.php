@@ -61,12 +61,7 @@
                 <div data-i18n="Page 1">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'superadmin.index' ? 'active' : '' }}">
-          <a href="{{ route('superadmin.index') }}" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-user-code"></i>
-              <div data-i18n="Page 2">Super Admin Management</div>
-          </a>
-        </li>
+        
         <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
             <a href="{{ route('admin.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-user-cog"></i>
