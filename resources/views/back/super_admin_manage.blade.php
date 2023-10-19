@@ -33,7 +33,7 @@ $sadmin = App\Models\User::find($id);
                     <td>{{$loop->iteration}}</td>
                     <td>{{$sadmin->name}}</td>
                     <td>{{$sadmin->email }}</td>
-                    <td><img src="{{ (!empty($sadmin->foto)) ? url('image/profile/'.$sadmin->foto) : url('image/default-avatar.png') }}" width="50" alt=""></td>
+                    <td><img src="{{ (!empty($sadmin->foto_profile)) ? url('image/profile/'.$sadmin->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
                     <td>
                       @if ($sadmin->status == 0)
                           <form method="POST" action="{{ route('superadmin.toggleStatus', $sadmin->id) }}">
