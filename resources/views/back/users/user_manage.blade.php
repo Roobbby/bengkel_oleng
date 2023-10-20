@@ -3,6 +3,9 @@
 @section('content')
 
   @php
+    use Illuminate\Support\Str;
+
+
       $id = Auth::user()->id;
       $user = Auth::user();
       $domain = $user->domain;
@@ -26,7 +29,6 @@
               <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>WhatsApp</th> 
                 <th>Nama Bengkel</th>
                 <th>Alamat & Link Gmap</th>
                 <th>Status</th>
@@ -38,8 +40,12 @@
                 @foreach ($data as $user)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>0{{$user->telp }}</td>
+                    <td>
+                      {{$user->name}}
+                      <br>
+                      0{{$user->telp }}
+                    </td>
+                 
                     <td>
                       @if ($user->domain)
                           {{ $user->domain->nama_bengkel }}
@@ -47,9 +53,13 @@
                           Tidak ada domain terkait
                       @endif
                     </td>
-                    <td>{{$user->email }}</td>
-
-                   
+                    <td>
+                      {{ Str::limit($user->domain->alamat_bengkel, 20) }}
+                      <br>
+                      <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($user->domain->gmaps) }}" target="_blank">
+                          Lihat di Google Maps
+                      </a>
+                    </td>
                     <td>  
                     @if ($user->status == 0)
                     <form method="POST" action="{{ route('user.toggleStatus', $user->id) }}">
@@ -88,7 +98,6 @@
                         </ul>
                       </div>       
                     </td>
-                    {{-- Modal --}}
                     <div class="modal fade" id="modal-delete{{ $user->id }}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -108,11 +117,11 @@
                               </form>
                           </div>
                         </div>
-                        <!-- /.modal-content -->
+              
                       </div>
-                      <!-- /.modal-dialog -->
+           
                     </div>
-
+                
                     <div class="modal fade" id="modal-view{{ $user->id }}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -123,16 +132,7 @@
                           <div class="modal-body">
                             <div class="card-body">
                               <form action="">
-                                  <form>
-                                <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-fullname">Foto</label>
-                                  <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-fullname2" class="input-group-text"
-                                      ><i class="ti ti-user"></i
-                                    ></span>
-                                    <img src="{{ (!empty($admin->foto)) ? url('image/profile/'.$admin->foto) : url('image/default-avatar.png') }}" width="100" alt="">
-                                  </div>
-                                </div>
+                                
                                 <div class="mb-3">
                                   <label class="form-label" for="basic-icon-default-fullname">Nama</label>
                                   <div class="input-group input-group-merge">
@@ -154,7 +154,7 @@
                                 </div>
                                 
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-username">Username</label>
+                                  <label class="form-label" for="basic-icon-default-username">WhatApps</label>
                                   <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-username2" class="input-group-text"
                                       ><i class="ti ti-user"></i
@@ -162,37 +162,78 @@
                                     <input
                                       type="text"
                                       class="form-control"
-                                      name="username"
+                                      name="telp"
                                       id="basic-icon-default-username"
-                                      placeholder="Username"
-                                      aria-label="Username"
+                                      placeholder="WhatsApps"
+                                      aria-label="WhatsApps"
                                       aria-describedby="basic-icon-default-username2"
-                                      value="{{ $user->username }}"
+                                      value="0{{ $user->telp }}"
                                       required
                                       readonly/>
                                   </div>
                                 </div>
 
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-email">Email</label>
+                                  <label class="form-label" for="basic-icon-default-username">Nama Bengkel</label>
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                                    <span id="basic-icon-default-username2" class="input-group-text"
+                                      ><i class="ti ti-user"></i
+                                    ></span>
                                     <input
                                       type="text"
-                                      id="basic-icon-default-email"
                                       class="form-control"
-                                      name="email"
-                                      placeholder="Email"
-                                      aria-label="Email"
-                                      aria-describedby="basic-icon-default-email2"
-                                      value="{{ $user->email }}"
-                                      required 
+                                      name="nama_bengkel"
+                                      id="basic-icon-default-username"
+                                      placeholder="nama bengkel"
+                                      aria-label="nama bengkel"
+                                      aria-describedby="basic-icon-default-username2"
+                                      value="{{ $user->domain->nama_bengkel }}"
+                                      required
                                       readonly/>
                                   </div>
-                                  <div class="form-text">You can use letters, numbers & periods</div>
                                 </div>
-                               
-                              </form>
+
+                                <div class="mb-3">
+                                  <label class="form-label" for="basic-icon-default-username">Alamat</label>
+                                  <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-username2" class="input-group-text"
+                                      ><i class="ti ti-user"></i
+                                    ></span>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="alamat_bengkel"
+                                      id="basic-icon-default-username"
+                                      placeholder="alamat bengkel"
+                                      aria-label="alamat bengkel"
+                                      aria-describedby="basic-icon-default-username2"
+                                      value="{{ $user->domain->alamat_bengkel }}"
+                                      required
+                                      readonly/>
+                                  </div>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label" for="basic-icon-default-username">Gmaps</label>
+                                  <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-username2" class="input-group-text"
+                                      ><i class="ti ti-user"></i
+                                    ></span>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="gmaps"
+                                      id="basic-icon-default-username"
+                                      placeholder="gmaps"
+                                      aria-label="gmaps"
+                                      aria-describedby="basic-icon-default-username2"
+                
+                                      value="{{ $user->domain->gmaps }}"
+                                      required
+                                      readonly/>
+                                  </div>
+                                </div>
+
                               </form>
                             </div>
                           </div>
@@ -214,7 +255,6 @@
               <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>WhatsApp</th> 
                 <th>Nama Bengkel</th>
                 <th>Alamat & Link Gmap</th>
                 <th>Status</th>
@@ -223,6 +263,7 @@
               </tr>
             </tfoot>
           </table>
+          {{ $data->links() }}
         </div>
       </div>
 </div>

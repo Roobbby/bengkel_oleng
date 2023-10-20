@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,11 @@ class UserController extends Controller
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        $data = User::where('role', '2')->orderBy('created_at', 'desc')->get();
+        $data = User::where('role', '2')
+        ->with('domain')
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
         return view('back.users.user_manage',compact('data'));
     }
 
