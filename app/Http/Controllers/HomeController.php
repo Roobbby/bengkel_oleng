@@ -17,7 +17,7 @@ class HomeController extends Controller
     }
 
     public function Dashboard() {
-        // Periksa apakah pengguna sudah login atau belum
+        
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }

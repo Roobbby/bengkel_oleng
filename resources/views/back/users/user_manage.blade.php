@@ -2,13 +2,18 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'User Manage')
 @section('content')
 
-@php
-            
-$id = Auth::user()->id;
-$user = App\Models\User::find($id);
-$domain = App\Models\Domain::find($id);
+  @php
+      $id = Auth::user()->id;
+      $user = Auth::user();
+      $domain = $user->domain;
 
-@endphp    
+      if ($domain) {
+          $namaBengkel = $domain->nama_bengkel;
+      } else {
+          $namaBengkel = "Tidak ada domain terkait";
+      }
+  @endphp
+
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
@@ -35,7 +40,13 @@ $domain = App\Models\Domain::find($id);
                     <td>{{$loop->iteration}}</td>
                     <td>{{$user->name}}</td>
                     <td>0{{$user->telp }}</td>
-                    <td>{{$domain->nama_bengkel }}</td>
+                    <td>
+                      @if ($user->domain)
+                          {{ $user->domain->nama_bengkel }}
+                      @else
+                          Tidak ada domain terkait
+                      @endif
+                    </td>
                     <td>{{$user->email }}</td>
 
                    

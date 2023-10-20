@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Domain;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -21,6 +22,13 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $profileData = User::find($id);
         return view('back.profile', compact('profileData'));
+    }
+
+    public function ProfilCom(){
+        
+        $id = Auth::user()->id;
+        $profilecom = Domain::find($id);
+        return view('back.users.profile_com', compact('profilecom'));
     }
     
     public function ProfileStore(Request $request){

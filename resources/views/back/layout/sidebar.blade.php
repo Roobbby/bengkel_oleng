@@ -151,13 +151,10 @@
                   <div data-i18n="Page 6">Laporan</div>
               </a>
           </li>
-          <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Profile</span>
-        </li>
           <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{{ route('profile.com') }}" class="menu-link {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
                   <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 6">Profile</div>
+                  <div data-i18n="Page 7">Profile</div>
               </a>
           </li>
       @endif

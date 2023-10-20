@@ -57,7 +57,7 @@ Route::middleware(['auth','PreventBackHistory', 'role:0'])->group(function(){
     Route::patch('/superadmin/toggle-status/{id}', [SuperAdminController::class,'toggleStatus'])->name('superadmin.toggleStatus');
 });
 
-Route::middleware(['auth','PreventBackHistory' , 'role:1'])->group(function(){
+Route::middleware(['auth','PreventBackHistory' , 'role:0,1'])->group(function(){
     //admin manage
     Route::get('/manage/admin', [AdminController::class, 'Index'])->name('manage.admin');
     Route::resource('admin', AdminController::class);
@@ -69,6 +69,7 @@ Route::middleware(['auth','PreventBackHistory' , 'role:1'])->group(function(){
 
 Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
     //user manage
+    Route::get('{}/users/', [Usercontroller::class, 'ProfileCom'])->name('profile.com');
 });   
  
 
