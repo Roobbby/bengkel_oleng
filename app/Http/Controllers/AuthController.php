@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -44,26 +45,43 @@ class AuthController extends Controller
          
          $validateUser['password'] = Hash::make($validateUser['password']);
          
-
          $user = new User([
             'sapaan' => $validateUser['sapaan'],
             'panggilan' => $validateUser['panggilan'],
             'name' => $validateUser['name'],
-            'telp' => $validateUser['telp'],
+            'telp' => $validateUser['telp'], 
             'email' => $validateUser['email'],
-            'password' => $validateUser['password'],
+            'password' => Hash::make($validateUser['password']),
             'role' => $validateUser['role'],
-         ]);
+        ]);
+        
+        // Simpan user
+        $userSaved = $user->save();
 
-         if ($user->save()) {
+        if ($userSaved) {
+            // Sekarang, user baru telah disimpan, dan ID-nya sudah ada
+            $newUserId = $user->id;
+
+            // Buat domain dengan user_id yang sesuai
+            $domain = new Domain([
+                'user_id' => $newUserId,
+            ]);
+
+            // Coba menyimpan domain
+            $domainSaved = $domain->save();
+        }
+
+        // Penanganan kesalahan
+        if ($userSaved && $domainSaved) {
             session()->flash('alert', 'success');
             session()->flash('message', 'Registrasi berhasil. Silakan login.');
             return redirect()->route('login');
         } else {
             session()->flash('alert', 'error');
-            session()->flash('message', 'Terjadi kesalahan. Silakan coba lagi.');
+            session()->flash('message', 'Terjadi kesalahan saat menyimpan data.');
             return back();
         }
+
         
     }
 

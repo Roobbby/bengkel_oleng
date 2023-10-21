@@ -23,10 +23,11 @@ class UserController extends Controller
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        $data = User::where('role', '2')
-        ->with('domain')
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        // $data = User::where('role', '2')
+        // ->with('domain')
+        // ->orderBy('created_at', 'desc');
+        $data = User::with('domain')->orderBy('created_at', 'desc')->get();
+
 
         return view('back.users.user_manage',compact('data'));
     }
@@ -45,19 +46,27 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'email'=>'required|email',
+            'sapaan' => 'required',
+            'panggilan' => 'required',
             'name' => 'required',
-            'username' => 'required',
+            'email'=>'required|email',
             'password'=>'required',
         ]);
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['email'] = $request -> email;
-        $data['username'] = $request -> username;
-        $data['name'] = $request -> name;
-        $data['role'] = $request -> role;
-        $data['password'] = Hash::make($request -> password);
-        User::create($data);
+        $user = new User;
+        $user->sapaan = $request->sapaan;
+        $user->panggilan = $request->panggilan;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->save();
+
+        $domain = new Domain;
+        $domain->id_user = $user->id; 
+        $domain->save();
+
         return redirect()->route('user.index');
     }
 

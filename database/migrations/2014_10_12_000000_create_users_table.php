@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username')->nullable();
-            $table->string('sapaan')->nullable();
+            $table->enum('sapaan', ['0','1','2','3','4'])->nullable();
             $table->string('panggilan')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -26,6 +25,8 @@ return new class extends Migration
             $table->enum('role',['0','1','2'])->default('2');
             //0 = off, 1 = on
             $table->enum('status',['0','1'])->default('0');
+            //0 = laki-laki , 1 = perempuan
+            $table->enum('gender',['0','1'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

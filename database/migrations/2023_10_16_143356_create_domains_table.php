@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
-            $table->string('domain')->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('domain')->default('company');
             $table->string('nama_bengkel')->nullable();
             $table->string('alamat_bengkel')->nullable();
+            $table->string('gmaps')->nullable();
             $table->string('foto')->nullable();
             $table->string('layanan')->nullable();
             $table->string('link')->uniqe();

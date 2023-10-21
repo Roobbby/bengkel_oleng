@@ -47,10 +47,7 @@
               <p class="mt-4 small text-uppercase text-muted">Details</p>
               <div class="info-container">
                 <ul class="list-unstyled">
-                  <li class="mb-2">
-                    <span class="fw-medium me-1">Username:</span>
-                    <span>{{ $profileData->username }}</span>
-                  </li>
+                 
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Sapaan :</span>
                     <span>{{ $profileData->sapaan }}</span>
@@ -98,8 +95,21 @@
                   </li>
                  
                   <li class="mb-2 pt-1">
-                    <span class="fw-medium me-1">Contact :</span>
+                    <span class="fw-medium me-1">WhatsApp :</span>
                     <span>0{{ $profileData->telp }}</span>
+                  </li>
+
+                  <li class="mb-2 pt-1">
+                    <span class="fw-medium me-1">Jenis Kelamin :</span>
+                    <span>
+                      @switch($profileData->role)
+                      @case(0)
+                          Laki-Laki
+                          @break
+                      @case(1)
+                          Perempuan
+                        @endswitch  
+                    </span>
                   </li>
           
                 </ul>
@@ -237,17 +247,27 @@
                    </div>
                 </div>
                 <div class="col-12">
-                  <label class="form-label" for="modalEditUserName">Username</label>
+                  <label class="form-label" >Sapaan</label>
                   <input
                     type="text"
                     id="modalEditUserName"
-                    name="username"
+                    name="sapaan"
                     class="form-control"
-                    value="{{ $profileData->username }}"
+                    value="{{ $profileData->sapaan }}"
                     placeholder="john.doe.007" />
                 </div>
                 <div class="col-12">
-                  <label class="form-label" for="modalEditName">Name</label>
+                  <label class="form-label" >Panggilan</label>
+                  <input
+                    type="text"
+                    id="modalEditUserName"
+                    name="panggilan"
+                    class="form-control"
+                    value="{{ $profileData->panggilan }}"
+                    placeholder="john.doe.007" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Name</label>
                   <input
                     type="text"
                     id="modalEditName"
@@ -257,7 +277,7 @@
                     placeholder="john.doe.007" />
                 </div>
                 <div class="col-12">
-                  <label class="form-label" for="modalEditEmail">Email</label>
+                  <label class="form-label">Email</label>
                   <input
                     type="text"
                     id="modalEditEmail"
@@ -266,21 +286,21 @@
                     value="{{ $profileData->email }}"
                     placeholder="john.doe.007" />
                 </div>
-                {{-- //option Value
+             
                 <div class="col-12 col-md-6">
-                  <label class="form-label" for="modalEditGender">Gender</label>
+                  <label class="form-label">Gender</label>
                   <select
                     id="modalEditGender"
                     name="gender"
                     class="select2 form-select"
                     >
                     <option selected="" disabled="">Select Gender</option>
-                    <option value="laki-laki" {{ $profileData->gender == 'laki-laki' ? 'selected' : ''}}>Laki-Laki</option>
-                    <option value="perempuan" {{ $profileData->gender == 'perempuan' ? 'selected' : ''}}>Perempuan</option>
+                    <option value="0" {{ $profileData->gender == '0' ? 'selected' : ''}}>Laki-Laki</option>
+                    <option value="1" {{ $profileData->gender == '1' ? 'selected' : ''}}>Perempuan</option>
                   </select>
-                </div> --}}
+                </div>
                 <div class="col-12 col-md-6">
-                  <label class="form-label" for="modalEditUserPhone">Phone Number</label>
+                  <label class="form-label">WhatsApp</label>
                   <div class="input-group">
                     <span class="input-group-text">+62</span>
                     <input

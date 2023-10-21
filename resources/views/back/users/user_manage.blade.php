@@ -3,18 +3,10 @@
 @section('content')
 
   @php
-    use Illuminate\Support\Str;
-
-
-      $id = Auth::user()->id;
-      $user = Auth::user();
-      $domain = $user->domain;
-
-      if ($domain) {
-          $namaBengkel = $domain->nama_bengkel;
-      } else {
-          $namaBengkel = "Tidak ada domain terkait";
-      }
+  use Illuminate\Support\Str;
+    $user = Auth::user();
+    $user->load('domain');
+    $namaBengkel = $user->domain ? $user->domain->nama_bengkel : "Tidak ada domain terkait";
   @endphp
 
 
@@ -50,15 +42,23 @@
                       @if ($user->domain)
                           {{ $user->domain->nama_bengkel }}
                       @else
-                          Tidak ada domain terkait
+                          Default
                       @endif
                     </td>
                     <td>
-                      {{ Str::limit($user->domain->alamat_bengkel, 20) }}
+                      @if ($user->domain)
+                        {{ Str::limit($user->domain->alamat_bengkel, 20) }}
+                      @else
+                          default
+                      @endif
                       <br>
+                      @if ($user->domain)
                       <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($user->domain->gmaps) }}" target="_blank">
                           Lihat di Google Maps
                       </a>
+                      @else
+                        default
+                      @endif
                     </td>
                     <td>  
                     @if ($user->status == 0)
@@ -187,7 +187,7 @@
                                       placeholder="nama bengkel"
                                       aria-label="nama bengkel"
                                       aria-describedby="basic-icon-default-username2"
-                                      value="{{ $user->domain->nama_bengkel }}"
+                                      {{-- value="{{ $user->domain->nama_bengkel }}" --}}
                                       required
                                       readonly/>
                                   </div>
@@ -207,7 +207,7 @@
                                       placeholder="alamat bengkel"
                                       aria-label="alamat bengkel"
                                       aria-describedby="basic-icon-default-username2"
-                                      value="{{ $user->domain->alamat_bengkel }}"
+                                      {{-- value="{{ $user->domain->alamat_bengkel }}" --}}
                                       required
                                       readonly/>
                                   </div>
@@ -228,7 +228,7 @@
                                       aria-label="gmaps"
                                       aria-describedby="basic-icon-default-username2"
                 
-                                      value="{{ $user->domain->gmaps }}"
+                                      {{-- value="{{ $user->domain->gmaps }}" --}}
                                       required
                                       readonly/>
                                   </div>
@@ -263,7 +263,7 @@
               </tr>
             </tfoot>
           </table>
-          {{ $data->links() }}
+        
         </div>
       </div>
 </div>

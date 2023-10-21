@@ -10,6 +10,46 @@
       <div class="card-body">
         <form action="{{ route('user.store') }}" method="POST">
           @csrf
+
+          <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-fullname">Sapaan</label>
+            <div class="input-group input-group-merge">
+              <span id="basic-icon-default-fullname2" class="input-group-text"
+                ><i class="ti ti-user-question"></i
+              ></span>
+                  <select
+                    name="gender"
+                    class="select2 form-select"
+                    >
+                    <option selected="" disabled="">Pilih Sapaan mu</option>
+                    <option value="0">Pak</option>
+                    <option value="1">Bu</option>
+                    <option value="2">Saudara</option>
+                    <option value="3">Saudari</option>
+                    <option value="4">Kak</option>
+                    <option value="5">Dek</option>
+                  </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-fullname">Panggilan</label>
+            <div class="input-group input-group-merge">
+              <span id="basic-icon-default-fullname2" class="input-group-text"
+                ><i class="ti ti-user-heart"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="basic-icon-default-fullname"
+                placeholder="Massukan Panggilan"
+                aria-label="Massukan Panggilan"
+                aria-describedby="basic-icon-default-fullname2"
+                required/>
+            </div>
+          </div>
+          
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Nama</label>
             <div class="input-group input-group-merge">
@@ -27,23 +67,7 @@
                 required/>
             </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label" for="basic-icon-default-fullname">Username</label>
-            <div class="input-group input-group-merge">
-              <span id="basic-icon-default-fullname2" class="input-group-text"
-                ><i class="ti ti-user"></i
-              ></span>
-              <input
-                type="text"
-                class="form-control"
-                name="username"
-                id="basic-icon-default-fullname"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-icon-default-fullname2"
-                required/>
-            </div>
-          </div>
+          
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-email">Email</label>
             <div class="input-group input-group-merge">
@@ -58,12 +82,11 @@
                 aria-describedby="basic-icon-default-email2"
                 required />
             </div>
-            <div class="form-text">You can use letters, numbers & periods</div>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="basic-icon-default-email">Password</label>
+            <label class="form-label" for="basic-icon-default-lock">Password</label>
             <div class="input-group input-group-merge">
-                <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                <span class="input-group-text"><i class="ti ti-lock"></i></span>
                 <input
                     type="text"
                     id="basic-icon-default-key"
@@ -77,7 +100,8 @@
                     readonly
                 />
               </div>
-            <div class="form-text">You can use letters, numbers & periods</div>
+            <div class="form-text">Ini adalah Default Password yang diberikan </div>
+            <div class="form-text">Silahkan reset password setelah akun dibuat </div>
           </div>
           <div class="mb-3" hidden>
             <label for="smallSelect" class="form-label">Role</label>
