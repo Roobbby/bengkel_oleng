@@ -29,75 +29,65 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($data as $user)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>
-                      {{$user->name}}
-                      <br>
-                      0{{$user->telp }}
-                    </td>
-                 
-                    <td>
-                      @if ($user->domain)
+              @foreach ($data as $user)
+              @if ($user->domain)
+                  <tr>
+                      <td>{{ $loop->iteration }}</td>
+                      <td>
+                          {{ $user->name }}
+                          <br>
+                          0{{ $user->telp }}
+                      </td>
+                   
+                      <td>
                           {{ $user->domain->nama_bengkel }}
-                      @else
-                          Default
-                      @endif
-                    </td>
-                    <td>
-                      @if ($user->domain)
-                        {{ Str::limit($user->domain->alamat_bengkel, 20) }}
-                      @else
-                          default
-                      @endif
-                      <br>
-                      @if ($user->domain)
-                      <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($user->domain->gmaps) }}" target="_blank">
-                          Lihat di Google Maps
-                      </a>
-                      @else
-                        default
-                      @endif
-                    </td>
-                    <td>  
-                    @if ($user->status == 0)
-                    <form method="POST" action="{{ route('user.toggleStatus', $user->id) }}">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-primary active waves-effect waves-light">Off</button>
-                    </form>
-                    @else
-                        <button type="button" class="btn btn-primary waves-effect waves-light" disabled>On</button>
-                    @endif
-                    </td>
-                    <td><img src="{{ (!empty($user->foto_profile)) ? url('image/profile/'.$user->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
-                    <td>
-                      <div class="btn-group">
-                        <button
-                          type="button"
-                          class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          <i class="ti ti-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li> 
-                            <a data-bs-toggle="modal" data-bs-target="#modal-view{{ $user->id }}" class="btn btn-sm btn-primary mb-2"><i class="ti ti-eye" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Data"></i></a>
-
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning mb-2"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit Data"></i></a>
-
-                            <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->id }}" class="btn btn-sm btn-danger mb-2"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Hapus Data"></i></a>
-                            
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-success "><i class="ti ti-brand-cashapp " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Transaksi"></i></a>
-
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info "><i class="ti ti-user-dollar " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Pelanggan"></i></a>
-
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-dark "><i class="ti ti-tool" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Sparepart"></i></a>
-                          </li>
-                        </ul>
-                      </div>       
-                    </td>
+                      </td>
+                      <td>
+                          {{ Str::limit($user->domain->alamat_bengkel, 20) }}
+                          <br>
+                          <a href="{{ ($user->domain->gmaps) }}" target="_blank">
+                              Lihat di Google Maps
+                          </a>
+                      </td>
+                      <td>  
+                        @if ($user->status == 0)
+                            <form method="POST" action="{{ route('user.toggleStatus', $user->id) }}">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-primary active waves-effect waves-light">Off</button>
+                            </form>
+                        @else
+                            <button type="button" class="btn btn-primary waves-effect waves-light" disabled>On</button>
+                        @endif
+                      </td>
+                  <td><img src="{{ (!empty($user->foto_profile)) ? url('image/profile/'.$user->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
+                  <td>
+                    <div class="btn-group">
+                      <button
+                      type="button"
+                      class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <i class="ti ti-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li> 
+                        <a data-bs-toggle="modal" data-bs-target="#modal-view{{ $user->id }}" class="btn btn-sm btn-primary mb-2"><i class="ti ti-eye" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Data"></i></a>
+                        
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning mb-2"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit Data"></i></a>
+                        
+                        <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->id }}" class="btn btn-sm btn-danger mb-2"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Hapus Data"></i></a>
+                        
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-success "><i class="ti ti-brand-cashapp " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Transaksi"></i></a>
+                        
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info "><i class="ti ti-user-dollar " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Pelanggan"></i></a>
+                        
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-dark "><i class="ti ti-tool" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Sparepart"></i></a>
+                      </li>
+                    </ul>
+                  </div>       
+                </td>
+                @endif
                     <div class="modal fade" id="modal-delete{{ $user->id }}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -187,7 +177,7 @@
                                       placeholder="nama bengkel"
                                       aria-label="nama bengkel"
                                       aria-describedby="basic-icon-default-username2"
-                                      {{-- value="{{ $user->domain->nama_bengkel }}" --}}
+                                      value="{{ $user->domain ? $user->domain->nama_bengkel : 'null' }}"
                                       required
                                       readonly/>
                                   </div>
@@ -199,17 +189,16 @@
                                     <span id="basic-icon-default-username2" class="input-group-text"
                                       ><i class="ti ti-user"></i
                                     ></span>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      name="alamat_bengkel"
-                                      id="basic-icon-default-username"
-                                      placeholder="alamat bengkel"
-                                      aria-label="alamat bengkel"
-                                      aria-describedby="basic-icon-default-username2"
-                                      {{-- value="{{ $user->domain->alamat_bengkel }}" --}}
-                                      required
-                                      readonly/>
+                                    <textarea
+                                    class="form-control"
+                                    name="alamat_bengkel"
+                                    id="basic-icon-default-username"
+                                    placeholder="alamat bengkel"
+                                    aria-label="alamat bengkel"
+                                    aria-describedby="basic-icon-default-username2"
+                                    required
+                                    readonly
+                                >{{ $user->domain ? $user->domain->alamat_bengkel : 'null' }}</textarea>                                
                                   </div>
                                 </div>
 
@@ -219,18 +208,13 @@
                                     <span id="basic-icon-default-username2" class="input-group-text"
                                       ><i class="ti ti-user"></i
                                     ></span>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      name="gmaps"
-                                      id="basic-icon-default-username"
-                                      placeholder="gmaps"
-                                      aria-label="gmaps"
-                                      aria-describedby="basic-icon-default-username2"
-                
-                                      {{-- value="{{ $user->domain->gmaps }}" --}}
-                                      required
-                                      readonly/>
+                                    <a
+                                    href="{{ $user->domain ? ($user->domain->gmaps) : '#' }}"
+                                    target="_blank"
+                                    class="form-control"
+                                    style="text-decoration: underline;"
+                                    {{ $user->domain ? '' : 'disabled' }}
+                                  >{{ $user->domain ? $user->domain->gmaps : 'null' }}</a>                                                           
                                   </div>
                                 </div>
 

@@ -65,6 +65,8 @@ Route::middleware(['auth','PreventBackHistory' , 'role:0,1'])->group(function(){
     Route::get('/manage/user', [UserController::class, 'Index'])->name('manage.user');
     Route::resource('user', UserController::class);
     Route::patch('/user/toggle-status/{id}', [UserController::class,'toggleStatus'])->name('user.toggleStatus');
+    Route::post('/check-whatsapp', [UserController::class, 'checkWhatsApp'])->name('checkWhatsApp');
+    Route::post('/check-email', [UserController::class, 'checkEmail'])->name('checkEmail');
 });
 
 Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){

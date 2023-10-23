@@ -46,30 +46,54 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'sapaan' => 'required',
-            'panggilan' => 'required',
-            'name' => 'required',
-            'email'=>'required|email',
-            'password'=>'required',
+            'sapaan' => 'required|max:50',
+            'panggilan' => 'required|max:50',
+            'name' => 'required|max:100',
+            'telp' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'role' => 'required|integer',
+            'password' => 'required',
         ]);
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
-        $user = new User;
-        $user->sapaan = $request->sapaan;
-        $user->panggilan = $request->panggilan;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        $user->save();
-
-        $domain = new Domain;
-        $domain->id_user = $user->id; 
-        $domain->save();
-
-        return redirect()->route('user.index');
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+        
+        $data = [
+            'sapaan' => $request->sapaan,
+            'panggilan' => $request->panggilan,
+            'name' => $request->name,
+            'telp' => $request->telp,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ];
+        
+        // Simpan user
+        $userSaved = User::create($data);
+        
+        if ($userSaved) {
+            // Sekarang, user baru telah disimpan, dan ID-nya sudah ada
+            $newUserId = $userSaved->id;
+        
+            // Buat domain dengan user_id yang sesuai
+            $domain = new Domain([
+                'user_id' => $newUserId,
+            ]);
+        
+            // Coba menyimpan domain
+            $domainSaved = $domain->save();
+        }
+        
+        // Penanganan kesalahan
+        if ($userSaved && $domainSaved) {
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Registrasi berhasil. Silakan login.');
+            return redirect()->route('user.index');
+        }
+        
+        
     }
-
     /**
      * Display the specified resource.
      */
@@ -134,7 +158,7 @@ class UserController extends Controller
 
     public function toggleStatus(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = Auth::user($id);
 
         if ($user) {
             // Ubah status
@@ -155,5 +179,35 @@ class UserController extends Controller
         );
 
         return redirect()->route('user.index')->with($notification);
+    }
+
+    public function checkWhatsApp(Request $request) {
+        $telp = $request->input('telp');
+
+        // Cek apakah username sudah ada di database
+        $telp = User::where('telp', $telp)->first();
+
+        if ($telp) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
+    }
+
+    public function checkEmail(Request $request){
+        $email = $request->input('email');
+
+        // Cek apakah username sudah ada di database
+        $email = User::where('email', $email)->first();
+
+        if ($email) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
     }
 }

@@ -10,7 +10,27 @@
       <div class="card-body">
         <form action="{{ route('user.store') }}" method="POST">
           @csrf
+          @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
 
+          {{-- @if (session('alert') === 'success')
+              <div class="alert alert-success alert-dismissible" role="alert">
+                  {{ session('message') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          @elseif (session('alert') === 'error')
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                  {{ session('message') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          @endif --}}
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Sapaan</label>
             <div class="input-group input-group-merge">
@@ -18,16 +38,16 @@
                 ><i class="ti ti-user-question"></i
               ></span>
                   <select
-                    name="gender"
+                    name="sapaan"
                     class="select2 form-select"
                     >
                     <option selected="" disabled="">Pilih Sapaan mu</option>
-                    <option value="0">Pak</option>
-                    <option value="1">Bu</option>
-                    <option value="2">Saudara</option>
-                    <option value="3">Saudari</option>
-                    <option value="4">Kak</option>
-                    <option value="5">Dek</option>
+                    <option value="Pak">Pak</option>
+                    <option value="Bu">Bu</option>
+                    <option value="Saudara">Saudara</option>
+                    <option value="Saudari">Saudari</option>
+                    <option value="Mas">Mas</option>
+                    <option value="Mbak">Mbak</option>
                   </select>
             </div>
           </div>
@@ -41,7 +61,7 @@
               <input
                 type="text"
                 class="form-control"
-                name="name"
+                name="panggilan"
                 id="basic-icon-default-fullname"
                 placeholder="Massukan Panggilan"
                 aria-label="Massukan Panggilan"
@@ -61,27 +81,47 @@
                 class="form-control"
                 name="name"
                 id="basic-icon-default-fullname"
-                placeholder="Nama"
-                aria-label="Nama"
+                placeholder="Massukan Nama"
+                aria-label="Massukan Nama"
                 aria-describedby="basic-icon-default-fullname2"
                 required/>
             </div>
+          </div>
+            
+          <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-fullname">No Whatsapp</label>
+            <div class="input-group input-group-merge">
+              <span id="basic-icon-default-fullname2" class="input-group-text"
+                >+62</span>
+              <input
+                type="text"
+                class="form-control"
+                id="telp"
+                name="telp"
+                placeholder="Massukan Nama"
+                aria-label="Massukan Nama"
+                aria-describedby="basic-icon-default-fullname2"
+                pattern="[0-9]*"
+                required/>
+            </div>
+            <div id="checkWhatsApp"></div>
           </div>
           
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-email">Email</label>
             <div class="input-group input-group-merge">
-              <span class="input-group-text"><i class="ti ti-mail"></i></span>
+              <span class="input-group-text">@</span>
               <input
                 type="text"
-                id="basic-icon-default-email"
                 class="form-control"
+                id="email"
                 name="email"
                 placeholder="Email"
                 aria-label="Email"
                 aria-describedby="basic-icon-default-email2"
                 required />
             </div>
+            <div id="checkEmail"></div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-lock">Password</label>
@@ -109,9 +149,95 @@
               <option value="2">User</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Tambah</button>
+          <div>
+            <button type="submit" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah</button>
+            
+            <a href="{{ route('manage.user') }}" class="btn rounded-pill btn-danger waves-effect waves-light">Kembali</a>
+          </div>
         </form>
       </div>
     </div>
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         {{-- script untuk nomer whatsapp --}}
+         <script>
+            $(document).ready(function() {
+                $('#telp').on('keyup', function() {
+                    var telp = $(this).val();
+    
+                    // Hapus pesan jika input kosong
+                    if (telp === '') {
+                        $('#checkWhatsApp').empty();
+                        return;
+                    }
+    
+                    $.ajax({
+                        url: '{{ route('checkWhatsApp') }}',
+                        type: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'telp': telp
+                        }, 
+                        success: function(response) {
+                            if (response.available) {
+                                $('#checkWhatsApp').html(
+                                    '<p class="text-success">WhatsApp tersedia.</p>');
+                            } else {
+                                $('#checkWhatsApp').html(
+                                    '<p class="text-danger">WhatsApp sudah terpakai.</p>');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+         {{-- Script untuk validasi nomor --}}
+          <script>
+            document.getElementById('telp').addEventListener('input', function(e) {
+                // Menghapus karakter selain angka dari nilai input
+                this.value = this.value.replace(/\D/g, '');
+
+                // Validasi nomor seluler WhatsApp
+                var inputValue = this.value;
+                if (inputValue.startsWith('0') || inputValue.startsWith('6') || inputValue.startsWith('2'))  {
+                    inputValue = inputValue.slice(1);
+                }
+
+                // Memperbarui nilai input dengan nomor yang sudah divalidasi
+                this.value = inputValue;
+            });
+          </script>
+         {{-- script untuk Email --}}
+         <script>
+            $(document).ready(function() {
+                $('#email').on('keyup', function() {
+                    var email = $(this).val();
+    
+                    // Hapus pesan jika input kosong
+                    if (email === '') {
+                        $('#checkEmail').empty();
+                        return;
+                    }
+    
+                    $.ajax({
+                        url: '{{ route('checkEmail') }}',
+                        type: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'email': email
+                        }, 
+                        success: function(response) {
+                            if (response.available) {
+                                $('#checkEmail').html(
+                                    '<p class="text-success">Email tersedia.</p>');
+                            } else {
+                                $('#checkEmail').html(
+                                    '<p class="text-danger">Email sudah terpakai.</p>');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
   @endsection
