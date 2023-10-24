@@ -35,8 +35,9 @@ class ProfileController extends Controller
 
         $id = Auth::user()->id;
         $data = User::find($id);
+        $data->sapaan = $request->sapaan; 
+        $data->panggilan = $request->panggilan;
         $data->name = $request->name;
-        $data->username = $request->username;
         $data->email = $request->email;
         $data->telp = $request->telp;
         
@@ -44,7 +45,7 @@ class ProfileController extends Controller
         if ($request->file('foto_profile')) {
             $file = $request->file('foto_profile');
             @unlink(public_path('image/profile/'.$data->foto_profile));
-            $filename = date('YmdHi').$file->getClientOriginalName(); //23232.aaryian.png
+            $filename = date('YmdHi').$file->getClientOriginalName(); 
             $file->move(public_path('image/profile'),$filename);
             $data['foto_profile'] = $filename;
         }
@@ -79,7 +80,7 @@ class ProfileController extends Controller
         if (!Hash::check($request->old_password, auth::user()->password )) {
 
             $notification = array(
-                'message' => 'Old Password Does not Match!',
+                'message' => 'Password lama salah!',
                 'alert-type' => 'error'
             );
 

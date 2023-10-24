@@ -113,9 +113,9 @@
                 <i class="menu-icon tf-icons ti ti-user-edit"></i>
                 <div data-i18n="Page 4">Settings</div>
             </a>
-          </li>
-         @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
-          <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+        </li>
+        @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
               <a href="{{ route('dashboard') }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 1">Dashboard</div>
@@ -151,12 +151,12 @@
                   <div data-i18n="Page 6">Laporan</div>
               </a>
           </li>
-          <li class="menu-item">
-              <a href="{{ route('profile.com') }}" class="menu-link {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-                  <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 7">Profile</div>
-              </a>
-          </li>
+          <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
+            <a href="{{ route('profile.com') }}" class="menu-link ">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 7">Profile</div>
+            </a>
+        </li>
       @endif
   @endif
   </ul>

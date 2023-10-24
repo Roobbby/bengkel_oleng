@@ -18,16 +18,14 @@ class UserController extends Controller
      */
     public function Index()
     {
-         // Pastikan pengguna sudah terotentikasi
          if (!Auth::check()) {
-            // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
+           
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
         // $data = User::where('role', '2')
         // ->with('domain')
         // ->orderBy('created_at', 'desc');
         $data = User::with('domain')->orderBy('created_at', 'desc')->get();
-
 
         return view('back.users.user_manage',compact('data'));
     }
@@ -69,19 +67,16 @@ class UserController extends Controller
             'role' => $request->role,
         ];
         
-        // Simpan user
         $userSaved = User::create($data);
         
         if ($userSaved) {
-            // Sekarang, user baru telah disimpan, dan ID-nya sudah ada
+            
             $newUserId = $userSaved->id;
-        
-            // Buat domain dengan user_id yang sesuai
+                    
             $domain = new Domain([
                 'user_id' => $newUserId,
             ]);
-        
-            // Coba menyimpan domain
+               
             $domainSaved = $domain->save();
         }
         
@@ -92,8 +87,8 @@ class UserController extends Controller
             return redirect()->route('user.index');
         }
         
-        
     }
+
     /**
      * Display the specified resource.
      */
@@ -118,20 +113,23 @@ class UserController extends Controller
     {
         $request->validate(
             [
+            'sapaan' => 'required',
+            'panggilan' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'username' => 'required',
             ],[
-                'name.required' => 'Nama wajib disi',
-                'email.required' => 'Email Perusahaan wajib disi',
-                'username.required' => 'Username Mulai wajib disi',
+                'sapaan.required' => 'Sapaan Mulai wajib diganti',
+                'panggilan.required' => 'Panggilan Wajib diganti',
+                'name.required' => 'Nama wajib diganti',
+                'email.required' => 'Email Perusahaan wajib diganti',
             ]
         );
 
         $data = [
+            'sapaan'=>$request->sapaan,
+            'panggilan'=>$request->panggilan,
             'name'=>$request->name,
             'email'=>$request->email,
-            'username'=>$request->username,
         ];
         User::where('id', $id)->update($data);
 
@@ -156,15 +154,22 @@ class UserController extends Controller
     return redirect()->route('user.index');
     }
 
+    public function ProfileCom(){
+        
+        return view('back.users.profile_com');
+    }
+
     public function toggleStatus(Request $request, $id)
     {
-        $user = Auth::user($id);
+
+        $user = User::find($id);
 
         if ($user) {
-            // Ubah status
+            
             $user->status = $user->status == 0 ? 1 : 0;
             $user->save();
 
+            // dd($user->status);
             $notification = array(
                 'message' => 'Update Status Berhasil',
                 'alert-type' => 'success'
@@ -173,13 +178,13 @@ class UserController extends Controller
             return redirect()->route('user.index')->with($notification);
         }
 
-        $notification = array(
-            'message' => 'Update Status Gagal',
-            'alert-type' => 'error'
-        );
-
-        return redirect()->route('user.index')->with($notification);
     }
+    // $notification = array(
+    //     'message' => 'Update Status Gagal',
+    //     'alert-type' => 'error'
+    // );
+
+    // return redirect()->route('user.index')->with($notification);
 
     public function checkWhatsApp(Request $request) {
         $telp = $request->input('telp');

@@ -4,6 +4,7 @@
 
   @php
   use Illuminate\Support\Str;
+  
     $user = Auth::user();
     $user->load('domain');
     $namaBengkel = $user->domain ? $user->domain->nama_bengkel : "Tidak ada domain terkait";
@@ -51,7 +52,7 @@
                       </td>
                       <td>  
                         @if ($user->status == 0)
-                            <form method="POST" action="{{ route('user.toggleStatus', $user->id) }}">
+                            <form method="POST" action="{{ route('user.toggleStatus', ['id' => $user->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-primary active waves-effect waves-light">Off</button>
@@ -60,7 +61,9 @@
                             <button type="button" class="btn btn-primary waves-effect waves-light" disabled>On</button>
                         @endif
                       </td>
-                  <td><img src="{{ (!empty($user->foto_profile)) ? url('image/profile/'.$user->foto_profile) : url('image/default-avatar.png') }}" width="50" alt=""></td>
+                  <td>
+                    {{ $user->domain->domain }}
+                  </td>
                   <td>
                     <div class="btn-group">
                       <button
