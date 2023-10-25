@@ -2,86 +2,162 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'User Manage')
 @section('content')
 
-<div class="container-xxl flex-grow-1 container-p-y">
+@php
+use Illuminate\Support\Str;
+
+  $profileDataBengkel = Auth::user();
+  $profileDataBengkel->load('domain');
+  $namaBengkel = $profileDataBengkel->domain ? $profileDataBengkel->domain->nama_bengkel : "Tidak ada";
+
+@endphp
+
+<div class="content-wrapper">
+  <!-- Content -->
+  <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row mb-4">
-        <!-- Browser Default -->
-        <div class="col-md mb-4 mb-md-0">
-        <div class="card">
-            <h5 class="card-header">Data Bengkel</h5>
+    <div class="col-xl-5 col-lg-5 col-md-5 order-1 order-md-0">
+        <!-- User Card -->
+      <div class="profile-section">
+        <div class="card mb-4">
+          <h5 class="card-header">Profile bengkel</h5>
+          <div class="card-body">
+            <div class="user-avatar-section">
+              <div class="d-flex align-items-center flex-column">
+                <img
+                  class="img-fluid rounded mb-2 pt-1 mt-4"
+                  src="{{ (!empty($profileDataBengkel->domain->foto)) ? url('image/profile_bengkel/'.$profileDataBengkel->domain->foto) : url('image/default_bengkel.png') }} " 
+                  height="100"
+                  width="100"
+                  alt="profile"  />
+                <div class="user-info text-center">
+                  <h4 class="mb-2">{{ $profileDataBengkel->domain->nama_bengkel }}</h4>
+                </div>
+              </div>
+            </div>
+            <p class="mt-4 small text-uppercase text-muted">Details</p>
+            <div class="info-container">
+              <ul class="list-unstyled">
+               
+                <li class="mb-2 pt-1">
+                  <span class="fw-medium me-1">Alamat Bengkel :</span>
+                  <span>{{ $profileDataBengkel->domain->alamat_bengkel }}</span>
+                </li>
+                <li class="mb-2 pt-1">
+                  <span class="fw-medium me-1">Link gmaps :</span>
+                  <span>{{ $profileDataBengkel->domain->gmaps }}</span>
+                </li>
+                <li class="mb-2 pt-1">
+                  <span class="fw-medium me-1">Link Landing :</span>
+                  <span>{{ $profileDataBengkel->domain->domain }}</span>
+                </li>
+
+              </ul>
+              <div class="d-flex justify-content-center">
+                <button 
+                id="editButton"
+                class="btn btn-primary">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- /User Card -->
+      </div>
+      <div class="edit-section" style="display: none;">
+        <div class="col-md">
+          <div class="card">
+            <h5 class="card-header">Edit Profile Bengkel</h5>
             <div class="card-body">
-            <form class="browser-default-validation">
+              <form class="needs-validation" novalidate>
+
                 <div class="mb-3">
-                <label class="form-label" for="basic-default-name">Nama Bengkel</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    id="basic-default-name" 
-                    placeholder="John Doe" 
-                    required=""
-                >
+                  <label class="form-label" for="bs-validation-name">Nama Bengkel</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="bs-validation-name"
+                    placeholder="Massukan Nama Bengkel"
+                    required />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback"> Massukan Nama Bengkel .</div>
                 </div>
 
                 <div class="mb-3">
-                <label class="form-label" for="basic-default-name">Alamat Bengkel</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    id="basic-default-name" 
-                    placeholder="John Doe" 
-                    required=""
-                >
+                  <label class="form-label" for="bs-validation-name">Alamat Bengkel</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="bs-validation-name"
+                    placeholder="Massukan Alamat Bengkel"
+                    required />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">Massukan Alamat Bengkel.</div>
                 </div>
 
                 <div class="mb-3">
-                <label class="form-label" for="basic-default-name">Link Gmaps</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    id="basic-default-name" 
-                    placeholder="John Doe" 
-                    required=""
-                >
+                  <label class="form-label" for="bs-validation-name">Link Google Maps</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="bs-validation-name"
+                    placeholder="Massukan Link Maps Bengkel"
+                    required />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">Massukan Link Maps Bengkel.</div>
+                </div>
+              
+                <div class="mb-3">
+                  <label class="form-label" for="bs-validation-upload-file">Foto Bengkel</label>
+                  <input type="file" class="form-control" id="bs-validation-upload-file" required />
                 </div>
                 
                 <div class="mb-3">
-                <label class="form-label" for="basic-default-dob">DOB</label>
-                <input type="text" class="form-control flatpickr-validation flatpickr-input" id="basic-default-dob" required="">
+                  <label class="form-label" for="bs-validation-bio">Bio</label>
+                  <textarea
+                    class="form-control"
+                    id="bs-validation-bio"
+                    name="bs-validation-bio"
+                    rows="3"
+                    required></textarea>
                 </div>
-
-                <div class="col-12">
-                    <div class="card">
-                      <h5 class="card-header">Multiple</h5>
-                      <div class="card-body">
-                        <form action="/upload" class="dropzone needsclick dz-clickable" id="dropzone-multi">
-                          <div class="dz-message needsclick">
-                            Drop files here or click to upload
-                            <span class="note needsclick">(This is just a demo dropzone. Selected files are
-                              <span class="fw-medium">not</span> actually uploaded.)</span>
-                          </div>
-                          
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                <div class="mb-3">
-                <label class="form-label" for="basic-default-bio">Bio</label>
-                <textarea class="form-control" id="basic-default-bio" name="basic-default-bio" rows="3" required=""></textarea>
-                </div>
-               
+                
                 <div class="row">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('profile.com') }}"
+                    class="btn btn-primary">Cancel</a>
+                  </div>
                 </div>
-                </div>
-            </form>
+              </form>
             </div>
+          </div>
         </div>
-        </div>
-        <!-- /Browser Default -->
-    </div>
-</div>
-<script src="/asset/assets/vendor/libs/i18n/i18n.js"></script>
-<script src="/asset/assets/vendor/libs/typeahead-js/typeahead.js"></script>
-<script src="/asset/assets/vendor/libs/dropzone/dropzone.js"></script>
-<script src="/asset/assets/js/forms-file-upload.js"></script>
+      </div>
+        <!-- /Bootstrap Validation -->
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Saat halaman dimuat, tampilkan profil dan sembunyikan form edit
+        $(".profile-section").show();
+        $(".edit-section").hide();
+
+        // Ketika tombol "Edit" diklik
+        $("#editButton").click(function() {
+            // Sembunyikan profil dan tampilkan form edit
+            $(".profile-section").hide();
+            $(".edit-section").show();
+        });
+
+        // Misalnya, Anda juga ingin menambahkan tombol "Batal" untuk kembali ke profil
+        $("#cancelButton").click(function() {
+            // Sembunyikan form edit dan tampilkan profil
+            $(".edit-section").hide();
+            $(".profile-section").show();
+        });
+    });
+</script>
+
+
 @endsection
