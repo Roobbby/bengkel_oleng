@@ -42,6 +42,8 @@
     @php
     $userStatus = auth()->user()->status;
     $userRole = auth()->user()->role;
+    $user = Auth::user();
+    $domain = $user->domain;
     @endphp
 
   <ul class="menu-inner py-1">
@@ -115,8 +117,8 @@
             </a>
         </li>
         @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
-        <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
-              <a href="{{ route('dashboard') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
+              <a href="{{ route('dashboard.user', ['domain' => $domain]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 1">Dashboard</div>
               </a>
@@ -152,7 +154,7 @@
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-            <a href="{{ route('profile.com') }}" class="menu-link ">
+            <a href="{{ route('profile.com' , ['domain' => $domain])}}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Page 7">Profile</div>
             </a>

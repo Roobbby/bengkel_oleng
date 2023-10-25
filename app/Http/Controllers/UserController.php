@@ -154,10 +154,6 @@ class UserController extends Controller
     return redirect()->route('user.index');
     }
 
-    public function ProfileCom(){
-        
-        return view('back.users.profile_com');
-    }
 
     public function toggleStatus(Request $request, $id)
     {
@@ -214,5 +210,23 @@ class UserController extends Controller
             // Username tersedia
             return response()->json(['available' => true]);
         }
+    }
+
+    //redirect Url
+
+    public function ProfileCom(){
+        
+        $user = Auth::user();
+        $domain = $user->domain;
+
+        return view('back.users.profile_com', ['domain' => $domain]);
+    }
+
+    public function DashboardUser(){
+        $user = Auth::user();
+        $domain = $user->domain;
+
+        return view('back.users.dashboard_user', ['domain' => $domain]);
+
     }
 }

@@ -78,8 +78,7 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Nama Bengkel"
                     required />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback"> Massukan Nama Bengkel .</div>
+                
                 </div>
 
                 <div class="mb-3">
@@ -90,8 +89,7 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Alamat Bengkel"
                     required />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">Massukan Alamat Bengkel.</div>
+           
                 </div>
 
                 <div class="mb-3">
@@ -102,8 +100,7 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Link Maps Bengkel"
                     required />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">Massukan Link Maps Bengkel.</div>
+          
                 </div>
               
                 <div class="mb-3">
@@ -124,7 +121,7 @@ use Illuminate\Support\Str;
                 <div class="row">
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('profile.com') }}"
+                    <a href="{{ route('profile.com' , ['domain' => $domain]) }}"
                     class="btn btn-primary">Cancel</a>
                   </div>
                 </div>

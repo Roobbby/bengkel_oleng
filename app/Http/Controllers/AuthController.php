@@ -131,13 +131,24 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
-
-        if (Auth::Attempt($data)) {
-            return redirect('dashboard');
-        }else{
+    
+        if (Auth::attempt($data)) {
+            $user = Auth::user();
+            $domain = $user->domain;
+    
+            if ($user->status == 2) {
+                // If the user's status is 2 (saas), redirect to the saas dashboard.
+                return redirect()->route('dashboard.user', ['domain' => $user->domain]);
+            } else {
+                // If the user's status is not 2, redirect to the regular dashboard.
+                return redirect()->route('dashboard');
+            }
+        } else {
             return redirect()->back()->with('error', 'Terjadi Kesalahan. Silakan coba lagi.');
         }
     }
+    
+
 
     public function Logout(Request $request)
     {
