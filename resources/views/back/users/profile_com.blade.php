@@ -5,8 +5,8 @@
 @php
 use Illuminate\Support\Str;
 
-  // $user = Auth::user();
-  // $domain = $user->domain;
+  $user = Auth::user();
+  $domain = $user->domain;
 
   $profileDataBengkel = Auth::user();
   $profileDataBengkel->load('domain');
@@ -34,6 +34,7 @@ use Illuminate\Support\Str;
                   alt="profile"  />
                 <div class="user-info text-center">
                   <h4 class="mb-2">{{ $profileDataBengkel->domain->nama_bengkel }}</h4>
+                  <h4 class="mb-2">{{ $profileDataBengkel->domain->domain_user }}</h4>
                 </div>
               </div>
             </div>
