@@ -21,7 +21,7 @@
                   alt="Join community arrow"
                   class="scaleX-n1-rtl"
               /></span>
-              <a href="#landingPricing" class="btn btn-primary btn-lg">Get early access</a>
+              <a href="{{ route('register.online') }}" class="btn btn-primary btn-lg">Gabung sekarang</a>
             </div>
           </div>
           <div id="heroDashboardAnimation" class="hero-animation-img">
