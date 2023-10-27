@@ -34,7 +34,6 @@ use Illuminate\Support\Str;
                   alt="profile"  />
                 <div class="user-info text-center">
                   <h4 class="mb-2">{{ $profileDataBengkel->domain->nama_bengkel }}</h4>
-                  <h4 class="mb-2">{{ $profileDataBengkel->domain->domain_user }}</h4>
                 </div>
               </div>
             </div>
@@ -51,7 +50,7 @@ use Illuminate\Support\Str;
                 </li>
                 <li class="mb-2 pt-1">
                   <span class="fw-medium me-1">Link Landing :</span>
-                  <span>{{ $profileDataBengkel->domain->domain }}</span>
+                  <span>{{ $profileDataBengkel->domain->domain_user }}</span>
                 </li>
               </ul>
               <div class="d-flex justify-content-center">

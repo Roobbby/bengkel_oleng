@@ -23,7 +23,7 @@ class RoleMiddleware
         }
     
     
-        return redirect('/dashboard'); 
+        abort(403);
     }
     
 }

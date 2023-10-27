@@ -222,11 +222,11 @@ class UserController extends Controller
         return view('back.users.profile_com', ['domain_user' => $domain]);
     }
 
-    public function DashboardUser(){
+    public function DashboardUser($domain_user){
         $user = Auth::user();
-        $domain = $user->domain;
-
-        return view('back.users.dashboard_user', ['domain_user' => $domain]);
+        // $domain = $user->domain;
+        
+        return view('back.users.dashboard_user', ['domain_user' => $domain_user]);
 
     }
     

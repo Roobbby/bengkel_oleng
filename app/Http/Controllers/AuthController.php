@@ -135,9 +135,9 @@ class AuthController extends Controller
     
         if (Auth::attempt($data)) {
             $user = Auth::user();
-            $domain = $user->domain;
+            $domain = $user->domain_user;
     
-            if ($user->status == 2) {
+            if ($user->role == 2) {
                 return redirect()->route('dashboard.user', ['domain_user' => $domain]);
             } else {
                 return redirect()->route('dashboard');
