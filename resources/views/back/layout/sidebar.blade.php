@@ -123,14 +123,14 @@
                   <div data-i18n="Page 1">Dashboard</div>
               </a>
           </li>
-          <li class="menu-item">
-              <a href="#" class="menu-link">
+          <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
+              <a href="{{ route('pos.user', ['domain_user' => $domain]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 5">POST</div>
+                  <div data-i18n="Page 5">POS</div>
               </a>
           </li>
-          <li class="menu-item">
-              <a href="#" class="menu-link">
+          <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : ''}}">
+              <a href="{{ route('cos.user', ['domain_user' => $domain]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 5"> Data Pelanggan</div>
               </a>
@@ -142,10 +142,22 @@
               </a>
           </li>
           <li class="menu-item">
-              <a href="#" class="menu-link">
-                  <i class="menu-icon tf-icons ti ti-home"></i>
-                  <div data-i18n="Page 6">Data Spearpart</div>
-              </a>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-book"></i>
+              <div data-i18n="Academy">Data Sparepart</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="" class="menu-link">
+                  <div data-i18n="Dashboard">List Sparepart</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="" class="menu-link">
+                  <div data-i18n="My Course">List Category</div>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="menu-item">
               <a href="#" class="menu-link">

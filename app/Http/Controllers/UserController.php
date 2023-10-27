@@ -222,12 +222,29 @@ class UserController extends Controller
         return view('back.users.profile_com', ['domain_user' => $domain]);
     }
 
-    public function DashboardUser($domain_user){
+    public function DashboardUser(){
         $user = Auth::user();
-        // $domain = $user->domain;
-        
+        $domain_user = $user->domain->domain_user;
+
         return view('back.users.dashboard_user', ['domain_user' => $domain_user]);
 
+    }
+
+    public function PosUser(){
+
+        $user = Auth::user();
+        $domain_user = $user->domain->domain_user;
+
+        return view('back.users.post_user', ['domain_user' => $domain_user]);
+
+    }
+
+    public function CosUser(){
+        
+        $user = Auth::user();
+        $domain_user = $user->domain->domain_user;
+
+        return view('back.users.costumer_user', ['domain_user' => $domain_user]);
     }
     
     public function ProfileBengkel(){
