@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('domain')->default('company');
+            $table->string('domain_user')->unique();
             $table->string('nama_bengkel')->nullable();
             $table->string('alamat_bengkel')->nullable();
             $table->string('gmaps')->nullable();
             $table->string('foto')->nullable();
             $table->string('layanan')->nullable();
-            $table->string('link')->uniqe();
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

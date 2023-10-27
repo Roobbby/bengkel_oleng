@@ -37,7 +37,6 @@ use Illuminate\Support\Str;
             <p class="mt-4 small text-uppercase text-muted">Details</p>
             <div class="info-container">
               <ul class="list-unstyled">
-               
                 <li class="mb-2 pt-1">
                   <span class="fw-medium me-1">Alamat Bengkel :</span>
                   <span>{{ $profileDataBengkel->domain->alamat_bengkel }}</span>
@@ -50,7 +49,6 @@ use Illuminate\Support\Str;
                   <span class="fw-medium me-1">Link Landing :</span>
                   <span>{{ $profileDataBengkel->domain->domain }}</span>
                 </li>
-
               </ul>
               <div class="d-flex justify-content-center">
                 <button 
@@ -75,6 +73,7 @@ use Illuminate\Support\Str;
                   <input
                     type="text"
                     class="form-control"
+                    name="nama_bengkel"
                     id="bs-validation-name"
                     placeholder="Massukan Nama Bengkel"
                     required />
@@ -86,6 +85,7 @@ use Illuminate\Support\Str;
                   <input
                     type="text"
                     class="form-control"
+                    name="alamat_bengkel"
                     id="bs-validation-name"
                     placeholder="Massukan Alamat Bengkel"
                     required />
@@ -97,6 +97,7 @@ use Illuminate\Support\Str;
                   <input
                     type="text"
                     class="form-control"
+                    name="gmaps"
                     id="bs-validation-name"
                     placeholder="Massukan Link Maps Bengkel"
                     required />

@@ -19,7 +19,6 @@
               </ul>
           </div>
           @endif
-
           {{-- @if (session('alert') === 'success')
               <div class="alert alert-success alert-dismissible" role="alert">
                   {{ session('message') }}
@@ -44,10 +43,10 @@
                     <option selected="" disabled="">Pilih Sapaan mu</option>
                     <option value="Pak">Pak</option>
                     <option value="Bu">Bu</option>
-                    <option value="Saudara">Saudara</option>
-                    <option value="Saudari">Saudari</option>
                     <option value="Mas">Mas</option>
                     <option value="Mbak">Mbak</option>
+                    <option value="Kak">Kak</option>
+                    <option value="Dek">Dek</option>
                   </select>
             </div>
           </div>

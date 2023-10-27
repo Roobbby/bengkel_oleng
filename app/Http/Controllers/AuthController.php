@@ -59,17 +59,18 @@ class AuthController extends Controller
         $userSaved = $user->save();
 
         if ($userSaved) {
-            // Sekarang, user baru telah disimpan, dan ID-nya sudah ada
-            $newUserId = $user->id;
+            
+            $newUserId = $userSaved->id;
+            $newUserDomain = 'bengkel_' . $data['name'];
 
-            // Buat domain dengan user_id yang sesuai
             $domain = new Domain([
                 'user_id' => $newUserId,
+                'domain_user' => $newUserDomain,
             ]);
-
-            // Coba menyimpan domain
+               
             $domainSaved = $domain->save();
         }
+        
 
         // Penanganan kesalahan
         if ($userSaved && $domainSaved) {
@@ -137,10 +138,8 @@ class AuthController extends Controller
             $domain = $user->domain;
     
             if ($user->status == 2) {
-                // If the user's status is 2 (saas), redirect to the saas dashboard.
-                return redirect()->route('dashboard.user', ['domain' => $user->domain]);
+                return redirect()->route('dashboard.user', ['domain_user' => $domain]);
             } else {
-                // If the user's status is not 2, redirect to the regular dashboard.
                 return redirect()->route('dashboard');
             }
         } else {

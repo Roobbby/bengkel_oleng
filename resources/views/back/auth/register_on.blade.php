@@ -62,13 +62,18 @@
                     <input type="hidden" name="role" value=2 readonly>
                     <div class="mb-3">
                     <label for="sapaan" class="form-label">Sapaan</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="sapaan"
-                        name="sapaan"
-                        placeholder="Massukan Sapaan"
-                        autofocus />
+                        <select
+                            name="sapaan"
+                            class="select2 form-select"
+                            >
+                            <option selected="" disabled="">Pilih Sapaan mu</option>
+                            <option value="Pak">Pak</option>
+                            <option value="Bu">Bu</option>
+                            <option value="Mas">Mas</option>
+                            <option value="Mbak">Mbak</option>
+                            <option value="Kak">Kak</option>
+                            <option value="Dek">Dek</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                     <label for="panggilan" class="form-label">Panggilan</label>

@@ -72,15 +72,17 @@ class UserController extends Controller
         if ($userSaved) {
             
             $newUserId = $userSaved->id;
-                    
+            $newUserDomain = 'bengkel_' . $data['name'];
+
             $domain = new Domain([
                 'user_id' => $newUserId,
+                'domain_user' => $newUserDomain,
             ]);
                
             $domainSaved = $domain->save();
         }
         
-        // Penanganan kesalahan
+      
         if ($userSaved && $domainSaved) {
             session()->flash('alert', 'success');
             session()->flash('message', 'Registrasi berhasil. Silakan login.');
@@ -165,7 +167,7 @@ class UserController extends Controller
             $user->status = $user->status == 0 ? 1 : 0;
             $user->save();
 
-            // dd($user->status);
+            
             $notification = array(
                 'message' => 'Update Status Berhasil',
                 'alert-type' => 'success'
@@ -185,14 +187,13 @@ class UserController extends Controller
     public function checkWhatsApp(Request $request) {
         $telp = $request->input('telp');
 
-        // Cek apakah username sudah ada di database
         $telp = User::where('telp', $telp)->first();
 
         if ($telp) {
-            // Username sudah terpakai
+          
             return response()->json(['available' => false]);
         } else {
-            // Username tersedia
+           
             return response()->json(['available' => true]);
         }
     }
@@ -200,14 +201,13 @@ class UserController extends Controller
     public function checkEmail(Request $request){
         $email = $request->input('email');
 
-        // Cek apakah username sudah ada di database
         $email = User::where('email', $email)->first();
 
         if ($email) {
-            // Username sudah terpakai
+           
             return response()->json(['available' => false]);
         } else {
-            // Username tersedia
+      
             return response()->json(['available' => true]);
         }
     }
@@ -219,14 +219,20 @@ class UserController extends Controller
         $user = Auth::user();
         $domain = $user->domain;
 
-        return view('back.users.profile_com', ['domain' => $domain]);
+        return view('back.users.profile_com', ['domain_user' => $domain]);
     }
 
     public function DashboardUser(){
         $user = Auth::user();
         $domain = $user->domain;
 
-        return view('back.users.dashboard_user', ['domain' => $domain]);
+        return view('back.users.dashboard_user', ['domain_user' => $domain]);
 
     }
+    
+    public function ProfileBengkel(){
+
+
+    }
+
 }

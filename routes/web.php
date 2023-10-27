@@ -68,8 +68,9 @@ Route::get('/', function () {
     
     Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
         //user manage
-        Route::get('/{domain}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
-        Route::get('/{domain}/user', [Usercontroller::class, 'ProfileCom'])->name('profile.com');
+        Route::get('/{domain_user}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
+        Route::get('/{domain_user}/profile', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
+        Route::get('/{domain_user}/user', [Usercontroller::class, 'ProfileCom'])->name('profile.com');
     });   
  
 
