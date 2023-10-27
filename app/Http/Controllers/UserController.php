@@ -76,7 +76,7 @@ class UserController extends Controller
 
             $domain = new Domain([
                 'user_id' => $newUserId,
-                'domain_user' => $newUserDomain,
+                'domain_user' => $newUserDomain
             ]);
                
             $domainSaved = $domain->save();

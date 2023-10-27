@@ -118,7 +118,7 @@
         </li>
         @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
         <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
-              <a href="{{ route('dashboard.user', ['domain' => $domain]) }}" class="menu-link">
+              <a href="{{ route('dashboard.user', ['domain_user' => $domain]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 1">Dashboard</div>
               </a>
@@ -154,7 +154,7 @@
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-            <a href="{{ route('profile.com' , ['domain' => $domain])}}" class="menu-link ">
+            <a href="{{ route('profile.com' , ['domain_user' => $domain])}}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Page 7">Profile</div>
             </a>

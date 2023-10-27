@@ -5,6 +5,9 @@
 @php
 use Illuminate\Support\Str;
 
+  // $user = Auth::user();
+  // $domain = $user->domain;
+
   $profileDataBengkel = Auth::user();
   $profileDataBengkel->load('domain');
   $namaBengkel = $profileDataBengkel->domain ? $profileDataBengkel->domain->nama_bengkel : "Tidak ada";
@@ -122,7 +125,7 @@ use Illuminate\Support\Str;
                 <div class="row">
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('profile.com' , ['domain' => $domain]) }}"
+                    <a href="{{ route('profile.com' , ['domain_user' => $domain]) }}"
                     class="btn btn-primary">Cancel</a>
                   </div>
                 </div>
