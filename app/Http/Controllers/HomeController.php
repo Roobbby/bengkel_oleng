@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +41,12 @@ class HomeController extends Controller
         // // Jika data sudah lengkap, tampilkan halaman dashboard
         return view('back.home');
     }
-    
 
     public function Haut(){
+        return view ('front.index');
+    }
+
+    public function HautUser($domain_user){
         return view ('front.index');
     }
 }

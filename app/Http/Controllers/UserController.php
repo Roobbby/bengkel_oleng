@@ -105,9 +105,16 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $data =  User::find($id);
+        $data =  Domain::find($id);
+
+        if (!$data) {
+          
+            return redirect()->route('user.index')->with('error', 'Data tidak ditemukan.');
+        }
+
         return view('back.users.edit_user', compact('data'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -116,25 +123,19 @@ class UserController extends Controller
     {
         $request->validate(
             [
-            'sapaan' => 'required',
-            'panggilan' => 'required',
-            'name' => 'required',
-            'email' => 'required',
+            'nama_bengkel' => 'required',
+            
             ],[
-                'sapaan.required' => 'Sapaan Mulai wajib diganti',
-                'panggilan.required' => 'Panggilan Wajib diganti',
-                'name.required' => 'Nama wajib diganti',
-                'email.required' => 'Email Perusahaan wajib diganti',
+                'nama_bengkel.required' => 'Nama Bengkel',
+               
             ]
         );
 
         $data = [
-            'sapaan'=>$request->sapaan,
-            'panggilan'=>$request->panggilan,
-            'name'=>$request->name,
-            'email'=>$request->email,
+            'nama_bengkel'=>$request->nama_bengkel,
+           
         ];
-        User::where('id', $id)->update($data);
+        Domain::where('id', $id)->update($data);
 
         $notification = array(
             'message' => 'Edit Data User Successfully',

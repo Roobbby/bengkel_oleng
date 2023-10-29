@@ -62,10 +62,11 @@
                             <button type="button" class="btn btn-primary waves-effect waves-light" disabled>On</button>
                         @endif
                     </td>
-                    
-                      <td>
-                        {{ $user->domain->domain }}
-                      </td>
+                    <td>
+                      <a href="#" target="_blank">
+                        Lihat Halaman
+                    </a>
+                    </td>
                       <td>
                         <div class="btn-group">
                           <button
@@ -79,9 +80,9 @@
                           <li> 
                             <a data-bs-toggle="modal" data-bs-target="#modal-view{{ $user->id }}" class="btn btn-sm btn-primary mb-2"><i class="ti ti-eye" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Data"></i></a>
                             
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning mb-2"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit Data"></i></a>
+                            <a href="{{ route('user.edit', $user->domain->id) }}" class="btn btn-sm btn-warning mb-2"><i class="ti ti-edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit Data"></i></a>
                             
-                            <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->id }}" class="btn btn-sm btn-danger mb-2"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Hapus Data"></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#modal-delete{{ $user->domain->id }}" class="btn btn-sm btn-danger mb-2"><i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Hapus Data"></i></a>
                             
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-success "><i class="ti ti-brand-cashapp " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Transaksi"></i></a>
                             

@@ -4,6 +4,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card mb-4">
+     
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Form Edit User</h5>
         <small class="text-muted float-end">Edit User</small>
@@ -13,7 +14,7 @@
           @csrf
           @method('PUT')
           <div class="mb-3">
-            <label class="form-label" for="basic-icon-default-fullname">Nama</label>
+            <label class="form-label" for="basic-icon-default-fullname">Nama Bengkel</label>
             <div class="input-group input-group-merge">
               <span id="basic-icon-default-fullname2" class="input-group-text"
                 ><i class="ti ti-user"></i
@@ -21,18 +22,18 @@
               <input
                 type="text"
                 class="form-control"
-                name="name"
+                name="nama_bengkel"
                 id="basic-icon-default-fullname"
-                placeholder="Nama"
-                aria-label="Nama"
+                placeholder="Nama Bengkel"
+                aria-label="Nama Bengkel"
                 aria-describedby="basic-icon-default-fullname2"
-                value="{{ $data->name }}"
+                value="{{ $data->nama_bengkel }}"
                 required/>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label" for="basic-icon-default-username">Username</label>
+          {{-- <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-username">Alamat Bengkel</label>
             <div class="input-group input-group-merge">
               <span id="basic-icon-default-username2" class="input-group-text"
                 ><i class="ti ti-user"></i
@@ -40,33 +41,36 @@
               <input
                 type="text"
                 class="form-control"
-                name="username"
+                name="alamat_bengkel"
                 id="basic-icon-default-username"
-                placeholder="Usename"
+                placeholder="alamat_bengkel"
                 aria-label="Username"
                 aria-describedby="basic-icon-default-username2"
-                value="{{ $data->username }}"
+                value="{{ $data->alamat_bengkel }}"
                 required/>
             </div>
           </div>
           
           <div class="mb-3">
-            <label class="form-label" for="basic-icon-default-email">Email</label>
+            <label class="form-label" for="basic-icon-default-username">Gmpas Bengkel</label>
             <div class="input-group input-group-merge">
-              <span class="input-group-text"><i class="ti ti-mail"></i></span>
+              <span id="basic-icon-default-username2" class="input-group-text"
+                ><i class="ti ti-user"></i
+              ></span>
               <input
                 type="text"
-                id="basic-icon-default-email"
                 class="form-control"
-                name="email"
-                placeholder="Email"
-                aria-label="Email"
-                aria-describedby="basic-icon-default-email2"
-                value="{{ $data->email }}"
-                required />
+                name="gmaps"
+                id="basic-icon-default-username"
+                placeholder="gmaps"
+                aria-label="Username"
+                aria-describedby="basic-icon-default-username2"
+                value="{{ $data->gmaps }}"
+                required/>
             </div>
-            <div class="form-text">You can use letters, numbers & periods</div>
-          </div>
+          </div> --}}
+          
+          
        
           <button type="submit" class="btn btn-primary">Ubah</button>
         </form>

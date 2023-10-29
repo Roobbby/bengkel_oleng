@@ -47,18 +47,18 @@
                 <p class="mb-4">Make your app management easy and fun!</p>
     
                 <form id="formAuthentication" class="mb-3" action="{{ route('register.online.store')}}" method="POST">
-                    @csrf
                     @if (session('alert') === 'success')
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            {{ session('message') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @elseif (session('alert') === 'error')
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            {{ session('message') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
+                    @csrf
                     <input type="hidden" name="role" value=3 readonly>
                     <div class="mb-3">
                     <label for="sapaan" class="form-label">Sapaan</label>
@@ -118,6 +118,7 @@
                     </div>
                     <div id="checkEmail"></div>
                     </div>
+
                     <div class="mb-3 form-password-toggle">
                     <label class="form-label" for="password">Password</label>
                     <div class="input-group input-group-merge">
@@ -174,6 +175,21 @@
     
         <!-- / Content -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         {{-- Script untuk validasi nomor --}}
+         <script>
+            document.getElementById('telp').addEventListener('input', function(e) {
+                // Menghapus karakter selain angka dari nilai input
+                this.value = this.value.replace(/\D/g, '');
+
+                // Validasi nomor seluler WhatsApp
+                var inputValue = this.value;
+                if (inputValue.startsWith('0') || inputValue.startsWith('6') || inputValue.startsWith('2'))  {
+                    inputValue = inputValue.slice(1);
+                }
+                // Memperbarui nilai input dengan nomor yang sudah divalidasi
+                this.value = inputValue;
+            });
+        </script>
          {{-- script untuk nomer whatsapp --}}
          <script>
             $(document).ready(function() {
@@ -189,6 +205,7 @@
                     $.ajax({
                         url: '{{ route('checkWhatsApp') }}',
                         type: 'POST',
+                        crossDomain: true,
                         data: {
                             '_token': '{{ csrf_token() }}',
                             'telp': telp
@@ -221,6 +238,7 @@
                     $.ajax({
                         url: '{{ route('checkEmail') }}',
                         type: 'POST',
+                        crossDomain: true,
                         data: {
                             '_token': '{{ csrf_token() }}',
                             'email': email
@@ -263,24 +281,6 @@
                 });
             });
         </script>
-
-        {{-- Script untuk validasi nomor --}}
-        <script>
-            document.getElementById('telp').addEventListener('input', function(e) {
-                // Menghapus karakter selain angka dari nilai input
-                this.value = this.value.replace(/\D/g, '');
-
-                // Validasi nomor seluler WhatsApp
-                var inputValue = this.value;
-                if (inputValue.startsWith('0') || inputValue.startsWith('6') || inputValue.startsWith('2'))  {
-                    inputValue = inputValue.slice(1);
-                }
-
-                // Memperbarui nilai input dengan nomor yang sudah divalidasi
-                this.value = inputValue;
-            });
-        </script>
-
         {{-- script untuk password dan confrim password --}}
         <script>
             $(document).ready(function() {
@@ -290,13 +290,11 @@
                     var errorDiv = $('#password-error');
             
                     if (password === confirmPassword) {
-                        errorDiv.text(''); // Password sesuai, hapus pesan kesalahan
+                        errorDiv.text(''); 
                     } else {
                         errorDiv.text('Password Tidak Cocok');
                     }
                 });
             });
         </script>
-       
-        
 @endsection

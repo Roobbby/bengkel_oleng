@@ -146,9 +146,10 @@
                         >
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                         @error('old_password')
-                          <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                         @enderror
                       </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                      <div id="password-feedback"></div>
                     </div>
                   </div>
   
@@ -171,16 +172,17 @@
                     </div>
   
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="new_password_confirmation">Confirm New Password</label>
+                      <label class="form-label" for="new_password_confirm">Confirm New Password</label>
                       <div class="input-group input-group-merge has-validation">
                         <input class="form-control" 
                         type="text" 
-                        name="new_password_confirmation" 
-                        id="new_password_confirmation" 
+                        name="password_confirm" 
+                        id="password_confirm" 
                         placeholder="············"
                         autocomplete="off">
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                       </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                      <div id="password-error" class="text-danger"></div>
                     </div>
                     <div class="col-12 mb-4">
                       <h6>Password Requirements:</h6>
@@ -205,6 +207,7 @@
         </div> --}}
         <!--/ User Content -->
         <!-- Subcribe -->
+        @if(Auth::user()->role == 2)
         <div class="card mb-4">
           <h5 class="card-header">Current Plan</h5>
           <div class="card-body">
@@ -215,9 +218,15 @@
                   <p>A simple start for everyone</p>
                 </div>
                 <div class="mb-2 pt-1">
-                  <h6 class="mb-1">Active until Dec 09, 2021</h6>
-                  <p>We will send you a notification upon Subscription expiration</p>
-                </div>
+                  @if ($profileData->expired_date)
+                  <h6 class="mb-1">Active until {{ Carbon\Carbon::parse($profileData->expired_date)->format('M d, Y') }}</h6>
+
+                      <p>We will send you a notification upon Subscription expiration</p>
+                  @else
+                      <h6 class="mb-1">Subscription date not set</h6>
+                      <p>Please set your subscription date</p>
+                  @endif
+                </div>                          
                 <div class="mb-3 pt-1">
                   <h6 class="mb-1">
                     <span class="me-2">$199 Per Month</span>
@@ -251,6 +260,7 @@
             </div>
           </div>
         </div>
+        @endif
           <!-- /Subcribe -->
       </div>
     </div>
@@ -360,44 +370,36 @@
       </div>
       <!--/ Edit User Modal -->
 
-      <!-- Add New Credit Card Modal -->
-      <div class="modal fade" id="enableOTP" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
-          <div class="modal-content p-3 p-md-5">
-            <div class="modal-body">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              <div class="text-center mb-4">
-                <h3 class="mb-2">Enable One Time Password</h3>
-                <p>Verify Your Mobile Number for SMS</p>
-              </div>
-              <p>
-                Enter your mobile phone number with country code and we will send you a verification code.
-              </p>
-              <form id="enableOTPForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false" novalidate="novalidate">
-                <div class="col-12 fv-plugins-icon-container">
-                  <label class="form-label" for="modalEnableOTPPhone">Phone Number</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text">IND (+62)</span>
-                    <input type="text" id="modalEnableOTPPhone" name="modalEnableOTPPhone" class="form-control phone-number-otp-mask" placeholder="08** **** ****">
-                  </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
-                  <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">
-                    Cancel
-                  </button>
-                </div>
-              <input type="hidden"></form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/ Add New Credit Card Modal -->
 
       <!-- /Modal -->
     </div>
     <!-- / Content -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+          $('#old_password').on('input', function() {
+              var oldPassword = $(this).val();
+  
+              // Buat permintaan Ajax untuk memeriksa kata sandi lama
+              $.ajax({
+                  url: '{{ route('check.old_password') }}',
+                  type: 'POST',
+                  data: {
+                      '_token': '{{ csrf_token() }}',
+                      'old_password': oldPassword
+                  },
+                  success: function(response) {
+                      if (response.valid) {
+                          $('#password-feedback').html('<p class="text-success">Password lama benar.</p>');
+                      } else {
+                          $('#password-feedback').html('<p class="text-danger">Password lama salah.</p>');
+                      }
+                  }
+              });
+          });
+      });
+    </script>
+  
     <script type="text/javascript">
         $(document).ready(function(){
             $('#upload').change(function(e){
@@ -408,5 +410,21 @@
                 reader.readAsDataURL(e.target.files['0']);
             });
         });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+          $('#password_confirm').on('input', function() {
+              var new_password = $('#new_password').val();
+              var confirmPassword = $(this).val();
+              var errorDiv = $('#password-error');
+      
+              if (new_password === confirmPassword) {
+                  errorDiv.text(''); 
+              } else {
+                  errorDiv.text('Password Tidak Cocok');
+              }
+          });
+      });
     </script>
 @endsection

@@ -32,10 +32,11 @@ Route::get('/', function () {
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
-    Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
+    // Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
     Route::post('/check-whatsapp', [AuthController::class, 'checkWhatsApp'])->name('checkWhatsApp');
     Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('checkEmail');
     
+ 
     Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
         //user manage
         Route::get('/{domain_user}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
@@ -47,6 +48,11 @@ Route::get('/', function () {
         Route::get('/{domain_user}/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
     });   
 
+    // Route::get('/{domain_user}', function () {
+    //     return redirect('/{domain_user}');
+    // });
+    // Route::get('/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
+
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
        
@@ -54,6 +60,7 @@ Route::get('/', function () {
         Route::post('/profile/store', [ProfileController::class, 'ProfileStore'])->name('profile.store');
         Route::get('/change/password', [ProfileController::class, 'ChangePassword'])->name('change.password');
         Route::post('/update/password', [ProfileController::class, 'UpdatePassword'])->name('update.password');
+        Route::post('/check-old-password', [ProfileController::class, 'checkOldPassword'])->name('check.old_password');
         Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
     }); 
     

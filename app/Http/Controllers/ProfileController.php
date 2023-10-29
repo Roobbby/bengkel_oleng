@@ -101,4 +101,16 @@ class ProfileController extends Controller
         return back()->with($notification);
 
     }
+
+    public function checkOldPassword(Request $request) {
+        $oldPassword = $request->input('old_password');
+        $user = Auth::user();
+    
+        if (Hash::check($oldPassword, $user->password)) {
+            return response()->json(['valid' => true]);
+        } else {
+            return response()->json(['valid' => false]);
+        }
+    }
+    
 }

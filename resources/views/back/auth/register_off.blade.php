@@ -65,8 +65,6 @@
                     autofocus></textarea>
               </div>
               
-             
-
               <button class="btn btn-primary d-grid w-100">Daftar Sekarang</button>
             </form>
 
