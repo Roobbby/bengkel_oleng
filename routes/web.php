@@ -36,6 +36,17 @@ Route::get('/', function () {
     Route::post('/check-whatsapp', [AuthController::class, 'checkWhatsApp'])->name('checkWhatsApp');
     Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('checkEmail');
     
+    Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
+        //user manage
+        Route::get('/{domain_user}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
+        //usless
+        Route::get('/{domain_user}/profile', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
+
+        Route::get('/{domain_user}/user', [UserController::class, 'ProfileCom'])->name('profile.com');
+        Route::get('/{domain_user}/posuser',[UserController::class, 'PosUser'])->name('pos.user');
+        Route::get('/{domain_user}/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
+    });   
+
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
        
@@ -67,15 +78,6 @@ Route::get('/', function () {
     });
     
     
-    Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
-        //user manage
-        Route::get('/{domain_user}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
-        //usless
-        Route::get('/{domain_user}/profile', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
 
-        Route::get('/{domain_user}/user', [UserController::class, 'ProfileCom'])->name('profile.com');
-        Route::get('/{domain_user}/posuser',[UserController::class, 'PosUser'])->name('pos.user');
-        Route::get('/{domain_user}/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
-    });   
  
 

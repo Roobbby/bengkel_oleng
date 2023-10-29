@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -159,24 +160,25 @@ class UserController extends Controller
 
     public function toggleStatus(Request $request, $id)
     {
-
         $user = User::find($id);
-
+    
         if ($user) {
-            
-            $user->status = $user->status == 0 ? 1 : 0;
+            // Ambil nilai status dari request (yang dikirimkan oleh form)
+            $newStatus = $request->input('status');
+            $user->status = $newStatus;
+    
             $user->save();
-
-            
+    
             $notification = array(
                 'message' => 'Update Status Berhasil',
                 'alert-type' => 'success'
             );
-
+    
             return redirect()->route('user.index')->with($notification);
         }
-
     }
+    
+    
     // $notification = array(
     //     'message' => 'Update Status Gagal',
     //     'alert-type' => 'error'
@@ -222,12 +224,14 @@ class UserController extends Controller
         return view('back.users.profile_com', ['domain_user' => $domain]);
     }
 
-    public function DashboardUser(){
-        $user = Auth::user();
-        $domain_user = $user->domain->domain_user;
-
-        return view('back.users.dashboard_user', ['domain_user' => $domain_user]);
-
+    public function DashboardUser($domain_user){
+        // $user = Auth::user();
+        // $domain_user = $user->domain->domain_user;
+            $user = Domain::where('domain_user', $domain_user)->first();
+        
+            return view('back.users.dashboard_user', ['domain_user' => $user]);
+        
+        
     }
 
     public function PosUser(){

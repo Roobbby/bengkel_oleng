@@ -132,23 +132,27 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
-    
+
         if (Auth::attempt($data)) {
             $user = Auth::user();
-            $domain_user = $user->domain->domain_user;
-    
-            if ($user->role == 2) {
-                return redirect()->route('dashboard.user', ['domain_user' => $domain_user]);
+
+            if ($user) {
+                $domain_user = optional($user->domain)->domain_user;
+
+                if ($user->role == 2) {
+                    return redirect()->route('dashboard.user', ['domain_user' => $domain_user]);
+                } else {
+                    return redirect()->route('dashboard');
+                }
             } else {
-                return redirect()->route('dashboard');
+                return redirect()->back()->with('alert', 'error')->with('message', 'User tidak ditemukan.');
             }
         } else {
-            return redirect()->back()->with('error', 'Terjadi Kesalahan. Silakan coba lagi.');
+            return redirect()->back()->with('alert', 'error')->with('message', 'Email atau password salah. Silakan coba lagi.');
         }
     }
+
     
-
-
     public function Logout(Request $request)
     {
         Auth::guard('web')->logout();

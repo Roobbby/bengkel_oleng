@@ -196,28 +196,64 @@
               </form>
               </div>
             </div>
-          <div class="card mb-4">
-            <h5 class="card-header">Two-steps verification</h5>
-            <div class="card-body">
-              <h5 class="mb-3">Two factor authentication is not enabled yet.</h5>
-              <p class="w-75">
-                Two-factor authentication
-                <a href="javascript:void(0);">Learn more.</a>
-              </p>
-              <button class="btn btn-primary mt-2 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#enableOTP">
-                Enable two-factor authentication
-              </button>
-            </div>
-          </div>
+          
           <!--/ Change Password -->
-        </div>
-
+        
         <!-- User Content -->
         {{-- <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
 
         </div> --}}
         <!--/ User Content -->
+        <!-- Subcribe -->
+        <div class="card mb-4">
+          <h5 class="card-header">Current Plan</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-6 order-1 order-xl-0">
+                <div class="mb-2">
+                  <h6 class="mb-1">Your Current Plan is Basic</h6>
+                  <p>A simple start for everyone</p>
+                </div>
+                <div class="mb-2 pt-1">
+                  <h6 class="mb-1">Active until Dec 09, 2021</h6>
+                  <p>We will send you a notification upon Subscription expiration</p>
+                </div>
+                <div class="mb-3 pt-1">
+                  <h6 class="mb-1">
+                    <span class="me-2">$199 Per Month</span>
+                    <span class="badge bg-label-primary">Popular</span>
+                  </h6>
+                  <p>Standard plan for small to medium businesses</p>
+                </div>
+              </div>
+              <div class="col-xl-6 order-0 order-xl-0">
+                <div class="alert alert-warning" role="alert">
+                  <h5 class="alert-heading mb-2">We need your attention!</h5>
+                  <span>Your plan requires update</span>
+                </div>
+                <div class="plan-statistics">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="mb-1">Days</h6>
+                    <h6 class="mb-1">24 of 30 Days</h6>
+                  </div>
+                  <div class="progress mb-1" style="height: 10px">
+                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <p>6 days remaining until your plan requires update</p>
+                </div>
+              </div>
+              <div class="col-12 order-2 order-xl-0 d-flex flex-wrap gap-2">
+                <button class="btn btn-primary me-2 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#upgradePlanModal">
+                  Upgrade Plan
+                </button>
+                <button class="btn btn-label-danger cancel-subscription waves-effect">Cancel Subscription</button>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!-- /Subcribe -->
       </div>
+    </div>
 
       <!-- Modal -->
       <!-- Edit User Modal -->
