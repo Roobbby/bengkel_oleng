@@ -29,6 +29,7 @@ return new class extends Migration
             $table->enum('gender',['0','1'])->nullable();
             //0 = Tidak Berlangganan , 1 = Berlangganan
             $table->enum('expired_status', ['0', '1'])->default('0');
+            $table->timestamp('activated_date')->nullable();
             $table->timestamp('expired_date')->nullable();
             $table->rememberToken();
             $table->timestamps();

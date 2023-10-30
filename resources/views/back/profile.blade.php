@@ -1,9 +1,28 @@
 @extends('back.layout.index')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Profile')
 @section('content')
+@php
+use Carbon\Carbon;
+
+$now = Carbon::now();
+$activatedDate = Carbon::parse($profileData->activated_date);
+$remainingDays = max($now->diffInDays($activatedDate), 0);
+@endphp
+
 
   <!-- Content wrapper -->
   <div class="content-wrapper">
+    @if (session('alert') === 'success')
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @elseif (session('alert') === 'error')
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            {{ session('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
       <div class="row mb-4">
@@ -219,7 +238,7 @@
                 </div>
                 <div class="mb-2 pt-1">
                   @if ($profileData->expired_date)
-                  <h6 class="mb-1">Active until {{ Carbon\Carbon::parse($profileData->expired_date)->format('M d, Y') }}</h6>
+                  <h6 class="mb-1">Active until {{ Carbon::parse($profileData->expired_date)->format('M d, Y') }}</h6>
 
                       <p>We will send you a notification upon Subscription expiration</p>
                   @else
@@ -227,28 +246,33 @@
                       <p>Please set your subscription date</p>
                   @endif
                 </div>                          
-                <div class="mb-3 pt-1">
-                  <h6 class="mb-1">
-                    <span class="me-2">$199 Per Month</span>
-                    <span class="badge bg-label-primary">Popular</span>
-                  </h6>
-                  <p>Standard plan for small to medium businesses</p>
-                </div>
+                
               </div>
               <div class="col-xl-6 order-0 order-xl-0">
-                <div class="alert alert-warning" role="alert">
+                {{-- <div class="alert alert-warning" role="alert">
                   <h5 class="alert-heading mb-2">We need your attention!</h5>
                   <span>Your plan requires update</span>
-                </div>
+                </div> --}}
                 <div class="plan-statistics">
                   <div class="d-flex justify-content-between">
                     <h6 class="mb-1">Days</h6>
-                    <h6 class="mb-1">24 of 30 Days</h6>
+                    <h6 class="mb-1">{{ $remainingDays }} of 30 Days</h6>
+
+                  
                   </div>
                   <div class="progress mb-1" style="height: 10px">
-                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p>6 days remaining until your plan requires update</p>
+                    @php
+                    $activatedDate = Carbon::parse($profileData->activated_date);
+                    $expiredDate = Carbon::parse($profileData->expired_date);
+                    $now = Carbon::now();
+                    $totalDays = $activatedDate->diffInDays($expiredDate);
+                    $daysPassed = $activatedDate->diffInDays($now);
+                    $percentage = ($daysPassed / $totalDays) * 100;
+                    @endphp
+                    <div class="progress-bar w-{{ $percentage }}" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                  <p>{{ $remainingDays }} days remaining until your plan requires update</p>
                 </div>
               </div>
               <div class="col-12 order-2 order-xl-0 d-flex flex-wrap gap-2">

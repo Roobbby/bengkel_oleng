@@ -13,6 +13,17 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
+        @if (session('alert') === 'success')
+              <div class="alert alert-success alert-dismissible" role="alert">
+                  {{ session('message') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          @elseif (session('alert') === 'error')
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                  {{ session('message') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          @endif
         <h5 class="card-header">Data Users</h5>
         <div class="card-datatable table-responsive">
             <div class="header ms-3" ><a href="{{route('user.create')}}" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a></div>

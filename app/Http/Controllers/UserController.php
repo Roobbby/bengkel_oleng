@@ -137,12 +137,9 @@ class UserController extends Controller
         ];
         Domain::where('id', $id)->update($data);
 
-        $notification = array(
-            'message' => 'Edit Data User Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('user.index')->with($notification);
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Edit Data berhasil.');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -162,20 +159,23 @@ class UserController extends Controller
     public function toggleStatus(Request $request, $id)
     {
         $user = User::find($id);
-    
+
         if ($user) {
-            // Ambil nilai status dari request (yang dikirimkan oleh form)
             $newStatus = $request->input('status');
-            $user->status = $newStatus;
+            if ($newStatus == 1) {
+                $user->status = $newStatus;
+                $user->activated_date = now();
+                $user->expired_date = now()->addDays(30);
+            } else {
+                // Nonaktifkan akun
+                $user->status = $newStatus;
+            }
     
             $user->save();
-    
-            $notification = array(
-                'message' => 'Update Status Berhasil',
-                'alert-type' => 'success'
-            );
-    
-            return redirect()->route('user.index')->with($notification);
+
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Update Status Berhasil.');
+            return redirect()->route('user.index');
         }
     }
     

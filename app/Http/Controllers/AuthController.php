@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\ValidationException;
 use DB;
+use Carbon\Carbon;
 
 
 class AuthController extends Controller
@@ -205,5 +206,19 @@ class AuthController extends Controller
         }
     }
 
+    // $data =  User::find($telp);
+    public function ResetPassword(Request $request){
+        $request->validate([
+            'telp' => 'required|exists:users,telp'
+        ]);
+    
+        return redirect()->route('reset.password', ['telp' => $request->telp]);
+    }
+
+    public function ResetPasswordLink(){
+
+        return view ('back.auth.reset_password');
+    }
+    
 
 }

@@ -82,9 +82,11 @@
                         aria-describedby="password" />
                       <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                     </div>
-                    <a href="auth-forgot-password-basic.html">
+
+                    <a href="" data-bs-toggle="modal" data-bs-target="#enableOTP">
                       <small>Forgot Password?</small>
                     </a>
+                   
                   </div>
                   
                   <div class="mb-3">
@@ -105,6 +107,42 @@
             <!-- /Register -->
           </div>
         </div>
+    </div>
+    <div class="modal fade" id="enableOTP" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+        <div class="modal-content p-3 p-md-5">
+          <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="text-center mb-4">
+              <h3 class="mb-2">Enable One Time Password</h3>
+              <p>Verify Your Mobile Number for SMS</p>
+            </div>
+            <p>Enter your mobile phone number with country code and we will send you a verification code.</p>
+            <form action="{{ route('reset.pass') }}" method="POST" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework">
+              <div class="col-12 fv-plugins-icon-container">
+                <label class="form-label" for="modalEnableOTPPhone">Phone Number</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text">IND (+62)</span>
+                  <input type="text" 
+                  id="modalEnableOTPPhone" 
+                  name="telp" 
+                  class="form-control phone-number-otp-mask" 
+                  placeholder="8*** **** ****">
+                </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">
+                  Submit
+                </button>
+                <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">
+                  Cancel
+                </button>
+              </div>
+            <input type="hidden">
+          </form>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- / Content -->
 @endsection

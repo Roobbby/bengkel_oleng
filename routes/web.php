@@ -36,6 +36,10 @@ Route::get('/', function () {
     Route::post('/check-whatsapp', [AuthController::class, 'checkWhatsApp'])->name('checkWhatsApp');
     Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('checkEmail');
     
+    Route::post('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
+    Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
+    // Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPassword'])->name('reset.pass');
+    
  
     Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
         //user manage

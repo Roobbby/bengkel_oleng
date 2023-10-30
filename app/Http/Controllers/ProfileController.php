@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -40,6 +41,7 @@ class ProfileController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->telp = $request->telp;
+        $data->gender = $request->gender;
         
 
         if ($request->file('foto_profile')) {
@@ -52,12 +54,9 @@ class ProfileController extends Controller
         
         $data->save();
 
-        $notification = array(
-            'message' => ' Profile Update Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Update Data berhasil.');
+        return redirect()->back();
     }
 
     public function ChangePassword(){
@@ -79,12 +78,9 @@ class ProfileController extends Controller
         // Match Old Password
         if (!Hash::check($request->old_password, auth::user()->password )) {
 
-            $notification = array(
-                'message' => 'Password lama salah!',
-                'alert-type' => 'error'
-            );
-
-            return back()->with($notification);
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Password Lama Salah.');
+            return back();
         }
 
         // Update New Password
@@ -93,12 +89,10 @@ class ProfileController extends Controller
 
         ]);
 
-        $notification = array(
-            'message' => 'Password Change Successfully',
-            'alert-type' => 'success'
-        );
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Update Password Berhasil.');
 
-        return back()->with($notification);
+        return back();
 
     }
 
