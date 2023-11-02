@@ -67,16 +67,15 @@
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="status" value="1"> 
-                                <button type="submit" class="btn btn-primary active waves-effect waves-light">Off</button>
+                                <button type="submit" class="btn btn-primary active waves-effect waves-light">Belum Aktif</button>
                             </form>
                         @else
-                            <button type="button" class="btn btn-primary waves-effect waves-light" disabled>On</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light" disabled>Approve</button>
                         @endif
                     </td>
                     <td>
-                      <a href="#" target="_blank">
-                        Lihat Halaman
-                    </a>
+                      {{-- <a href="{{ route('haut')}}"> klik</a> --}}
+                    <a href="{{ route('haut.user') }}">Ke User Domain</a>
                     </td>
                       <td>
                         <div class="btn-group">

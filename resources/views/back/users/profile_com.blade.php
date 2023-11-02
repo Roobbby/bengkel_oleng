@@ -22,6 +22,17 @@ use Illuminate\Support\Str;
         <!-- User Card -->
       <div class="profile-section">
         <div class="card mb-4">
+          @if (session('alert') === 'success')
+          <div class="alert alert-success alert-dismissible" role="alert">
+              {{ session('message') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          @elseif (session('alert') === 'error')
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                  {{ session('message') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          @endif
           <h5 class="card-header">Profile bengkel</h5>
           <div class="card-body">
             <div class="user-avatar-section">
@@ -69,7 +80,7 @@ use Illuminate\Support\Str;
           <div class="card">
             <h5 class="card-header">Edit Profile Bengkel</h5>
             <div class="card-body">
-              <form class="needs-validation" novalidate>
+              <form class="needs-validation" action="" method="">
 
                 <div class="mb-3">
                   <label class="form-label" for="bs-validation-name">Nama Bengkel</label>
@@ -80,7 +91,6 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Nama Bengkel"
                     required />
-                
                 </div>
 
                 <div class="mb-3">
@@ -92,7 +102,6 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Alamat Bengkel"
                     required />
-           
                 </div>
 
                 <div class="mb-3">
@@ -104,7 +113,6 @@ use Illuminate\Support\Str;
                     id="bs-validation-name"
                     placeholder="Massukan Link Maps Bengkel"
                     required />
-          
                 </div>
               
                 <div class="mb-3">

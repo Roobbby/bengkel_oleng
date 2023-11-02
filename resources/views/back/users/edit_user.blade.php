@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          {{-- <div class="mb-3">
+         <div class="mb-3">
             <label class="form-label" for="basic-icon-default-username">Alamat Bengkel</label>
             <div class="input-group input-group-merge">
               <span id="basic-icon-default-username2" class="input-group-text"
@@ -68,7 +68,7 @@
                 value="{{ $data->gmaps }}"
                 required/>
             </div>
-          </div> --}}
+          </div> 
           
           
        

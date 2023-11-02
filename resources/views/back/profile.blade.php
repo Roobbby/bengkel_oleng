@@ -7,24 +7,25 @@ use Carbon\Carbon;
 $now = Carbon::now();
 $activatedDate = Carbon::parse($profileData->activated_date);
 $remainingDays = max($now->diffInDays($activatedDate), 0);
+$percentage = ($remainingDays / 30) * 100; 
 @endphp
 
 
   <!-- Content wrapper -->
   <div class="content-wrapper">
-    @if (session('alert') === 'success')
-    <div class="alert alert-success alert-dismissible" role="alert">
-        {{ session('message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @elseif (session('alert') === 'error')
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            {{ session('message') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
+      @if (session('alert') === 'success')
+      <div class="alert alert-success alert-dismissible" role="alert">
+          {{ session('message') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @elseif (session('alert') === 'error')
+          <div class="alert alert-danger alert-dismissible" role="alert">
+              {{ session('message') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
       <div class="row mb-4">
         <div class="col-xl-5 col-lg-5 col-md-5 order-1 order-md-0">
           <!-- User Card -->
@@ -121,7 +122,7 @@ $remainingDays = max($now->diffInDays($activatedDate), 0);
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Jenis Kelamin :</span>
                     <span>
-                      @switch($profileData->role)
+                      @switch($profileData->gender)
                       @case(0)
                           Laki-Laki
                           @break
@@ -260,17 +261,12 @@ $remainingDays = max($now->diffInDays($activatedDate), 0);
 
                   
                   </div>
+                 
                   <div class="progress mb-1" style="height: 10px">
-                    @php
-                    $activatedDate = Carbon::parse($profileData->activated_date);
-                    $expiredDate = Carbon::parse($profileData->expired_date);
-                    $now = Carbon::now();
-                    $totalDays = $activatedDate->diffInDays($expiredDate);
-                    $daysPassed = $activatedDate->diffInDays($now);
-                    $percentage = ($daysPassed / $totalDays) * 100;
-                    @endphp
-                    <div class="progress-bar w-{{ $percentage }}" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+
+                            
                 
                   <p>{{ $remainingDays }} days remaining until your plan requires update</p>
                 </div>

@@ -86,7 +86,7 @@ class UserController extends Controller
       
         if ($userSaved && $domainSaved) {
             session()->flash('alert', 'success');
-            session()->flash('message', 'Registrasi berhasil. Silakan login.');
+            session()->flash('message', 'Registrasi berhasil.');
             return redirect()->route('user.index');
         }
         
@@ -124,16 +124,21 @@ class UserController extends Controller
         $request->validate(
             [
             'nama_bengkel' => 'required',
+            'alamat_bengkel' => 'required',
+            'gmaps' => 'required',
             
             ],[
                 'nama_bengkel.required' => 'Nama Bengkel',
-               
+                'alamat_bengkel.required' => 'Alamat Bengkel',
+                'gmaps.required' => 'Link Maps Bengkel',
+                
             ]
         );
 
         $data = [
             'nama_bengkel'=>$request->nama_bengkel,
-           
+            'alamat_bengkel'=>$request->alamat_bengkel,
+            'gmaps'=>$request->gmaps,
         ];
         Domain::where('id', $id)->update($data);
 

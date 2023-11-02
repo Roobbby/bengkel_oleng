@@ -75,7 +75,7 @@
               <i class="ti ti-menu-2 ti-sm align-middle"></i>
             </button>
             <!-- Mobile menu toggle: End-->
-            <a href="{{ route('home') }}" class="app-brand-link">
+            <a href="#" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -227,7 +227,7 @@
                 ><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span
                 ><span class="d-none d-md-block">Login/Register</span></a
               > --}}
- 
+                  
               <div class="btn-group" id="dropdown-icon-demo">
                 <a href="{{ route('login') }}" class="btn btn-primary">
                   <span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span>

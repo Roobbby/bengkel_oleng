@@ -31,7 +31,8 @@ class HomeController extends Controller
         return view ('front.index');
     }
 
-    public function HautUser($domain_user){
-        return view ('front.index');
+    public function HautUser(){
+
+        return view ('front.index_user');
     }
 }

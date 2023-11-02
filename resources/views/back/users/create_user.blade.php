@@ -19,7 +19,7 @@
               </ul>
           </div>
           @endif
-          {{-- @if (session('alert') === 'success')
+          @if (session('alert') === 'success')
               <div class="alert alert-success alert-dismissible" role="alert">
                   {{ session('message') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -29,7 +29,7 @@
                   {{ session('message') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
-          @endif --}}
+          @endif
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Sapaan</label>
             <div class="input-group input-group-merge">

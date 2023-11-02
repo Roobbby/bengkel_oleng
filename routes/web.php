@@ -51,15 +51,16 @@ Route::get('/', function () {
         Route::get('/{domain_user}/posuser',[UserController::class, 'PosUser'])->name('pos.user');
         Route::get('/{domain_user}/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
     });   
+    Route::get('/', [HomeController::class, 'HautUser'])->name('haut.user');
+    // Route::get('/user', [HomeController::class, 'HautUser'])->name('haut.user');
 
     // Route::get('/{domain_user}', function () {
     //     return redirect('/{domain_user}');
     // });
-    // Route::get('/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
-
+    
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
-       
+        Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'Profile'])->name('profile');
         Route::post('/profile/store', [ProfileController::class, 'ProfileStore'])->name('profile.store');
         Route::get('/change/password', [ProfileController::class, 'ChangePassword'])->name('change.password');
@@ -77,7 +78,6 @@ Route::get('/', function () {
     
     Route::middleware(['auth','PreventBackHistory' , 'role:0,1'])->group(function(){
         //admin manage
-        Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
         Route::get('/manage/admin', [AdminController::class, 'Index'])->name('manage.admin');
         Route::resource('admin', AdminController::class);
         Route::patch('/admin/toggle-status/{id}', [AdminController::class,'toggleStatus'])->name('admin.toggleStatus');
