@@ -148,6 +148,7 @@
               <option value="2">User</option>
             </select>
           </div>
+          <input type="hidden" name="status" value=0 readonly>
           <div>
             <button type="submit" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah</button>
             

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 $now = Carbon::now();
 $activatedDate = Carbon::parse($profileData->activated_date);
 $remainingDays = max($now->diffInDays($activatedDate), 0);
+$sisaDays = 30 - max($now->diffInDays($activatedDate), 0);
 $percentage = ($remainingDays / 30) * 100; 
 @endphp
 
@@ -107,6 +108,9 @@ $percentage = ($remainingDays / 30) * 100;
                                 @break
                             @case(2)
                                 User
+                                @break
+                            @case(3)
+                                Costumer
                                 @break
                             @default
                                 Role Tidak Diketahui
@@ -239,7 +243,7 @@ $percentage = ($remainingDays / 30) * 100;
                 </div>
                 <div class="mb-2 pt-1">
                   @if ($profileData->expired_date)
-                  <h6 class="mb-1">Active until {{ Carbon::parse($profileData->expired_date)->format('M d, Y') }}</h6>
+                  <h6 class="mb-1">Active until {{ Carbon::parse($profileData->expired_date)->format('d - M - Y ') }}</h6>
 
                       <p>We will send you a notification upon Subscription expiration</p>
                   @else
@@ -258,17 +262,11 @@ $percentage = ($remainingDays / 30) * 100;
                   <div class="d-flex justify-content-between">
                     <h6 class="mb-1">Days</h6>
                     <h6 class="mb-1">{{ $remainingDays }} of 30 Days</h6>
-
-                  
                   </div>
-                 
                   <div class="progress mb-1" style="height: 10px">
                       <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-
-                            
-                
-                  <p>{{ $remainingDays }} days remaining until your plan requires update</p>
+                  <p>{{ $sisaDays }} days remaining until your plan requires update</p>
                 </div>
               </div>
               <div class="col-12 order-2 order-xl-0 d-flex flex-wrap gap-2">

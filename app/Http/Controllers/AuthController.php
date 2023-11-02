@@ -41,6 +41,7 @@ class AuthController extends Controller
             'telp' => 'required|unique:users',
             'email' => 'required|unique:users',
             'role' => 'required|integer',
+            'status' => 'required|integer',
             'password' => 'required',
          ]);
          
@@ -54,6 +55,7 @@ class AuthController extends Controller
             'email' => $validateUser['email'],
             'password' => Hash::make($validateUser['password']),
             'role' => $validateUser['role'],
+            'status' => $validateUser['status'],
         ]);
         
         // Simpan user
@@ -176,7 +178,7 @@ class AuthController extends Controller
         }
     }
   
-    public function checkWhatsApp(Request $request) {
+    public function checkWhatsApps(Request $request) {
         $telp = $request->input('telp');
 
         // Cek apakah username sudah ada di database
@@ -191,7 +193,7 @@ class AuthController extends Controller
         }
     }
 
-    public function checkEmail(Request $request){
+    public function checkEmails(Request $request){
         $email = $request->input('email');
 
         // Cek apakah username sudah ada di database

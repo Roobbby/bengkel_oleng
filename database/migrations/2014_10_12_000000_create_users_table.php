@@ -24,7 +24,7 @@ return new class extends Migration
             //sa = 0, a = 1, u = 2
             $table->enum('role',['0','1','2','3'])->nullable();
             //0 = off, 1 = on
-            $table->enum('status',['0','1'])->default('0');
+            $table->enum('status',['0','1'])->nullable();
             //0 = laki-laki , 1 = perempuan
             $table->enum('gender',['0','1'])->nullable();
             //0 = Tidak Berlangganan , 1 = Berlangganan

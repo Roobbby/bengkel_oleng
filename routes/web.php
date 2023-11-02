@@ -33,9 +33,8 @@ Route::get('/', function () {
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
     // Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
-    Route::post('/check-whatsapp', [AuthController::class, 'checkWhatsApp'])->name('checkWhatsApp');
-    Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('checkEmail');
-    
+    Route::post('/check-whatsapps', [AuthController::class, 'checkWhatsApps'])->name('checkWhatsApps');
+    Route::post('/check-emails', [AuthController::class, 'checkEmails'])->name('checkEmails');
     Route::post('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
     Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
     // Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPassword'])->name('reset.pass');

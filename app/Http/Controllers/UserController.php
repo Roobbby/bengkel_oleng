@@ -51,6 +51,7 @@ class UserController extends Controller
             'telp' => 'required|unique:users',
             'email' => 'required|unique:users',
             'role' => 'required|integer',
+            'status' => 'required|integer',
             'password' => 'required',
         ]);
         
@@ -66,6 +67,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'status' => $request->status,
         ];
         
         $userSaved = User::create($data);

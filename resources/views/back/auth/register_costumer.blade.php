@@ -1,5 +1,5 @@
 @extends('back.auth.layout.auth_layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Register User')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Register Costumer')
 
 @section('content')
     <!-- Content -->
@@ -12,7 +12,7 @@
                 <div class="card-body">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center mb-4 mt-2">
-                    <a href="{{ route('haut') }}" class="app-brand-link gap-2">
+                    <a href="#" class="app-brand-link gap-2">
                     <span class="app-brand-logo demo">
                         <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -59,8 +59,8 @@
                     </div>
                     @endif
                     @csrf
-                    <input type="hidden" name="role" value=2 readonly>
-                    <input type="hidden" name="status" value=0 readonly>
+                    <input type="hidden" name="role" value=3 readonly>
+                    <input type="hidden" name="role" value=1 readonly>
                     <div class="mb-3">
                     <label for="sapaan" class="form-label">Sapaan</label>
                         <select
@@ -109,7 +109,7 @@
                         autofocus 
                         pattern="[0-9]*"/>
                     </div>
-                    <div id="checkWhatsApps"></div>
+                    <div id="checkWhatsApp"></div>
                     </div>
                     <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -117,7 +117,7 @@
                     <input type="text" class="form-control" id="email" name="email" placeholder="Massukan Email" />
                     <span class="input-group-text">@</span>
                     </div>
-                    <div id="checkEmails"></div>
+                    <div id="checkEmail"></div>
                     </div>
 
                     <div class="mb-3 form-password-toggle">
@@ -134,7 +134,7 @@
                     </div>
                     </div>
                     <div class="mb-3 form-password-toggle">
-                    <label class="form-label" for="password_confirm" >Confrim Password</label>
+                    <label class="form-label" for=password_confirm">Confrim Password</label>
                     <div class="input-group input-group-merge">
                         <input
                         type="password"
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary d-grid w-100" type="submit" id="registerButton" >Sign up</button>
-                 
+
                 </form>
     
                 <p class="text-center">
@@ -199,24 +199,24 @@
     
                     // Hapus pesan jika input kosong
                     if (telp === '') {
-                        $('#checkWhatsApps').empty();
+                        $('#checkWhatsApp').empty();
                         return;
                     }
     
                     $.ajax({
-                        url: '{{ route('checkWhatsApps') }}',
+                        url: '{{ route('checkWhatsApp') }}',
                         type: 'POST',
-                        // crossDomain: true,
+                        crossDomain: true,
                         data: {
                             '_token': '{{ csrf_token() }}',
                             'telp': telp
                         }, 
                         success: function(response) {
                             if (response.available) {
-                                $('#checkWhatsApps').html(
+                                $('#checkWhatsApp').html(
                                     '<p class="text-success">WhatsApp tersedia.</p>');
                             } else {
-                                $('#checkWhatsApps').html(
+                                $('#checkWhatsApp').html(
                                     '<p class="text-danger">WhatsApp sudah terpakai.</p>');
                             }
                         }
@@ -232,24 +232,24 @@
     
                     // Hapus pesan jika input kosong
                     if (email === '') {
-                        $('#checkEmails').empty();
+                        $('#checkEmail').empty();
                         return;
                     }
     
                     $.ajax({
-                        url: '{{ route('checkEmails') }}',
+                        url: '{{ route('checkEmail') }}',
                         type: 'POST',
-                        // crossDomain: true,
+                        crossDomain: true,
                         data: {
                             '_token': '{{ csrf_token() }}',
                             'email': email
                         }, 
                         success: function(response) {
                             if (response.available) {
-                                $('#checkEmails').html(
+                                $('#checkEmail').html(
                                     '<p class="text-success">Email tersedia.</p>');
                             } else {
-                                $('#checkEmails').html(
+                                $('#checkEmail').html(
                                     '<p class="text-danger">Email sudah terpakai.</p>');
                             }
                         }
