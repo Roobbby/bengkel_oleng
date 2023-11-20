@@ -97,8 +97,8 @@
                 class="form-control"
                 id="telp"
                 name="telp"
-                placeholder="Massukan Nama"
-                aria-label="Massukan Nama"
+                placeholder="Massukan Nomer Whatsapp"
+                aria-label="Massukan Whatsapp"
                 aria-describedby="basic-icon-default-fullname2"
                 pattern="[0-9]*"
                 required/>

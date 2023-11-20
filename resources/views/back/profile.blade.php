@@ -153,13 +153,13 @@ $percentage = ($remainingDays / 30) * 100;
         <!-- Change Password -->
         <div class="col-xl-7 col-lg-5 col-md-5 order-1 order-md-0">
             <div class="card mb-4">
-              <h5 class="card-header">Change Password</h5>
+              <h5 class="card-header">Ganti Password</h5>
               <div class="card-body">
                 <form method="POST" action="{{ route('update.password') }}"  class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
                   @csrf
                   <div class="row">
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="old_password">Current Password</label>
+                      <label class="form-label" for="old_password">Password Lama</label>
                       <div class="input-group input-group-merge has-validation">
                         <input 
                         class="form-control @error('old_password') is-invalid @enderror " 
@@ -179,7 +179,7 @@ $percentage = ($remainingDays / 30) * 100;
   
                   <div class="row">
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="new_password">New Password</label>
+                      <label class="form-label" for="new_password">Password Baru</label>
                       <div class="input-group input-group-merge has-validation">
                         <input 
                         class="form-control @error('new_password') is-invalid @enderror" 
@@ -196,7 +196,7 @@ $percentage = ($remainingDays / 30) * 100;
                     </div>
   
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="new_password_confirm">Confirm New Password</label>
+                      <label class="form-label" for="new_password_confirm">Confirmasi Password Baru</label>
                       <div class="input-group input-group-merge has-validation">
                         <input class="form-control" 
                         type="text" 
@@ -233,22 +233,21 @@ $percentage = ($remainingDays / 30) * 100;
         <!-- Subcribe -->
         @if(Auth::user()->role == 2)
         <div class="card mb-4">
-          <h5 class="card-header">Current Plan</h5>
+          <h5 class="card-header">Berlangganan</h5>
           <div class="card-body">
             <div class="row">
               <div class="col-xl-6 order-1 order-xl-0">
                 <div class="mb-2">
-                  <h6 class="mb-1">Your Current Plan is Basic</h6>
-                  <p>A simple start for everyone</p>
+                  {{-- <h6 class="mb-1">Your Current Plan is Basic</h6>
+                  <p>A simple start for everyone</p> --}}
                 </div>
                 <div class="mb-2 pt-1">
                   @if ($profileData->expired_date)
-                  <h6 class="mb-1">Active until {{ Carbon::parse($profileData->expired_date)->format('d - M - Y ') }}</h6>
-
-                      <p>We will send you a notification upon Subscription expiration</p>
-                  @else
+                  <h6 class="mb-1">Aktif Hingga {{ Carbon::parse($profileData->expired_date)->format('d - M - Y ') }}</h6>
+                      {{-- <p>We will send you a notification upon Subscription expiration</p> --}}
+                  {{-- @else
                       <h6 class="mb-1">Subscription date not set</h6>
-                      <p>Please set your subscription date</p>
+                      <p>Please set your subscription date</p> --}}
                   @endif
                 </div>                          
                 
@@ -260,21 +259,21 @@ $percentage = ($remainingDays / 30) * 100;
                 </div> --}}
                 <div class="plan-statistics">
                   <div class="d-flex justify-content-between">
-                    <h6 class="mb-1">Days</h6>
-                    <h6 class="mb-1">{{ $remainingDays }} of 30 Days</h6>
+                    <h6 class="mb-1">Hari Ke-</h6>
+                    <h6 class="mb-1">{{ $remainingDays }} Dari 30 Hari</h6>
                   </div>
                   <div class="progress mb-1" style="height: 10px">
                       <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <p>{{ $sisaDays }} days remaining until your plan requires update</p>
+                  <p>{{ $sisaDays }} Hari Sebelum Massa Berlaku Habis</p>
                 </div>
               </div>
-              <div class="col-12 order-2 order-xl-0 d-flex flex-wrap gap-2">
+              {{-- <div class="col-12 order-2 order-xl-0 d-flex flex-wrap gap-2">
                 <button class="btn btn-primary me-2 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#upgradePlanModal">
                   Upgrade Plan
                 </button>
                 <button class="btn btn-label-danger cancel-subscription waves-effect">Cancel Subscription</button>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -344,11 +343,12 @@ $percentage = ($remainingDays / 30) * 100;
                   <label class="form-label">Email</label>
                   <input
                     type="text"
-                    id="modalEditEmail"
+                    id="email"
                     name="email"
                     class="form-control"
                     value="{{ $profileData->email }}"
                     placeholder="john.doe.007" />
+                    <div id="checksEmail"></div>
                 </div>
              
                 <div class="col-12 col-md-6">
@@ -369,12 +369,14 @@ $percentage = ($remainingDays / 30) * 100;
                     <span class="input-group-text">+62</span>
                     <input
                       type="text"
-                      id="modalEditUserPhone"
+                      id="telp"
                       name="telp"
                       class="form-control phone-number-mask"
                       value="{{ $profileData->telp }}"
-                      placeholder=" " />
+                      placeholder=" " 
+                      pattern="[0-9]*"/>
                   </div>
+                    <div id="checksWhatsApp"></div>
                 </div>
                 </div>
                
@@ -444,5 +446,85 @@ $percentage = ($remainingDays / 30) * 100;
               }
           });
       });
+    </script>
+     {{-- script untuk nomer whatsapp --}}
+     <script>
+        $(document).ready(function() {
+            $('#telp').on('keyup', function() {
+                var telp = $(this).val();
+
+                // Hapus pesan jika input kosong
+                if (telp === '') {
+                    $('#checksWhatsApp').empty();
+                    return;
+                }
+
+                $.ajax({
+                    url: '{{ route('checksWhatsApp') }}',
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'telp': telp
+                    }, 
+                    success: function(response) {
+                        if (response.available) {
+                            $('#checksWhatsApp').html(
+                                '<p class="text-success">WhatsApp tersedia.</p>');
+                        } else {
+                            $('#checksWhatsApp').html(
+                                '<p class="text-danger">WhatsApp sudah terpakai.</p>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+     {{-- Script untuk validasi nomor --}}
+      <script>
+        document.getElementById('telp').addEventListener('input', function(e) {
+            // Menghapus karakter selain angka dari nilai input
+            this.value = this.value.replace(/\D/g, '');
+
+            // Validasi nomor seluler WhatsApp
+            var inputValue = this.value;
+            if (inputValue.startsWith('0') || inputValue.startsWith('6') || inputValue.startsWith('2'))  {
+                inputValue = inputValue.slice(1);
+            }
+
+            // Memperbarui nilai input dengan nomor yang sudah divalidasi
+            this.value = inputValue;
+        });
+      </script>
+      {{-- script untuk Email --}}
+      <script>
+        $(document).ready(function() {
+            $('#email').on('keyup', function() {
+                var email = $(this).val();
+
+                // Hapus pesan jika input kosong
+                if (email === '') {
+                    $('#checksEmail').empty();
+                    return;
+                }
+
+                $.ajax({
+                    url: '{{ route('checksEmail') }}',
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'email': email
+                    }, 
+                    success: function(response) {
+                        if (response.available) {
+                            $('#checksEmail').html(
+                                '<p class="text-success">Email tersedia.</p>');
+                        } else {
+                            $('#checksEmail').html(
+                                '<p class="text-danger">Email sudah terpakai.</p>');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 @endsection

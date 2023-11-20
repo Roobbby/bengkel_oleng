@@ -1,10 +1,8 @@
-{{-- tidak terpakai --}}
+
 @extends('back.layout.index')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Change Password')
-
-
 @section('content')
-    
+    {{-- tidak terpakai --}}
 <div class="content-wrapper">
 
     <!-- Content -->
@@ -20,7 +18,7 @@
                 @csrf
                 <div class="row">
                   <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                    <label class="form-label" for="old_password">Current Password</label>
+                    <label class="form-label" for="old_password">Password Lama</label>
                     <div class="input-group input-group-merge has-validation">
                       <input 
                       class="form-control  @error('old_password') is-invalid @enderror" 
@@ -39,7 +37,7 @@
 
                 <div class="row">
                   <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                    <label class="form-label" for="new_password">New Password</label>
+                    <label class="form-label" for="new_password">Password Baru</label>
                     <div class="input-group input-group-merge has-validation">
                       <input 
                       class="form-control @error('new_password') is-invalid @enderror" 
@@ -56,7 +54,7 @@
                   </div>
 
                   <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                    <label class="form-label" for="new_password_confirmation">Confirm New Password</label>
+                    <label class="form-label" for="new_password_confirmation">Confirm Password Baru</label>
                     <div class="input-group input-group-merge has-validation">
                       <input class="form-control" type="password" name="new_password_confirmation" id="new_password_confirmation" placeholder="············"
                       autocomplete="off">
@@ -82,7 +80,7 @@
           <!--/ Change Password -->
 
           <!-- Two-steps verification -->
-
+{{-- 
           <div class="card mb-4">
             <h5 class="card-header">Two-steps verification</h5>
             <div class="card-body">
@@ -96,13 +94,11 @@
                 Enable two-factor authentication
               </button>
             </div>
-          </div>
+          </div> --}}
 
           <!-- Modal -->
-
           <!-- Enable OTP Modal -->
-
-          <div class="modal fade" id="enableOTP" tabindex="-1" aria-hidden="true">
+          {{-- <div class="modal fade" id="enableOTP" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
               <div class="modal-content p-3 p-md-5">
                 <div class="modal-body">
@@ -132,12 +128,9 @@
                 </div>
               </div>
             </div>
-          </div>
-
+          </div> --}}
           <!--/ Enable OTP Modal -->
-
           <!-- /Modal -->
-
           <!--/ Two-steps verification -->
 
         </div>

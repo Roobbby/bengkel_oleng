@@ -7,7 +7,7 @@
   
     $user = Auth::user();
     $user->load('domain');
-    $namaBengkel = $user->domain ? $user->domain->nama_bengkel : "Tidak ada domain terkait";
+    $domain_user = optional($user->domain)->domain_user; 
   @endphp
 
 
@@ -75,7 +75,7 @@
                     </td>
                     <td>
                       {{-- <a href="{{ route('haut')}}"> klik</a> --}}
-                    <a href="{{ route('haut.user') }}">Ke User Domain</a>
+                      <a href="{{ $domain_user ? route('haut.user', ['domain_user' => $domain_user]) : '#' }}">Ke Halaman Utama</a>
                     </td>
                       <td>
                         <div class="btn-group">

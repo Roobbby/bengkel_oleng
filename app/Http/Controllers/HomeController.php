@@ -33,6 +33,6 @@ class HomeController extends Controller
 
     public function HautUser(){
 
-        return view ('front.index_user');
+        return redirect ('haut.user');
     }
 }

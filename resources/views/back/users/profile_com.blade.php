@@ -133,7 +133,7 @@ use Illuminate\Support\Str;
                 <div class="row">
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('profile.com' , ['domain_user' => $domain]) }}"
+                    <a href="{{ route('profile.com' ,['id' => $user->domain->id]) }}"
                     class="btn btn-primary">Cancel</a>
                   </div>
                 </div>

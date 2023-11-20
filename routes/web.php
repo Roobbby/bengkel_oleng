@@ -32,7 +32,6 @@ Route::get('/', function () {
     Route::post('/register/store', [AuthController::class, 'RegisterStore'])->name('register.store');
     Route::get('/login', [AuthController::class, 'Login'])->name('login');
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
-    // Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
     Route::post('/check-whatsapps', [AuthController::class, 'checkWhatsApps'])->name('checkWhatsApps');
     Route::post('/check-emails', [AuthController::class, 'checkEmails'])->name('checkEmails');
     Route::post('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
@@ -42,21 +41,17 @@ Route::get('/', function () {
  
     Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
         //user manage
-        Route::get('/{domain_user}/dashboard', [UserController::class, 'DashboardUser'])->name('dashboard.user');
+        Route::get('/dashboard/{id}', [UserController::class, 'DashboardUser'])->name('dashboard.user');
         //usless
-        Route::get('/{domain_user}/profile', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
+        Route::get('/profile/{id}', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
 
-        Route::get('/{domain_user}/user', [UserController::class, 'ProfileCom'])->name('profile.com');
-        Route::get('/{domain_user}/posuser',[UserController::class, 'PosUser'])->name('pos.user');
-        Route::get('/{domain_user}/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
+        Route::get('/user/{id}', [UserController::class, 'ProfileCom'])->name('profile.com');
+        Route::get('/posuser/{id}',[UserController::class, 'PosUser'])->name('pos.user');
+        Route::get('/cosuser/{id}',[UserController::class, 'CosUser'])->name('cos.user');
     });   
-    Route::get('/', [HomeController::class, 'HautUser'])->name('haut.user');
-    // Route::get('/user', [HomeController::class, 'HautUser'])->name('haut.user');
+    // Route::get('/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
 
-    // Route::get('/{domain_user}', function () {
-    //     return redirect('/{domain_user}');
-    // });
-    
+   
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
         Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
@@ -65,10 +60,12 @@ Route::get('/', function () {
         Route::get('/change/password', [ProfileController::class, 'ChangePassword'])->name('change.password');
         Route::post('/update/password', [ProfileController::class, 'UpdatePassword'])->name('update.password');
         Route::post('/check-old-password', [ProfileController::class, 'checkOldPassword'])->name('check.old_password');
+        Route::post('/checks-whatsapp', [ProfileController::class, 'checksWhatsApp'])->name('checksWhatsApp');
+        Route::post('/checks-email', [ProfileController::class, 'checksEmail'])->name('checksEmail');
         Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
     }); 
     
-    Route::middleware(['auth','PreventBackHistory', 'role:0'])->group(function(){
+    Route::middleware(['auth','PreventBackHistory', 'role:0,1'])->group(function(){
         //super admin manage
         Route::get('/manage/superadmin', [SuperAdminController::class, 'Index'])->name('manage.super.admin');
         Route::resource('superadmin', SuperAdminController::class);
@@ -85,6 +82,8 @@ Route::get('/', function () {
         Route::resource('user', UserController::class);
         Route::post('/check-whatsapp', [UserController::class, 'checkWhatsApp'])->name('checkWhatsApp');
         Route::post('/check-email', [UserController::class, 'checkEmail'])->name('checkEmail');
+        Route::get('/transaction', [UserController::class, 'transaction'])->name('transaction');
+        Route::get('/whatsapp-admin',[UserController::class, 'whatsappadmin'])->name('whatsapp.admin');
     });
     
     

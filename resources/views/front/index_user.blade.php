@@ -13,16 +13,6 @@
               Production-ready & easy to use Admin Template<br class="d-none d-lg-block" />
               for Reliability and Customizability.
             </h2>
-            <div class="landing-hero-btn d-inline-block position-relative">
-              <span class="hero-btn-item position-absolute d-none d-md-flex text-heading"
-                >
-                <img
-                  src="/asset/assets/img/front-pages/icons/Join-community-arrow.png"
-                  alt="Join community arrow"
-                  class="scaleX-n1-rtl"
-              /></span>
-              <a href="#" class="btn btn-primary btn-lg">Bengkel</a>
-            </div>
           </div>
           <div id="heroDashboardAnimation" class="hero-animation-img">
             <a href="/asset/vertical-menu-template/app-ecommerce-dashboard.html" target="_blank">

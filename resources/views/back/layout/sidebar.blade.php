@@ -43,7 +43,6 @@
     $userStatus = auth()->user()->status;
     $userRole = auth()->user()->role;
     $user = Auth::user();
-    $domain = $user->domain;
     @endphp
 
   <ul class="menu-inner py-1">
@@ -63,7 +62,7 @@
                 <div data-i18n="Page 1">Dashboard</div>
             </a>
         </li>
-        
+            
         <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
             <a href="{{ route('admin.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-user-cog"></i>
@@ -89,22 +88,22 @@
               <div data-i18n="Page 4">User Management</div>
           </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-          <a href="{{ route('user.index') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() == 'transaction' ? 'active' : '' }}">
+          <a href="{{ route('transaction') }}" class="menu-link">
               <i class="menu-icon tf-icons ti ti-user-edit"></i>
               <div data-i18n="Page 4">Data Transaksi</div>
           </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-          <a href="{{ route('user.index') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() == 'whatsapp.admin' ? 'active' : '' }}">
+          <a href="{{ route('whatsapp.admin') }}" class="menu-link">
               <i class="menu-icon tf-icons ti ti-user-edit"></i>
               <div data-i18n="Page 4">WhatsApp</div>
           </a>
         </li>
-        <li class="menu-header small text-uppercase">
+        {{-- <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Profile &amp; Settings</span>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+          <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
             <a href="{{ route('user.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-user-edit"></i>
                 <div data-i18n="Page 4">Profile</div>
@@ -115,22 +114,22 @@
                 <i class="menu-icon tf-icons ti ti-user-edit"></i>
                 <div data-i18n="Page 4">Settings</div>
             </a>
-        </li>
+          </li> --}}
         @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
         <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
-              <a href="{{ route('dashboard.user', ['domain_user' => $domain]) }}" class="menu-link">
+              <a href="{{ route('dashboard.user' , ['id' => $user->domain->id]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 1">Dashboard</div>
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
-              <a href="{{ route('pos.user', ['domain_user' => $domain]) }}" class="menu-link">
+              <a href="{{ route('pos.user' , ['id' => $user->domain->id]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 5">POS</div>
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : ''}}">
-              <a href="{{ route('cos.user', ['domain_user' => $domain]) }}" class="menu-link">
+              <a href="{{ route('cos.user' , ['id' => $user->domain->id]) }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 5"> Data Pelanggan</div>
               </a>
@@ -166,7 +165,7 @@
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-            <a href="{{ route('profile.com' , ['domain_user' => $domain])}}" class="menu-link ">
+            <a href="{{ route('profile.com' ,['id' => $user->domain->id])}}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Page 7">Profile</div>
             </a>

@@ -106,5 +106,32 @@ class ProfileController extends Controller
             return response()->json(['valid' => false]);
         }
     }
-    
+
+    public function checksWhatsApp(Request $request) {
+        $telp = $request->input('telp');
+
+        $telp = User::where('telp', $telp)->first();
+
+        if ($telp) {
+          
+            return response()->json(['available' => false]);
+        } else {
+           
+            return response()->json(['available' => true]);
+        }
+    }
+
+    public function checksEmail(Request $request){
+        $email = $request->input('email');
+
+        $email = User::where('email', $email)->first();
+
+        if ($email) {
+           
+            return response()->json(['available' => false]);
+        } else {
+      
+            return response()->json(['available' => true]);
+        }
+    }
 }

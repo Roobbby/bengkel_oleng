@@ -186,7 +186,6 @@ class UserController extends Controller
         }
     }
     
-    
     // $notification = array(
     //     'message' => 'Update Status Gagal',
     //     'alert-type' => 'error'
@@ -227,41 +226,65 @@ class UserController extends Controller
     public function ProfileCom(){
         
         $user = Auth::user();
-        $domain = $user->domain;
+        $id = $user->domain->id;
+        $user = Domain::where('id', $id)->first();
+        
 
-        return view('back.users.profile_com', ['domain_user' => $domain]);
+        return view('back.users.profile_com');
     }
 
-    public function DashboardUser($domain_user){
-        // $user = Auth::user();
-        // $domain_user = $user->domain->domain_user;
-            $user = Domain::where('domain_user', $domain_user)->first();
-        
-            return view('back.users.dashboard_user', ['domain_user' => $user]);
-        
-        
+    public function DashboardUser(){
+        // Memastikan user terotentikasi
+        if (Auth::check()) {
+            $authUser = Auth::user();
+    
+            // Memastikan user memiliki properti 'domain' dan memuatnya
+            if ($authUser->domain != null) {
+                $authUser->load('domain');
+    
+                // Kembalikan view dengan data domain
+                return view('back.users.dashboard_user', compact('authUser'));
+            } else {
+                // Handle jika user tidak memiliki domain
+                return redirect()->route('login')->with('error', 'Anda perlu login terlebih dahulu.');
+            }
+        } else {
+            // Handle jika user tidak terotentikasi
+            return redirect()->route('login')->with('error', 'Anda perlu login terlebih dahulu.');
+        }
     }
+    
 
     public function PosUser(){
 
         $user = Auth::user();
-        $domain_user = $user->domain->domain_user;
+        $id = $user->domain->id;
+        $user = Domain::where('id', $id)->first();
 
-        return view('back.users.post_user', ['domain_user' => $domain_user]);
+        return view('back.users.post_user');
 
     }
 
     public function CosUser(){
         
         $user = Auth::user();
-        $domain_user = $user->domain->domain_user;
+        $id = $user->domain->id;
+        $user = Domain::where('id', $id)->first();
 
-        return view('back.users.costumer_user', ['domain_user' => $domain_user]);
+        return view('back.users.costumer_user');
     }
     
     public function ProfileBengkel(){
 
 
+    }
+
+    public function transaction(){
+        return view('back.admin.transaksi');
+    }
+
+    public function whatsappadmin(){
+        return view('back.admin.whatsapp_admin');
     }
 
 }

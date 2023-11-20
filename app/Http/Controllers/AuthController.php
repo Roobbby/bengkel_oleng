@@ -7,12 +7,8 @@ use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\ValidationException;
-use DB;
-use Carbon\Carbon;
-
 
 class AuthController extends Controller
 {
@@ -45,7 +41,7 @@ class AuthController extends Controller
             'password' => 'required',
          ]);
          
-         $validateUser['password'] = Hash::make($validateUser['password']);
+            $validateUser['password'] = Hash::make($validateUser['password']);
          
          $user = new User([
             'sapaan' => $validateUser['sapaan'],
@@ -70,7 +66,7 @@ class AuthController extends Controller
                 'user_id' => $newUserId,
                 'domain_user' => $newUserDomain,
             ]);
-               
+        
             $domainSaved = $domain->save();
         }
         
@@ -138,45 +134,45 @@ class AuthController extends Controller
 
         if (Auth::attempt($data)) {
             $user = Auth::user();
-
-            if ($user) {
-                $domain_user = optional($user->domain)->domain_user;
-
-                if ($user->role == 2) {
-                    return redirect()->route('dashboard.user', ['domain_user' => $domain_user]);
+        
+            if ($user->role == 2) {
+                // Pastikan user memiliki properti domain sebelum me-redirect
+                if ($user->domain) {
+                    return redirect()->route('dashboard.user', ['id' => $user->domain->id]);
                 } else {
-                    return redirect()->route('dashboard');
+                    // Handle jika user tidak memiliki domain
+                    return redirect()->route('login')->with('error', 'User tidak memiliki domain terkait.');
                 }
             } else {
-                return redirect()->back()->with('alert', 'error')->with('message', 'User tidak ditemukan.');
+                return redirect()->route('dashboard');
             }
         } else {
             return redirect()->back()->with('alert', 'error')->with('message', 'Email atau password salah. Silakan coba lagi.');
         }
     }
 
-    
     public function Logout(Request $request)
     {
         Auth::guard('web')->logout();
         return redirect()->route('login')->with('fail', 'You are logged out!!!');
     }
     
-    public function checkUsernameAvailability(Request $request)
-    {
-        $username = $request->input('username');
+    // tidak terpakai
+    // public function checkUsernameAvailability(Request $request)
+    // {
+    //     $username = $request->input('username');
 
-        // Cek apakah username sudah ada di database
-        $user = User::where('username', $username)->first();
+    //     // Cek apakah username sudah ada di database
+    //     $user = User::where('username', $username)->first();
 
-        if ($user) {
-            // Username sudah terpakai
-            return response()->json(['available' => false]);
-        } else {
-            // Username tersedia
-            return response()->json(['available' => true]);
-        }
-    }
+    //     if ($user) {
+    //         // Username sudah terpakai
+    //         return response()->json(['available' => false]);
+    //     } else {
+    //         // Username tersedia
+    //         return response()->json(['available' => true]);
+    //     }
+    // }
   
     public function checkWhatsApps(Request $request) {
         $telp = $request->input('telp');

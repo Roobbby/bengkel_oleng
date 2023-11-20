@@ -2,7 +2,7 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Landing Page')
 @section('content')
 
-<div data-bs-spy="scroll" class="scrollspy-example">
+  <div data-bs-spy="scroll" class="scrollspy-example">
     <!-- Hero: Start -->
     <section id="hero-animation">
       <div id="landingHero" class="section-py landing-hero position-relative">
