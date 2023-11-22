@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Domain;
+use App\Models\Costumer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -233,8 +234,22 @@ class AuthController extends Controller
         return view ('back.auth.reset_password');
     }
 
-    public function resetpass(){
-
+    public function resetpass(Request $request){
+        $request->validate([
+            'telp' => 'required|exists:users,telp',
+            'password' => 'required|min:8|confirmed',
+        ]);
+    
+        // Cari pengguna berdasarkan nomor telepon
+        $user = User::where('telp', $request->telp)->first();
+    
+        // Update password pengguna
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+    
+        // Redirect ke halaman login dengan pesan sukses
+        return redirect()->route('login')->with('success', 'Password berhasil direset. Silakan login.');
     }
     
     
