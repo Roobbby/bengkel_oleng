@@ -75,7 +75,7 @@
                         @endif
                     </td>
                     <td>
-                      <a href="{{ $domain_user ? route('haut.user', ['domain_user' => $domain_user]) : '#' }}">Ke Halaman Utama</a>
+                      <a href="{{ route('haut.user', ['domain_user' => optional($domain_user)->domain_user]) }}">Ke Halaman Utama</a>
                     </td>
                       <td>
                         <div class="btn-group">

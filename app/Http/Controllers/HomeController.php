@@ -32,7 +32,9 @@ class HomeController extends Controller
     }
 
     public function HautUser(){
+    
+    $domainuser = Domain::value('domain_user');
 
-        return redirect ('haut.user');
+    return view('front.index_user', ['domain_user' => $domainuser]);
     }
 }

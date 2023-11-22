@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('username')->nullable();
             $table->string('name');
             $table->enum('sapaan', ['Pak', 'Bu', 'Mas', 'Mbak', 'Kak', 'Dek'])->nullable();
             $table->string('panggilan')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('telp')->unique();
+            $table->string('telp')->unique()->nullable();
             $table->string('foto_profile')->nullable();
             //sa = 0, a = 1, u = 2
             $table->enum('role',['0','1','2','3'])->nullable();
@@ -28,7 +29,7 @@ return new class extends Migration
             //0 = laki-laki , 1 = perempuan
             $table->enum('gender',['0','1'])->nullable();
             //0 = Tidak Berlangganan , 1 = Berlangganan
-            $table->enum('expired_status', ['0', '1'])->default('0');
+            //$table->enum('expired_status', ['0', '1'])->default('0');
             $table->timestamp('activated_date')->nullable();
             $table->timestamp('expired_date')->nullable();
             $table->rememberToken();

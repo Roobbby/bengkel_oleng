@@ -24,12 +24,13 @@
             </div>
             <!-- /Logo -->
             <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
-            <p class="mb-4">for <span class="fw-medium"></span></p>
+            <p class="mb-4">for <span class="fw-medium">0{{$user->telp}}</span></p>
             <form 
-            class="fv-plugins-bootstrap5 fv-plugins-framework">
+            class="fv-plugins-bootstrap5 fv-plugins-framework" action="" method="">
                 @csrf 
                 <div class="mb-3 form-password-toggle fv-plugins-icon-container">
                     <label class="form-label" for="password">New Password</label>
+                    <input type="text" name="telp" value="{{ optional($user)->telp }}" hidden>
                     <div class="input-group input-group-merge has-validation">
                         <input 
                         type="password" 

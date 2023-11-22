@@ -58,7 +58,7 @@ class AuthController extends Controller
         
         if ($userSaved) {
             $newUserId = $user->id;
-            $newUserDomain = 'bengkel_' . $user['name'];
+            $newUserDomain = 'bengkel_' . $user['panggilan'];
         
             $domain = new Domain([
                 'user_id' => $newUserId,
@@ -219,12 +219,16 @@ class AuthController extends Controller
         // Jika ada, tampilkan formulir reset password
         return view('back.auth.reset_password', compact('user'));
     }
-
+    
     public function ResetPasswordLink(){
-        
-        $user = Auth::user();
-        return view ('back.auth.reset_password', compact('user'));
+        // Tampilkan formulir reset password tanpa data pengguna
+        return view ('back.auth.reset_password');
     }
+
+    public function resetpass(){
+        
+    }
+    
     
 
 }

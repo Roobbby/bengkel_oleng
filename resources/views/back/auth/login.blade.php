@@ -119,6 +119,7 @@
             </div>
             <p>Enter your mobile phone number with country code and we will send you a verification code.</p>
             <form action="{{ route('reset.pass') }}" method="POST" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework">
+              @csrf
               <div class="col-12 fv-plugins-icon-container">
                 <label class="form-label" for="modalEnableOTPPhone">Phone Number</label>
                 <div class="input-group has-validation">
@@ -138,7 +139,6 @@
                   Cancel
                 </button>
               </div>
-            <input type="hidden">
           </form>
           </div>
         </div>
