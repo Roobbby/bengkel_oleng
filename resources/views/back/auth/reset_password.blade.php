@@ -24,10 +24,8 @@
             </div>
             <!-- /Logo -->
             <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
-            <p class="mb-4">for <span class="fw-medium">john.doe@email.com</span></p>
-            <form id="formAuthentication" 
-            {{-- action="{{ route('reset.password') }}" 
-            method="GET"  --}}
+            <p class="mb-4">for <span class="fw-medium"></span></p>
+            <form 
             class="fv-plugins-bootstrap5 fv-plugins-framework">
                 @csrf 
                 <div class="mb-3 form-password-toggle fv-plugins-icon-container">

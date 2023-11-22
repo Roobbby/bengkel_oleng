@@ -16,17 +16,7 @@ $percentage = ($remainingDays / 30) * 100;
   <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-      @if (session('alert') === 'success')
-      <div class="alert alert-success alert-dismissible" role="alert">
-          {{ session('message') }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      @elseif (session('alert') === 'error')
-          <div class="alert alert-danger alert-dismissible" role="alert">
-              {{ session('message') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      @endif
+      @include('back.alert')
       <div class="row mb-4">
         <div class="col-xl-5 col-lg-5 col-md-5 order-1 order-md-0">
           <!-- User Card -->
@@ -83,38 +73,40 @@ $percentage = ($remainingDays / 30) * 100;
                   </li>
                     <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Status :</span>
-                    <span class="badge bg-label-success">
-                        @switch($profileData->status)
-                            @case(0)
-                                Belum Aktif
-                                @break
-                            @case(1)
-                                Aktif
-                                @break
-                            @default
-                                Belum Terverivikasi
-                        @endswitch
-                    </span>
-                  </li>
+                      @switch($profileData->status)
+                          @case(0)
+                          <span class="badge bg-label-danger  mt-1">
+                              Belum Aktif
+                          </span>
+                              @break
+                          @case(1)
+                          <span class="badge bg-label-success  mt-1">
+                              Aktif
+                          </span>
+                              @break
+                          @default
+                              Belum Terverivikasi
+                      @endswitch
+                    </li>
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Role :</span>
                     <span>
-                        @switch($profileData->role)
-                            @case(0)
-                                Super Admin
-                                @break
-                            @case(1)
-                                Admin
-                                @break
-                            @case(2)
-                                User
-                                @break
-                            @case(3)
-                                Costumer
-                                @break
-                            @default
-                                Role Tidak Diketahui
-                        @endswitch
+                      @switch($profileData->role)
+                          @case(0)
+                              Super Admin
+                              @break
+                          @case(1)
+                              Admin
+                              @break
+                          @case(2)
+                              User
+                              @break
+                          @case(3)
+                              Costumer
+                              @break
+                          @default
+                              Role Tidak Diketahui
+                      @endswitch
                     </span>
                   </li>
                  
@@ -127,19 +119,19 @@ $percentage = ($remainingDays / 30) * 100;
                     <span class="fw-medium me-1">Jenis Kelamin :</span>
                     <span>
                       @switch($profileData->gender)
-                      @case(0)
-                          Laki-Laki
-                          @break
-                      @case(1)
-                          Perempuan
-                        @endswitch  
+                        @case(0)
+                            Laki-Laki
+                            @break
+                        @case(1)
+                            Perempuan
+                      @endswitch  
                     </span>
                   </li>
           
                 </ul>
                 <div class="d-flex justify-content-center">
                   <a
-                    href="javascript:;"
+                    href="/"
                     class="btn btn-primary me-3"
                     data-bs-target="#editUser"
                     data-bs-toggle="modal"
@@ -153,6 +145,7 @@ $percentage = ($remainingDays / 30) * 100;
         <!-- Change Password -->
         <div class="col-xl-7 col-lg-5 col-md-5 order-1 order-md-0">
             <div class="card mb-4">
+            
               <h5 class="card-header">Ganti Password</h5>
               <div class="card-body">
                 <form method="POST" action="{{ route('update.password') }}"  class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
@@ -162,16 +155,13 @@ $percentage = ($remainingDays / 30) * 100;
                       <label class="form-label" for="old_password">Password Lama</label>
                       <div class="input-group input-group-merge has-validation">
                         <input 
-                        class="form-control @error('old_password') is-invalid @enderror " 
+                        class="form-control " 
                         type="text" 
                         name="old_password" 
                         id="old_password"
                         placeholder="············"
                         >
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                        @error('old_password')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
                       </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                       <div id="password-feedback"></div>
                     </div>
@@ -182,26 +172,24 @@ $percentage = ($remainingDays / 30) * 100;
                       <label class="form-label" for="new_password">Password Baru</label>
                       <div class="input-group input-group-merge has-validation">
                         <input 
-                        class="form-control @error('new_password') is-invalid @enderror" 
+                        class="form-control" 
                         type="text" 
                         id="new_password" 
                         name="new_password" 
                         placeholder="············"
                         autocomplete="off">
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                        @error('new_password')
-                          <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        
                       </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                     </div>
   
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="new_password_confirm">Confirmasi Password Baru</label>
+                      <label class="form-label" for="new_password_confirmation">Confirmasi Password Baru</label>
                       <div class="input-group input-group-merge has-validation">
                         <input class="form-control" 
                         type="text" 
-                        name="password_confirm" 
-                        id="password_confirm" 
+                        name="new_password_confirmation" 
+                        id="new_password_confirmation" 
                         placeholder="············"
                         autocomplete="off">
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
@@ -215,8 +203,8 @@ $percentage = ($remainingDays / 30) * 100;
                       </ul>
                     </div>
                     <div>
-                      <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Save changes</button>
-                      <button type="reset" class="btn btn-label-secondary waves-effect">Cancel</button>
+                      <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Simpan</button>
+                      <button type="reset" class="btn btn-label-secondary waves-effect">Reset</button>
                     </div>
                   </div>
               </form>
@@ -295,7 +283,7 @@ $percentage = ($remainingDays / 30) * 100;
               </div>
               <form method="POST" action="{{ route('profile.store')}}" id="editUserForm" class="row g-3" enctype="multipart/form-data">
                 @csrf
-                <div class="card-body">
+                 <div class="card-body">
                    <div class="d-flex align-items-start align-items-sm-center gap-4">
                       <label for=""></label>
                       <img src="{{ (!empty($profileData->foto_profile)) ? url('image/profile/'.$profileData->foto_profile) : url('image/default-avatar.png') }}" alt="profile" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar">
@@ -307,8 +295,8 @@ $percentage = ($remainingDays / 30) * 100;
                           <input type="file" id="upload" class="account-file-input" name="foto_profile" hidden="" accept="image/png, image/jpeg, image/jpg, image/gif, image/svg+xml">
                           <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
                         </div>
-                   </div>
-                </div>
+                    </div>
+                  </div>
                 <div class="col-12">
                   <label class="form-label" >Sapaan</label>
                   <input
@@ -434,7 +422,7 @@ $percentage = ($remainingDays / 30) * 100;
 
     <script>
       $(document).ready(function() {
-          $('#password_confirm').on('input', function() {
+          $('#new_password_confirmation').on('input', function() {
               var new_password = $('#new_password').val();
               var confirmPassword = $(this).val();
               var errorDiv = $('#password-error');
@@ -527,4 +515,5 @@ $percentage = ($remainingDays / 30) * 100;
             });
         });
     </script>
+
 @endsection

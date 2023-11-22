@@ -2,7 +2,7 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Dashboard')
 @section('content')
     
-
+    @include('back.alert')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"> Welcome {{ auth()->user()->name }} </h4>
         <h4 class="py-3 mb-4">

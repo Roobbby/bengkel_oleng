@@ -34,20 +34,20 @@ Route::get('/', function () {
     Route::post('/actionlogin', [AuthController::class, 'ActionLogin'])->name('actionlogin');
     Route::post('/check-whatsapps', [AuthController::class, 'checkWhatsApps'])->name('checkWhatsApps');
     Route::post('/check-emails', [AuthController::class, 'checkEmails'])->name('checkEmails');
-    Route::post('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
-    Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
-    // Route::post('/reset-password/{telp}', [AuthController::class, 'ResetPassword'])->name('reset.pass');
+    Route::get('/reset-password', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
+    Route::post('/reset-passwords', [AuthController::class, 'ResetPassword'])->name('reset.pass');
+
+    // Route::get('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
     
  
-    Route::middleware(['auth','PreventBackHistory', 'role:2'])->group(function(){
-        //user manage
-        Route::get('/dashboard/{id}', [UserController::class, 'DashboardUser'])->name('dashboard.user');
-        //usless
-        Route::get('/profile/{id}', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
-
-        Route::get('/user/{id}', [UserController::class, 'ProfileCom'])->name('profile.com');
-        Route::get('/posuser/{id}',[UserController::class, 'PosUser'])->name('pos.user');
-        Route::get('/cosuser/{id}',[UserController::class, 'CosUser'])->name('cos.user');
+    Route::middleware(['auth','PreventBackHistory', 'role:1,2'])->group(function(){
+        Route::get('/dashboard/user', [UserController::class, 'DashboardUser'])->name('dashboard.user');
+        
+        //Route::get('/profile/id', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
+         
+        Route::get('/profile/com', [UserController::class, 'ProfileCom'])->name('profile.com');
+        Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
+        Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
     });   
     // Route::get('/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
 

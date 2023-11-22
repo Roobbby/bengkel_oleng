@@ -68,33 +68,33 @@ class ProfileController extends Controller
     }
 
     public function UpdatePassword(Request $request){
-        
-        //Validation
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed'
-        ]);
-
-        // Match Old Password
-        if (!Hash::check($request->old_password, auth::user()->password )) {
-
-            session()->flash('alert', 'error');
-            session()->flash('message', 'Password Lama Salah.');
-            return back();
+        try {
+            // Validation
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|confirmed',
+            ]);
+    
+            // Match Old Password
+            if (!Hash::check($request->old_password, auth()->user()->password)) {
+                return back()->with('alert', 'error')->with('message', 'Password Lama Salah.');
+            }
+    
+            // Update New Password
+            $updateResult = User::whereId(auth()->user()->id)->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+    
+            if ($updateResult) {
+                return back()->with('alert', 'success')->with('message', 'Update Password Berhasil.');
+            } else {
+                throw new \Exception('Gagal mengupdate password.');
+            }
+        } catch (\Exception $e) {
+            // Handle the exception, you can log it or return a specific error message
+            return back()->with('alert', 'error')->with('message', $e->getMessage());
         }
-
-        // Update New Password
-        User::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
-
-        ]);
-
-        session()->flash('alert', 'success');
-        session()->flash('message', 'Update Password Berhasil.');
-
-        return back();
-
-    }
+    }    
 
     public function checkOldPassword(Request $request) {
         $oldPassword = $request->input('old_password');

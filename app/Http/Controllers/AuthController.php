@@ -41,9 +41,8 @@ class AuthController extends Controller
             'password' => 'required',
          ]);
          
-            $validateUser['password'] = Hash::make($validateUser['password']);
-         
-         $user = new User([
+        
+        $user = new User([
             'sapaan' => $validateUser['sapaan'],
             'panggilan' => $validateUser['panggilan'],
             'name' => $validateUser['name'],
@@ -56,32 +55,36 @@ class AuthController extends Controller
         
         // Simpan user
         $userSaved = $user->save();
-
+        
         if ($userSaved) {
-            
-            $newUserId = $userSaved->id;
-            $newUserDomain = 'bengkel_' . $data['name'];
-
+            $newUserId = $user->id;
+            $newUserDomain = 'bengkel_' . $user['name'];
+        
             $domain = new Domain([
                 'user_id' => $newUserId,
                 'domain_user' => $newUserDomain,
             ]);
         
+            // Simpan domain
             $domainSaved = $domain->save();
-        }
         
-
-        // Penanganan kesalahan
-        if ($userSaved && $domainSaved) {
-            session()->flash('alert', 'success');
-            session()->flash('message', 'Registrasi berhasil. Silakan login.');
-            return redirect()->route('login');
+            if ($domainSaved) {
+                // Berhasil disimpan
+                session()->flash('alert', 'success');
+                session()->flash('message', 'Registrasi berhasil. Silakan login.');
+                return redirect()->route('login');
+            } else {
+                // Gagal menyimpan domain
+                session()->flash('alert', 'error');
+                session()->flash('message', 'Terjadi kesalahan saat menyimpan domain.');
+                return back();
+            }
         } else {
+            // Gagal menyimpan user
             session()->flash('alert', 'error');
-            session()->flash('message', 'Terjadi kesalahan saat menyimpan data.');
+            session()->flash('message', 'Terjadi kesalahan saat menyimpan pengguna.');
             return back();
         }
-
         
     }
 
@@ -210,12 +213,17 @@ class AuthController extends Controller
             'telp' => 'required|exists:users,telp'
         ]);
     
-        return redirect()->route('reset.password', ['telp' => $request->telp]);
+        // Cek apakah nomor telepon ada di database
+        $user = User::where('telp', $request->telp)->first();
+    
+        // Jika ada, tampilkan formulir reset password
+        return view('back.auth.reset_password', compact('user'));
     }
 
     public function ResetPasswordLink(){
-
-        return view ('back.auth.reset_password');
+        
+        $user = Auth::user();
+        return view ('back.auth.reset_password', compact('user'));
     }
     
 

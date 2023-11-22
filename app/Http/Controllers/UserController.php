@@ -221,25 +221,26 @@ class UserController extends Controller
         }
     }
 
-    //redirect Url
-
     public function ProfileCom(){
-        
         $user = Auth::user();
-        $id = $user->domain->id;
-        $user = Domain::where('id', $id)->first();
-        
-
-        return view('back.users.profile_com');
+        $domainId = optional($user->domain)->id;
+    
+        // Memuat data domain berdasarkan ID
+        $profileDataBengkel = Domain::find($domainId);
+    
+        // Lakukan sesuatu dengan $domainId atau $user atau $profileDataBengkel
+        return view('back.users.profile_com', compact('user', 'domainId', 'profileDataBengkel'));
     }
-
+    
+    
     public function DashboardUser(){
         // Memastikan user terotentikasi
         if (Auth::check()) {
-            $authUser = Auth::user();
+            $authUserId = Auth::id();
     
             // Memastikan user memiliki properti 'domain' dan memuatnya
-            if ($authUser->domain != null) {
+            $authUser = User::find($authUserId);
+            if ($authUser != null && $authUser->domain != null) {
                 $authUser->load('domain');
     
                 // Kembalikan view dengan data domain
@@ -254,12 +255,12 @@ class UserController extends Controller
         }
     }
     
+    
 
     public function PosUser(){
 
         $user = Auth::user();
         $id = $user->domain->id;
-        $user = Domain::where('id', $id)->first();
 
         return view('back.users.post_user');
 
@@ -269,7 +270,6 @@ class UserController extends Controller
         
         $user = Auth::user();
         $id = $user->domain->id;
-        $user = Domain::where('id', $id)->first();
 
         return view('back.users.costumer_user');
     }

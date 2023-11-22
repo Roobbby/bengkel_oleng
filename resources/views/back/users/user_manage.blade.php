@@ -27,6 +27,7 @@
         <h5 class="card-header">Data Users</h5>
         <div class="card-datatable table-responsive">
             <div class="header ms-3" ><a href="{{route('user.create')}}" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a></div>
+          
             <br>
           <table class="dt-row-grouping table">
             <thead>
@@ -74,7 +75,6 @@
                         @endif
                     </td>
                     <td>
-                      {{-- <a href="{{ route('haut')}}"> klik</a> --}}
                       <a href="{{ $domain_user ? route('haut.user', ['domain_user' => $domain_user]) : '#' }}">Ke Halaman Utama</a>
                     </td>
                       <td>

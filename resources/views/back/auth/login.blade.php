@@ -83,7 +83,7 @@
                       <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                     </div>
 
-                    <a href="" data-bs-toggle="modal" data-bs-target="#enableOTP">
+                    <a href="/" data-bs-toggle="modal" data-bs-target="#enableOTP">
                       <small>Forgot Password?</small>
                     </a>
                    

@@ -62,7 +62,6 @@
                 <div data-i18n="Page 1">Dashboard</div>
             </a>
         </li>
-            
         <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
             <a href="{{ route('admin.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-user-cog"></i>
@@ -116,20 +115,20 @@
             </a>
           </li> --}}
         @elseif ($userRole == 2) {{-- Status 1 dan Role User --}}
-        <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
-              <a href="{{ route('dashboard.user' , ['id' => $user->domain->id]) }}" class="menu-link">
+          <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
+              <a href="{{ route('dashboard.user') }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 1">Dashboard</div>
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
-              <a href="{{ route('pos.user' , ['id' => $user->domain->id]) }}" class="menu-link">
+              <a href="{{ route('pos.user') }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 5">POS</div>
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : ''}}">
-              <a href="{{ route('cos.user' , ['id' => $user->domain->id]) }}" class="menu-link">
+              <a href="{{ route('cos.user') }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-home"></i>
                   <div data-i18n="Page 5"> Data Pelanggan</div>
               </a>
@@ -165,7 +164,7 @@
               </a>
           </li>
           <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-            <a href="{{ route('profile.com' ,['id' => $user->domain->id])}}" class="menu-link ">
+            <a href="{{ route('profile.com')}}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Page 7">Profile</div>
             </a>

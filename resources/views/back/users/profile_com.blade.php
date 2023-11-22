@@ -3,36 +3,20 @@
 @section('content')
 
 @php
-use Illuminate\Support\Str;
-
-  $user = Auth::user();
-  $domain = $user->domain;
-
-  $profileDataBengkel = Auth::user();
-  $profileDataBengkel->load('domain');
-  $namaBengkel = $profileDataBengkel->domain ? $profileDataBengkel->domain->nama_bengkel : "Tidak ada";
-
+    $namaBengkel = optional($user->domain)->nama_bengkel ?? "Tidak ada";
 @endphp
+
 
 <div class="content-wrapper">
   <!-- Content -->
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row mb-4">
     <div class="col-xl-5 col-lg-5 col-md-5 order-1 order-md-0">
+      @include('back.alert')
         <!-- User Card -->
       <div class="profile-section">
         <div class="card mb-4">
-          @if (session('alert') === 'success')
-          <div class="alert alert-success alert-dismissible" role="alert">
-              {{ session('message') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          @elseif (session('alert') === 'error')
-              <div class="alert alert-danger alert-dismissible" role="alert">
-                  {{ session('message') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          @endif
+         @include('back.alert')
           <h5 class="card-header">Profile bengkel</h5>
           <div class="card-body">
             <div class="user-avatar-section">
@@ -44,7 +28,7 @@ use Illuminate\Support\Str;
                   width="100"
                   alt="profile"  />
                 <div class="user-info text-center">
-                  <h4 class="mb-2">{{ $profileDataBengkel->domain->nama_bengkel }}</h4>
+                  <h4 class="mb-2">{{ $profileDataBengkel->nama_bengkel }}</h4>
                 </div>
               </div>
             </div>
@@ -53,15 +37,15 @@ use Illuminate\Support\Str;
               <ul class="list-unstyled">
                 <li class="mb-2 pt-1">
                   <span class="fw-medium me-1">Alamat Bengkel :</span>
-                  <span>{{ $profileDataBengkel->domain->alamat_bengkel }}</span>
+                  <span>{{ $profileDataBengkel->alamat_bengkel }}</span>
                 </li>
                 <li class="mb-2 pt-1">
                   <span class="fw-medium me-1">Link gmaps :</span>
-                  <span>{{ $profileDataBengkel->domain->gmaps }}</span>
+                  <span>{{ $profileDataBengkel->gmaps }}</span>
                 </li>
                 <li class="mb-2 pt-1">
                   <span class="fw-medium me-1">Link Landing :</span>
-                  <span>{{ $profileDataBengkel->domain->domain_user }}</span>
+                  <span>{{ $profileDataBengkel->domain_user }}</span>
                 </li>
               </ul>
               <div class="d-flex justify-content-center">
@@ -80,7 +64,7 @@ use Illuminate\Support\Str;
           <div class="card">
             <h5 class="card-header">Edit Profile Bengkel</h5>
             <div class="card-body">
-              <form class="needs-validation" action="" method="">
+              <form class="needs-validation" action="" method="POST">
 
                 <div class="mb-3">
                   <label class="form-label" for="bs-validation-name">Nama Bengkel</label>
@@ -90,6 +74,7 @@ use Illuminate\Support\Str;
                     name="nama_bengkel"
                     id="bs-validation-name"
                     placeholder="Massukan Nama Bengkel"
+                    value="{{$profileDataBengkel->nama_bengkel}}"
                     required />
                 </div>
 
@@ -101,6 +86,7 @@ use Illuminate\Support\Str;
                     name="alamat_bengkel"
                     id="bs-validation-name"
                     placeholder="Massukan Alamat Bengkel"
+                    value="{{$profileDataBengkel->alamat_bengkel}}"
                     required />
                 </div>
 
@@ -112,36 +98,43 @@ use Illuminate\Support\Str;
                     name="gmaps"
                     id="bs-validation-name"
                     placeholder="Massukan Link Maps Bengkel"
+                    value="{{$profileDataBengkel->gmaps}}"
                     required />
                 </div>
               
                 <div class="mb-3">
-                  <label class="form-label" for="bs-validation-upload-file">Foto Bengkel</label>
-                  <input type="file" class="form-control" id="bs-validation-upload-file" required />
-                </div>
+                  <img src="{{ (!empty($profileDataBengkel->foto)) ? url('image/profile_bengkel/'.$profileDataBengkel->foto) : url('image/default_bengkel.png') }}"
+                  height="100"
+                  width="100"
+                  alt="profile" 
+                  class="mb-3">
+                  <label class="form-label " for="bs-validation-upload-file">Foto Bengkel</label>
+                  <input type="file" class="form-control" id="bs-validation-upload-file" name="foto" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="bs-validation-bio">Bio</label>
+                <textarea
+                  class="form-control"
+                  id="bs-validation-bio"
+                  name="bs-validation-bio"
+                  rows="3"
+                  
+                  required></textarea>
+              </div>
                 
-                <div class="mb-3">
-                  <label class="form-label" for="bs-validation-bio">Bio</label>
-                  <textarea
-                    class="form-control"
-                    id="bs-validation-bio"
-                    name="bs-validation-bio"
-                    rows="3"
-                    required></textarea>
-                </div>
-                
-                <div class="row">
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('profile.com' ,['id' => $user->domain->id]) }}"
-                    class="btn btn-primary">Cancel</a>
-                  </div>
-                </div>
-              </form>
-            </div>
+              <div class="row">
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <a href="{{ route('profile.com') }}"
+                  class="btn btn-primary">Cancel</a>
+              </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>
         <!-- /Bootstrap Validation -->
   </div>
 
