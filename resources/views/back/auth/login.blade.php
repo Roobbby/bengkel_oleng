@@ -46,17 +46,7 @@
                 <p class="mb-4">Please sign-in to your account</p>
     
                 <form id="formAuthentication" class="mb-3" action="{{ route('actionlogin') }}" method="POST">
-                  @if (session('alert') === 'success')
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            {{ session('message') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @elseif (session('alert') === 'error')
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            {{ session('message') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                  @include('back.alert')
                     @csrf
                   <div class="mb-3">
                     <label for="email" class="form-label">Email</label>

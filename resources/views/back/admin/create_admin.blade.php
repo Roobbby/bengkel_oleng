@@ -9,6 +9,7 @@
       </div>
       <div class="card-body">
         <form action="{{ route('admin.store') }}" method="POST">
+          @include('back.alert')
           @csrf
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Nama</label>
@@ -27,7 +28,7 @@
                 required/>
             </div>
           </div>
-          <div class="mb-3">
+          {{-- <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Username</label>
             <div class="input-group input-group-merge">
               <span id="basic-icon-default-fullname2" class="input-group-text"
@@ -43,7 +44,7 @@
                 aria-describedby="basic-icon-default-fullname2"
                 required/>
             </div>
-          </div>
+          </div> --}}
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-email">Email</label>
             <div class="input-group input-group-merge">

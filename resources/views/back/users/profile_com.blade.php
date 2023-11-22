@@ -16,7 +16,6 @@
         <!-- User Card -->
       <div class="profile-section">
         <div class="card mb-4">
-         @include('back.alert')
           <h5 class="card-header">Profile bengkel</h5>
           <div class="card-body">
             <div class="user-avatar-section">

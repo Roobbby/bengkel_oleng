@@ -62,18 +62,8 @@
 
                 
                 <form action="{{ route('register.store') }}" method="POST" id="adminForm" style="display: none;">
+                   @include('back.alert')
                     @csrf
-                    @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
                     <input type="hidden" name="role" value="{{ $role }}">
                     <div class="mb-3">
                         <label for="name" class="form-label">Username</label>

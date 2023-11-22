@@ -22,7 +22,9 @@ class AdminController extends Controller
          // Pastikan pengguna sudah terotentikasi
          if (!Auth::check()) {
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
-            return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Silakan login terlebih dahulu.');
+            return redirect('/login');
         }
         $data = User::where('role', '1')->orderBy('created_at', 'desc')->get();
         return view('back.admin.admin_manage',compact('data'));
@@ -46,20 +48,27 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(),[
             'email'=>'required|email',
             'name' => 'required',
-            'username' => 'required',
+            // 'username' => 'required',
             'password'=>'required',
-            'foto' => 'required',
+            // 'foto' => 'required',
         ]);
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
         $data['email'] = $request -> email;
-        $data['username'] = $request -> username;
+        // $data['username'] = $request -> username;
         $data['name'] = $request -> name;
-        $data['foto'] = $request -> foto;
+        // $data['foto'] = $request -> foto;
         $data['role'] = $request -> role;
         $data['password'] = Hash::make($request -> password);
-        User::create($data);
-        return redirect()->route('admin.index')->with('succes', 'Berhasil Mengubah data');
+        
+        if(User::create($data)){
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Berhasil Membuat Data Admin.');
+            return redirect()->route('admin.index');
+        }
+        session()->flash('alert', 'error');
+        session()->flash('message', 'Gagal Membuat Admin.');
+        return redirect()->route('admin.index');
     }
 
     public function toggleStatus(Request $request, $id)
@@ -71,19 +80,14 @@ class AdminController extends Controller
             $admin->status = $admin->status == 0 ? 1 : 0;
             $admin->save();
 
-            $notification = array(
-                'message' => 'Update Status Berhasil',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('admin.index')->with($notification);
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Update Status Berhasil.');
+            return redirect()->route('admin.index');
         }
-            $notification = array(
-                'message' => 'Update Status Gagal',
-                'alert-type' => 'error'
-            );
-
-        return redirect()->route('admin.index')->with($notification);
+        
+        session()->flash('alert', 'error');
+        session()->flash('message', 'Update Status Gagal.');
+        return redirect()->route('admin.index');
     }
     /**
      * Display the specified resource.
@@ -114,27 +118,21 @@ class AdminController extends Controller
             [
             'name' => 'required',
             'email' => 'required',
-            'username' => 'required',
             ],[
                 'name.required' => 'Nama wajib disi',
                 'email.required' => 'Email Perusahaan wajib disi',
-                'username.required' => 'Username wajib disi',
             ]
         );
 
         $data = [
             'name'=>$request->name,
             'email'=>$request->email,
-            'username'=>$request->username,
         ];
         User::where('id', $id)->update($data);
 
-        $notification = array(
-            'message' => 'Edit Data Admin Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('admin.index')->with($notification);
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Update Data Berhasil.');
+        return redirect()->route('admin.index');
     }
 
     /**

@@ -12,6 +12,7 @@ $admin = App\Models\User::find($id);
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
       <h5 class="card-header">Data Admins</h5>
+      @include('back.alert')
         <div class="card-datatable table-responsive">
             <div class="header ms-3" ><a href="{{route('admin.create')}}" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a></div>
             <br>
@@ -74,9 +75,6 @@ $admin = App\Models\User::find($id);
                       </div>
                       <!-- /.modal-dialog -->
                     </div>
-
-
-
 
                     <div class="modal fade" id="modal-view{{ $admin->id }}">
                       <div class="modal-dialog">

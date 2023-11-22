@@ -10,6 +10,7 @@
       </div>
       <div class="card-body">
         <form action="{{ route('superadmin.update', $data->id) }}" method="POST">
+          @include('back.alert')
           @csrf
           @method('PUT')
           <div class="mb-3">

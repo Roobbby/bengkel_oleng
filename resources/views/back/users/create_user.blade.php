@@ -9,27 +9,8 @@
       </div>
       <div class="card-body">
         <form action="{{ route('user.store') }}" method="POST">
+          @include('back.alert')
           @csrf
-          @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-          @endif
-          @if (session('alert') === 'success')
-              <div class="alert alert-success alert-dismissible" role="alert">
-                  {{ session('message') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          @elseif (session('alert') === 'error')
-              <div class="alert alert-danger alert-dismissible" role="alert">
-                  {{ session('message') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          @endif
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Sapaan</label>
             <div class="input-group input-group-merge">

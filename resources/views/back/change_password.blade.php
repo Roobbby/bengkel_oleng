@@ -15,6 +15,7 @@
             <h5 class="card-header">Change Password</h5>
             <div class="card-body">
               <form method="POST" action="{{ route('update.password') }}"  class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
+                @include('back.alert')
                 @csrf
                 <div class="row">
                   <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">

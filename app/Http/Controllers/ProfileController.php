@@ -16,8 +16,10 @@ class ProfileController extends Controller
     public function Profile(){
 
         if (!Auth::check()) {
-        
-            return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
+            
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Silakan login terlebih dahulu.');
+            return redirect('/login');
         }
 
         $id = Auth::user()->id;

@@ -47,17 +47,7 @@
                 <p class="mb-4">Make your app management easy and fun!</p>
     
                 <form id="formAuthentication" class="mb-3" action="{{ route('register.online.store')}}" method="POST">
-                    @if (session('alert') === 'success')
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        {{ session('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    @elseif (session('alert') === 'error')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        {{ session('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    @endif
+                    @include('back.alert')
                     @csrf
                     <input type="hidden" name="role" value=3 readonly>
                     <input type="hidden" name="role" value=1 readonly>
@@ -134,7 +124,7 @@
                     </div>
                     </div>
                     <div class="mb-3 form-password-toggle">
-                    <label class="form-label" for=password_confirm">Confrim Password</label>
+                    <label class="form-label" for="password_confirm">Confrim Password</label>
                     <div class="input-group input-group-merge">
                         <input
                         type="password"

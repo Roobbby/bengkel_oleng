@@ -9,6 +9,7 @@
       </div>
       <div class="card-body">
         <form action="{{ route('superadmin.store') }}" method="POST">
+          @include('back.alert')
           @csrf
           <div class="mb-3">
             <label class="form-label" for="basic-icon-default-fullname">Nama</label>

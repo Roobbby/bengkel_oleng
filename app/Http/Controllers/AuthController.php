@@ -115,7 +115,9 @@ class AuthController extends Controller
             $user->save();
     
             // Registrasi berhasil, arahkan ke halaman login dengan pesan sukses
-            return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Registrasi berhasil. Silakan login.');
+            return redirect()->route('login');
     
         } catch (ValidationException $e) {
             $errors = $e->errors();
@@ -123,7 +125,9 @@ class AuthController extends Controller
             return back()->withErrors($errors)->withInput();
         } catch (\Exception $e) {
             // Terjadi kesalahan, kembalikan ke halaman registrasi dengan pesan error
-            return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Terjadi kesalahan. Silakan coba lagi.');
+            return back();
         }
     }
     
@@ -150,14 +154,18 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }
         } else {
-            return redirect()->back()->with('alert', 'error')->with('message', 'Email atau password salah. Silakan coba lagi.');
+            session()->flash('alert', 'error');
+            session()->flash('message', 'Email atau password salah. Silakan coba lagi.');
+            return redirect()->back();
         }
     }
 
     public function Logout(Request $request)
     {
         Auth::guard('web')->logout();
-        return redirect()->route('login')->with('fail', 'You are logged out!!!');
+        session()->flash('alert', 'error');
+        session()->flash('message', 'You are logged out!!!.');
+        return redirect()->route('login');
     }
     
     // tidak terpakai
@@ -226,7 +234,7 @@ class AuthController extends Controller
     }
 
     public function resetpass(){
-        
+
     }
     
     

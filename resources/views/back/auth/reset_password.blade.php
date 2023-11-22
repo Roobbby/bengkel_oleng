@@ -27,6 +27,7 @@
             <p class="mb-4">for <span class="fw-medium">0{{$user->telp}}</span></p>
             <form 
             class="fv-plugins-bootstrap5 fv-plugins-framework" action="" method="">
+            @include('back.alert')
                 @csrf 
                 <div class="mb-3 form-password-toggle fv-plugins-icon-container">
                     <label class="form-label" for="password">New Password</label>
