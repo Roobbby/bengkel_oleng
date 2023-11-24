@@ -7,10 +7,21 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap"
+	rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-OSmF5CvqPJX8rSvxfXgLOtMz5jgC+3QWR4CTj2+RFXq4i0yBiZLOL7nJuKAY+fxM" crossorigin="anonymous">
+
+  
+	<link rel="stylesheet" href="/asset/assets/vendor/fonts/tabler-icons.css" />
+	<link rel="stylesheet" href="/asset/assets/vendor/fonts/fontawesome.css" /> 
 	<!-- ================== BEGIN core-css ================== -->
-	<link href="assets/css/vendor.min.css" rel="stylesheet">
-	<link href="assets/css/app.min.css" rel="stylesheet">
+	<link href="asset/assets/css/vendor.min.css" rel="stylesheet">
+	<link href="asset/assets/css/app.min.css" rel="stylesheet">
 	<!-- ================== END core-css ================== -->
+	
 	
 </head>
 <body class='pace-top'>
@@ -91,36 +102,7 @@
 										</div>
 									</a>
 								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-2.jpg)"></div>
-										<div class="info">
-											<div class="title">Grill Pork Chop&reg;</div>
-											<div class="desc">pork, egg, mushroom, salad</div>
-											<div class="price">$12.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-3.jpg)"></div>
-										<div class="info">
-											<div class="title">Capellini Tomato Sauce&reg;</div>
-											<div class="desc">spaghetti, tomato, mushroom </div>
-											<div class="price">$11.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-4.jpg)"></div>
-										<div class="info">
-											<div class="title">Vegan Salad Bowl&reg;</div>
-											<div class="desc">apple, carrot, tomato </div>
-											<div class="price">$6.99</div>
-										</div>
-									</a>
-								</div>
+					
 								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="pizza">
 									<div class="pos-product not-available">
 										<div class="img" style="background-image: url(assets/img/pos/product-5.jpg)"></div>
@@ -134,6 +116,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="burger">
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-17.jpg)"></div>
@@ -144,36 +127,7 @@
 										</div>
 									</a>
 								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="burger">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-6.jpg)"></div>
-										<div class="info">
-											<div class="title">Avocado Shake</div>
-											<div class="desc">avocado, milk, vanilla</div>
-											<div class="price">$3.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="burger">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-7.jpg)"></div>
-										<div class="info">
-											<div class="title">Coffee Latte</div>
-											<div class="desc">espresso, milk</div>
-											<div class="price">$2.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="burger">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-8.jpg)"></div>
-										<div class="info">
-											<div class="title">Vita C Detox Juice</div>
-											<div class="desc">apricot, apple, carrot and ginger juice</div>
-											<div class="price">$2.99</div>
-										</div>
-									</a>
-								</div>
+								
 								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-9.jpg)"></div>
@@ -184,26 +138,7 @@
 										</div>
 									</a>
 								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-10.jpg)"></div>
-										<div class="info">
-											<div class="title">Mushroom soup</div>
-											<div class="desc">Evaporated milk, marsala wine, beef cubes, chicken broth, butter</div>
-											<div class="price">$3.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-11.jpg)"></div>
-										<div class="info">
-											<div class="title">Baked chicken wing</div>
-											<div class="desc">Chicken wings, a1 steak sauce, honey, cayenne pepper</div>
-											<div class="price">$6.99</div>
-										</div>
-									</a>
-								</div>
+						
 								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-12.jpg)"></div>
@@ -214,6 +149,7 @@
 										</div>
 									</a>
 								</div>
+
 								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-13.jpg)"></div>
@@ -224,36 +160,7 @@
 										</div>
 									</a>
 								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-15.jpg)"></div>
-										<div class="info">
-											<div class="title">Perfect Yeast Doughnuts</div>
-											<div class="desc">Chocolate hazelnut spread, bread flour, doughnuts, quick rise yeast, butter</div>
-											<div class="price">$2.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-14.jpg)"></div>
-										<div class="info">
-											<div class="title">Macarons</div>
-											<div class="desc">Almond flour, egg whites, heavy cream, food coloring, powdered sugar</div>
-											<div class="price">$4.99</div>
-										</div>
-									</a>
-								</div>
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-										<div class="img" style="background-image: url(assets/img/pos/product-16.jpg)"></div>
-										<div class="info">
-											<div class="title">Perfect Vanilla Cupcake</div>
-											<div class="desc">Baking powder, all purpose flour, plain kefir, vanilla extract</div>
-											<div class="price">$2.99</div>
-										</div>
-									</a>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -646,12 +553,12 @@
 	<!-- END #modalPosItem -->
 	
 	<!-- ================== BEGIN core-js ================== -->
-	<script src="assets/js/vendor.min.js"></script>
-	<script src="assets/js/app.min.js"></script>
+	<script src="asset/assets/js/vendor.min.js"></script>
+	<script src="asset/assets/js/app.min.js"></script>
 	<!-- ================== END core-js ================== -->
 	
 	<!-- ================== BEGIN page-js ================== -->
-	<script src="assets/js/demo/pos-customer-order.demo.js"></script>
+	<script src="asset/assets/js/demo/pos-customer-order.demo.js"></script>
 	<!-- ================== END page-js ================== -->
 	
 </body>
