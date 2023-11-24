@@ -63,31 +63,35 @@ $percentage = ($remainingDays / 30) * 100;
                     <span class="fw-medium me-1">Sapaan :</span>
                     <span>{{ $profileData->sapaan }}</span>
                   </li>
+
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Panggilan :</span>
                     <span>{{ $profileData->panggilan }}</span>
                   </li>
+
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Email :</span>
                     <span>{{ $profileData->email }}</span>
                   </li>
-                    <li class="mb-2 pt-1">
-                    <span class="fw-medium me-1">Status :</span>
-                      @switch($profileData->status)
-                          @case(0)
-                          <span class="badge bg-label-danger  mt-1">
-                              Belum Aktif
-                          </span>
-                              @break
-                          @case(1)
-                          <span class="badge bg-label-success  mt-1">
-                              Aktif
-                          </span>
-                              @break
-                          @default
-                              Belum Terverivikasi
-                      @endswitch
-                    </li>
+
+                  <li class="mb-2 pt-1">
+                  <span class="fw-medium me-1">Status :</span>
+                    @switch($profileData->status)
+                        @case(0)
+                        <span class="badge bg-label-danger  mt-1">
+                            Belum Aktif
+                        </span>
+                            @break
+                        @case(1)
+                        <span class="badge bg-label-success  mt-1">
+                            Aktif
+                        </span>
+                            @break
+                        @default
+                            Belum Terverivikasi
+                    @endswitch
+                  </li>
+
                   <li class="mb-2 pt-1">
                     <span class="fw-medium me-1">Role :</span>
                     <span>
@@ -102,7 +106,7 @@ $percentage = ($remainingDays / 30) * 100;
                               User
                               @break
                           @case(3)
-                              Costumer
+                              Costumer 
                               @break
                           @default
                               Role Tidak Diketahui
@@ -137,6 +141,7 @@ $percentage = ($remainingDays / 30) * 100;
                     data-bs-toggle="modal"
                     >Edit</a>
                 </div>
+
               </div>
             </div>
           </div>
@@ -145,7 +150,6 @@ $percentage = ($remainingDays / 30) * 100;
         <!-- Change Password -->
         <div class="col-xl-7 col-lg-5 col-md-5 order-1 order-md-0">
             <div class="card mb-4">
-            
               <h5 class="card-header">Ganti Password</h5>
               <div class="card-body">
                 <form method="POST" action="{{ route('update.password') }}"  class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
@@ -155,9 +159,9 @@ $percentage = ($remainingDays / 30) * 100;
                       <label class="form-label" for="old_password">Password Lama</label>
                       <div class="input-group input-group-merge has-validation">
                         <input 
-                        class="form-control " 
-                        type="text" 
-                        name="old_password" 
+                        class="form-control"
+                        type="text"
+                        name="old_password"
                         id="old_password"
                         placeholder="············"
                         >
@@ -177,19 +181,19 @@ $percentage = ($remainingDays / 30) * 100;
                         id="new_password" 
                         name="new_password" 
                         placeholder="············"
-                        autocomplete="off">
+                        autocomplete="off"
+                        >
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                        
                       </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                     </div>
   
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
-                      <label class="form-label" for="new_password_confirmation">Confirmasi Password Baru</label>
+                      <label class="form-label" for="new_password_confirmation">Konfirmasi Password Baru</label>
                       <div class="input-group input-group-merge has-validation">
-                        <input class="form-control" 
-                        type="text" 
-                        name="new_password_confirmation" 
-                        id="new_password_confirmation" 
+                        <input class="form-control"
+                        type="text"
+                        name="new_password_confirmation"
+                        id="new_password_confirmation"
                         placeholder="············"
                         autocomplete="off">
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
@@ -210,12 +214,10 @@ $percentage = ($remainingDays / 30) * 100;
               </form>
               </div>
             </div>
-          
           <!--/ Change Password -->
         
         <!-- User Content -->
         {{-- <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-
         </div> --}}
         <!--/ User Content -->
         <!-- Subcribe -->
@@ -305,7 +307,7 @@ $percentage = ($remainingDays / 30) * 100;
                     name="sapaan"
                     class="form-control"
                     value="{{ $profileData->sapaan }}"
-                    placeholder="john.doe.007" />
+                    placeholder="Pak,Bu" />
                 </div>
                 <div class="col-12">
                   <label class="form-label" >Panggilan</label>
@@ -315,7 +317,7 @@ $percentage = ($remainingDays / 30) * 100;
                     name="panggilan"
                     class="form-control"
                     value="{{ $profileData->panggilan }}"
-                    placeholder="john.doe.007" />
+                    placeholder="Bud" />
                 </div>
                 <div class="col-12">
                   <label class="form-label">Name</label>
@@ -325,7 +327,7 @@ $percentage = ($remainingDays / 30) * 100;
                     name="name"
                     class="form-control"
                     value="{{ $profileData->name }}"
-                    placeholder="john.doe.007" />
+                    placeholder="Budi Handoyo" />
                 </div>
                 <div class="col-12">
                   <label class="form-label">Email</label>
@@ -335,7 +337,7 @@ $percentage = ($remainingDays / 30) * 100;
                     name="email"
                     class="form-control"
                     value="{{ $profileData->email }}"
-                    placeholder="john.doe.007" />
+                    placeholder="Budi@gmail.cpm" />
                     <div id="checksEmail"></div>
                 </div>
              
@@ -361,7 +363,7 @@ $percentage = ($remainingDays / 30) * 100;
                       name="telp"
                       class="form-control phone-number-mask"
                       value="{{ $profileData->telp }}"
-                      placeholder=" " 
+                      placeholder="0000-0000-0000" 
                       pattern="[0-9]*"/>
                   </div>
                     <div id="checksWhatsApp"></div>
@@ -407,19 +409,7 @@ $percentage = ($remainingDays / 30) * 100;
           });
       });
     </script>
-  
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#upload').change(function(e){
-                var reader = new FileReader();
-                reader.onload = function(e){
-                    $('#uploadedAvatar').attr('src',e.target.result);
-                }
-                reader.readAsDataURL(e.target.files['0']);
-            });
-        });
-    </script>
-
+ 
     <script>
       $(document).ready(function() {
           $('#new_password_confirmation').on('input', function() {
@@ -434,6 +424,18 @@ $percentage = ($remainingDays / 30) * 100;
               }
           });
       });
+    </script>
+     
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#upload').change(function(e){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#uploadedAvatar').attr('src',e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
     </script>
      {{-- script untuk nomer whatsapp --}}
      <script>

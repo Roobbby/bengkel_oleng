@@ -24,11 +24,21 @@ class AuthController extends Controller
         return view('back.auth.register_on');
     }
 
+    public function RegisterOnlineCostumer()
+    {
+        return view('back.auth.register_costumer');
+    }
+
     public function RegisterOffline()
     {
         return view ('back.auth.register_off');    
     }
 
+
+    public function RegisterOnlineCostumerStore(Request $request)
+    {
+
+    }
     public function RegisterOnlineStore(Request $request)
     {
          $validateUser = $request->validate([

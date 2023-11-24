@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->nullable();
+            $table->unsignedBigInteger('domain_id');
+            $table->foreign('domain_id')->references('id')->on('domains');
             $table->string('name');
             $table->enum('sapaan', ['Pak', 'Bu', 'Mas', 'Mbak', 'Kak', 'Dek'])->nullable();
             $table->string('panggilan')->nullable();

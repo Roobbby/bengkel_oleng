@@ -129,12 +129,10 @@ class UserController extends Controller
             'nama_bengkel' => 'required',
             'alamat_bengkel' => 'required',
             'gmaps' => 'required',
-            
             ],[
                 'nama_bengkel.required' => 'Nama Bengkel',
                 'alamat_bengkel.required' => 'Alamat Bengkel',
                 'gmaps.required' => 'Link Maps Bengkel',
-                
             ]
         );
 
@@ -170,22 +168,27 @@ class UserController extends Controller
 
         if ($user) {
             $newStatus = $request->input('status');
+
             if ($newStatus == 1) {
+                // Jika status ingin diubah menjadi aktif (1)
                 $user->status = $newStatus;
                 $user->activated_date = now();
                 $user->expired_date = now()->addDays(30);
-            } else {
-                // Nonaktifkan akun
-                $user->status = $newStatus;
+                $user->save();
+            } 
+
+                // Tambahkan logika untuk mengubah status menjadi tidak aktif (0)
+            if ($user->status == 1 && now() > $user->expired_date) {
+                $user->status = 0;
+                $user->save();
             }
-    
-            $user->save();
 
             session()->flash('alert', 'success');
             session()->flash('message', 'Update Status Berhasil.');
             return redirect()->route('user.index');
         }
     }
+
     
     // $notification = array(
     //     'message' => 'Update Status Gagal',

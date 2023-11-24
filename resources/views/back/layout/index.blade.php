@@ -44,13 +44,11 @@ data-template="vertical-menu-template-starter">
   
   <link rel="stylesheet" href="/asset/assets/vendor/libs/node-waves/node-waves.css" />
   <link rel="stylesheet" href="/asset/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
+  <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+  <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+  <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
   <!-- Page CSS -->
 
-  <!-- Toastr styles -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
-  
-  <!-- End Toastr styles -->
 
   <!-- Helpers -->
  
@@ -124,14 +122,11 @@ data-template="vertical-menu-template-starter">
   <!-- endbuild -->
 
   <!-- Vendors JS -->
-
+  <script src="/asset/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
   <!-- Main JS -->
   <script src="/asset/assets/js/main.js"></script>
   <!-- Page JS -->
-
-  <!-- Toastr Script -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <!-- End Toastr Script -->
+  <script src="/asset/assets/js/tables-datatables-basic.js"></script>
 
 </body>
 </html>

@@ -4,12 +4,12 @@
 
   @php
   use Illuminate\Support\Str;
-  
+  use App\Models\Domain;
     $user = Auth::user();
     $user->load('domain');
     $domain_user = optional($user->domain)->domain_user; 
+    $domainuser = Domain::value('domain_user');
   @endphp
-
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
@@ -41,7 +41,6 @@
                           <br>
                           0{{ $user->telp }}
                       </td>
-                   
                       <td>
                           {{ $user->domain->nama_bengkel }}
                       </td>
@@ -63,10 +62,10 @@
                         @else
                             <button type="button" class="btn btn-primary waves-effect waves-light" disabled>Approve</button>
                         @endif
-                    </td>
-                    <td>
-                      <a href="{{ route('haut.user', ['domain_user' => optional($domain_user)->domain_user]) }}">Ke Halaman Utama</a>
-                    </td>
+                      </td>
+                      <td>
+                        <a href="{{ route('haut.user', ['domain_user' => $domainuser]) }}">Ke Halaman Utama</a>
+                      </td>
                       <td>
                         <div class="btn-group">
                           <button
@@ -117,22 +116,29 @@
                       </div>
            
                     </div>
-                
+                    {{-- Modal View --}}
                     <div class="modal fade" id="modal-view{{ $user->id }}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h4 class="modal-title">Data</h4>
-                            </button>
-                          </div>
-                          <div class="modal-body">
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="modal-title">Data User</h4>
                             <div class="card-body">
                               <form action="">
                                 
+                                <div class="d-flex align-items-center flex-column mb-3">
+                                <img class="img-fluid rounded mb-2 pt-1 mt-4"
+                                src="{{ (!empty($user->domain->foto_profile)) ? url('image/profile/'.$user->domain->foto_profile) : url('image/default_bengkel.png') }} " 
+                                height="100"
+                                width="100"
+                                alt="profile"  />
+                                </div>
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-fullname">Nama</label>
+                                  <label class="form-label">Nama</label>
                                   <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-fullname2" class="input-group-text"
+                                    <span class="input-group-text"
                                       ><i class="ti ti-user"></i
                                     ></span>
                                     <input
@@ -142,18 +148,17 @@
                                       id="basic-icon-default-fullname"
                                       placeholder="Nama"
                                       aria-label="Nama"
-                                      aria-describedby="basic-icon-default-fullname2"
                                       value="{{ $user->name }}"
                                       required
                                       readonly/>
                                   </div>
                                 </div>
-                                
+
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-username">WhatApps</label>
+                                  <label class="form-label">WhatApps</label>
                                   <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-username2" class="input-group-text"
-                                      ><i class="ti ti-user"></i
+                                      ><i class="ti ti-brand-whatsapp"></i
                                     ></span>
                                     <input
                                       type="text"
@@ -162,7 +167,6 @@
                                       id="basic-icon-default-username"
                                       placeholder="WhatsApps"
                                       aria-label="WhatsApps"
-                                      aria-describedby="basic-icon-default-username2"
                                       value="0{{ $user->telp }}"
                                       required
                                       readonly/>
@@ -170,10 +174,10 @@
                                 </div>
 
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-username">Nama Bengkel</label>
+                                  <label class="form-label">Nama Bengkel</label>
                                   <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-username2" class="input-group-text"
-                                      ><i class="ti ti-user"></i
+                                      ><i class="ti ti-building"></i
                                     ></span>
                                     <input
                                       type="text"
@@ -182,7 +186,6 @@
                                       id="basic-icon-default-username"
                                       placeholder="nama bengkel"
                                       aria-label="nama bengkel"
-                                      aria-describedby="basic-icon-default-username2"
                                       value="{{ $user->domain ? $user->domain->nama_bengkel : 'null' }}"
                                       required
                                       readonly/>
@@ -190,10 +193,10 @@
                                 </div>
 
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-username">Alamat</label>
+                                  <label class="form-label" >Alamat</label>
                                   <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-username2" class="input-group-text"
-                                      ><i class="ti ti-user"></i
+                                      ><i class="ti ti-map-2"></i
                                     ></span>
                                     <textarea
                                     class="form-control"
@@ -201,7 +204,6 @@
                                     id="basic-icon-default-username"
                                     placeholder="alamat bengkel"
                                     aria-label="alamat bengkel"
-                                    aria-describedby="basic-icon-default-username2"
                                     required
                                     readonly
                                 >{{ $user->domain ? $user->domain->alamat_bengkel : 'null' }}</textarea>                                
@@ -209,10 +211,10 @@
                                 </div>
 
                                 <div class="mb-3">
-                                  <label class="form-label" for="basic-icon-default-username">Gmaps</label>
+                                  <label class="form-label">Gmaps</label>
                                   <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-username2" class="input-group-text"
-                                      ><i class="ti ti-user"></i
+                                      ><i class="ti ti-brand-google-maps"></i
                                     ></span>
                                     <a
                                     href="{{ $user->domain ? ($user->domain->gmaps) : '#' }}"
@@ -223,7 +225,6 @@
                                   >{{ $user->domain ? $user->domain->gmaps : 'null' }}</a>                                                           
                                   </div>
                                 </div>
-
                               </form>
                             </div>
                           </div>

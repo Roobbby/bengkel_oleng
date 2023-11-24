@@ -36,7 +36,7 @@ Route::get('/', function () {
     Route::post('/check-emails', [AuthController::class, 'checkEmails'])->name('checkEmails');
     Route::post('/reset-passwords', [AuthController::class, 'ResetPassword'])->name('reset.pass');
     Route::get('/reset-password', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
-    Route::post('/reset-pass',[AuthController::class,'resetpass'])->name('reset.pass');
+    Route::post('/reset-pass',[AuthController::class,'resetpass'])->name('reset.passwords');
     // Route::get('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
     
  
@@ -49,7 +49,7 @@ Route::get('/', function () {
         Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
         Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
     });   
-    Route::get('/user/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
+    Route::get('/users/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
 
    
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
