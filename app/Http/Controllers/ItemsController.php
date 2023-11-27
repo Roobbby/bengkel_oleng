@@ -19,8 +19,12 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $list = Item::all();
-    
+        $domainId = Auth::user()->domain->id;
+
+        // Mengambil semua item yang memiliki domain_id sesuai dengan domain_id pengguna yang saat ini login
+        $list = Item::where('domain_id', $domainId)->get();
+        
+        // Mengirimkan data ke view
         return view('back.users.list_spare', compact('list'));
     }
 
@@ -29,6 +33,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
+
         return view('back.users.create_spare');
     }
 
@@ -37,7 +42,32 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            if ($request->file('cover')) {
+                $file = $request->file('cover');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('image/item'), $filename);
+
+               
+
+                // Simpan data ke database
+                $item = new Item([
+                    'domain_id' => $request->domain_id,
+                    'nama_barang' => $request->nama_barang,
+                    'id_category' => $request->id_category,
+                    'category' => $request->category,
+                    'harga' => $request->harga,
+                    'stok' => $request->stok,
+                    'cover' => $filename,
+                    'deskripsi' => $request->deskripsi,
+                ]);
+              
+                $item->save();
+            }
+            
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Barang berhasil ditambahkan.');
+            return redirect()->route('item.index');
+      
     }
 
     /**

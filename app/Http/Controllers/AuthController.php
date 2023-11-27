@@ -154,9 +154,10 @@ class AuthController extends Controller
             $user = Auth::user();
         
             if ($user->role == 2) {
-                // Pastikan user memiliki properti domain sebelum me-redirect
                 if ($user->domain) {
-                    return redirect()->route('dashboard.user', ['id' => $user->domain->id]);
+                    session(['user_domain_id' => $user->domain->id]);
+
+                    return redirect()->route('dashboard.user');
                 } else {
                     // Handle jika user tidak memiliki domain
                     return redirect()->route('login')->with('error', 'User tidak memiliki domain terkait.');

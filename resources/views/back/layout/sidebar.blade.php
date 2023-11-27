@@ -16,6 +16,7 @@
                 </svg>
             </span>
             <span class="app-brand-text demo menu-text fw-bold ">Bengkel</span>
+            <span class="app-brand-text demo menu-text fw-bold ">Oleng</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -88,21 +89,6 @@
                         <div data-i18n="Page 4">WhatsApp</div>
                     </a>
                 </li>
-                {{-- <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Profile &amp; Settings</span>
-        </li>
-          <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-            <a href="{{ route('user.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                <div data-i18n="Page 4">Profile</div>
-            </a>
-          </li>
-          <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-            <a href="{{ route('user.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                <div data-i18n="Page 4">Settings</div>
-            </a>
-          </li> --}}
             @elseif ($userRole == 2)
                 {{-- Status 1 dan Role User --}}
                 <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
@@ -135,24 +121,6 @@
                         <div data-i18n="Page 6">Data Sparepart</div>
                     </a>
                 </li>
-                {{-- <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-book"></i>
-              <div data-i18n="Academy">Data Sparepart</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="" class="menu-link">
-                  <div data-i18n="Dashboard">List Sparepart</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="" class="menu-link">
-                  <div data-i18n="My Course">List Category</div>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-home"></i>

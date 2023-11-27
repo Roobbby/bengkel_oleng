@@ -8,10 +8,10 @@
                 <small class="text-muted float-end">Tambah Barang</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('item.store') }}" method="POST">
+                <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
                     @include('back.alert')
                     @csrf
-
+                    <input type="text" name="domain_id" value="{{ Auth::user()->domain->id }}">
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Nama Barang</label>
                         <div class="input-group input-group-merge">
@@ -38,7 +38,6 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Harga</label>
                         <div class="input-group input-group-merge">
-                            <span class="input-group-text">Rp</span>
                             <input type="text" class="form-control" name="harga" id="harga"
                                 placeholder="Masukkan Harga" aria-label="Masukkan Harga" aria-describedby="harga"
                                 oninput="formatRupiah(this)" required />
@@ -48,75 +47,42 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Stok</label>
                         <div class="input-group input-group-merge">
-                            <input type="number" class="form-control" placeholder="Stok" aria-label="Stok">
+                            <input type="number" name="stok" class="form-control" placeholder="Stok" aria-label="Stok"
+                                id="stokInput" min="0" max="100" oninput="validateStok()"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="basic-icon-default-fullname">Gambar</label>
+                        <label class="form-label" for="inputGroupFile02">Gambar</label>
+                        <img id="imagePreview"
+                            style="max-width: 30%; height: auto; margin-top: 10px; margin-bottom: 10px; display: none;"
+                            alt="Preview">
                         <div class="input-group input-group-merge">
-                            <input type="file" class="form-control" id="inputGroupFile02">
+                            <input type="file" class="form-control" name="cover" id="inputGroupFile02"
+                                onchange="previewImage()">
                         </div>
                     </div>
+
 
 
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Deskripsi</label>
                         <div class="input-group input-group-merge">
                             <div class="container-xxl flex-grow-1 container-p-y">
-                                <div class="row">
-                                    <!-- Snow Theme -->
-                                    <div class="col-12">
-                                        <div class="card mb-4">
-                                            <div class="card-body">
-                                                <div id="snow-toolbar">
-                                                    <span class="ql-formats">
-                                                        <select class="ql-font"></select>
-                                                        <select class="ql-size"></select>
-                                                    </span>
-                                                    <span class="ql-formats">
-                                                        <button class="ql-bold"></button>
-                                                        <button class="ql-italic"></button>
-                                                        <button class="ql-underline"></button>
-                                                        <button class="ql-strike"></button>
-                                                    </span>
-                                                    <span class="ql-formats">
-                                                        <select class="ql-color"></select>
-                                                        <select class="ql-background"></select>
-                                                    </span>
-                                                    <span class="ql-formats">
-                                                        <button class="ql-script" value="sub"></button>
-                                                        <button class="ql-script" value="super"></button>
-                                                    </span>
-                                                    <span class="ql-formats">
-                                                        <button class="ql-header" value="1"></button>
-                                                        <button class="ql-header" value="2"></button>
-                                                        <button class="ql-blockquote"></button>
-                                                        <button class="ql-code-block"></button>
-                                                    </span>
-                                                </div>
-                                                <div id="snow-editor">
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <textarea name="deskripsi" id="deskripsiInput"></textarea>
+
                             </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button type="submit"
+                            class="btn rounded-pill btn-primary waves-effect waves-light me-3">Tambah</button>
 
-
-
-
-
-                            <input type="hidden" name="status" value=0 readonly>
-                            <div class="">
-                                <button type="submit"
-                                    class="btn rounded-pill btn-primary waves-effect waves-light me-3">Tambah</button>
-
-                                <a href="{{ route('item.index') }}"
-                                    class="btn rounded-pill btn-danger waves-effect waves-light">Kembali</a>
-                            </div>
-
+                        <a href="{{ route('item.index') }}"
+                            class="btn rounded-pill btn-danger waves-effect waves-light">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>
@@ -137,17 +103,71 @@
             document.getElementById('category').value = categoryOptions[selectedIdCategory];
         });
     </script>
+
     <script>
         function formatRupiah(input) {
-            // Menghilangkan karakter selain angka
+            // Menghapus semua karakter non-digit
             var nilai = input.value.replace(/[^\d]/g, '');
 
-            // Format nilai sebagai rupiah
-            var hargaFormatted = new Intl.NumberFormat('id-ID').format(nilai);
+            // Menetapkan nilai yang di-format ke input
+            input.value = nilai;
 
-            // Tampilkan nilai yang diformat pada input
-            input.value = hargaFormatted;
+            // Mengonversi string yang dihasilkan ke tipe data numerik
+            nilai = parseInt(nilai, 10);
+
+            // Memeriksa apakah nilai bukan NaN
+            if (!isNaN(nilai)) {
+                // Memformat nilai ke dalam format mata uang Rupiah tanpa desimal
+                var hargaFormatted = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(nilai);
+
+                // Menetapkan nilai yang di-format ke input
+                input.value = hargaFormatted;
+            }
         }
+
+
+    </script>
+
+    <script>
+        function previewImage() {
+            var input = document.getElementById('inputGroupFile02');
+            var preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        function validateStok() {
+            var stokInput = document.getElementById('stokInput');
+
+            // Pastikan nilai tidak kurang dari 0
+            if (parseInt(stokInput.value) < 0) {
+                stokInput.value = 0;
+            }
+
+            // Pastikan nilai tidak lebih dari 100
+            if (parseInt(stokInput.value) > 100) {
+                stokInput.value = 100;
+            }
+        }
+    </script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('deskripsiInput');
     </script>
 
 @endsection

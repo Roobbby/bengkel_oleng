@@ -24,9 +24,7 @@ class UserController extends Controller
            
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        // $data = User::where('role', '2')
-        // ->with('domain')
-        // ->orderBy('created_at', 'desc');
+
         $data = User::with('domain')->orderBy('created_at', 'desc')->get();
 
         return view('back.users.user_manage',compact('data'));
@@ -189,13 +187,6 @@ class UserController extends Controller
         }
     }
 
-    
-    // $notification = array(
-    //     'message' => 'Update Status Gagal',
-    //     'alert-type' => 'error'
-    // );
-
-    // return redirect()->route('user.index')->with($notification);
 
     public function checkWhatsApp(Request $request) {
         $telp = $request->input('telp');
@@ -229,12 +220,55 @@ class UserController extends Controller
         $user = Auth::user();
         $domainId = optional($user->domain)->id;
     
-        // Memuat data domain berdasarkan ID
         $profileDataBengkel = Domain::find($domainId);
     
-        // Lakukan sesuatu dengan $domainId atau $user atau $profileDataBengkel
         return view('back.users.profile_com', compact('user', 'domainId', 'profileDataBengkel'));
     }
+
+    // public function ProfileComEdit(){
+    //     $user = Auth::user();
+    //     $domainId = optional($user->domain)->id;
+    
+    //     $profileDataBengkel = Domain::find($domainId);
+    
+    //     return view('back.users.profile_com', compact('user', 'domainId', 'profileDataBengkel'));
+    // }
+    public function ProfileComStore(Request $request){
+       
+        $user = Auth::user();
+        $domain = $user->domain;
+    
+        // Validasi input sesuai kebutuhan
+    
+        // Periksa apakah user memiliki domain
+        if ($domain) {
+            // Lakukan update langsung pada model Domain
+            $domain->nama_bengkel = $request->input('nama_bengkel');
+            $domain->alamat_bengkel = $request->input('alamat_bengkel');
+            $domain->gmaps = $request->input('gmaps');
+    
+            if ($request->file('foto')) {
+                $file = $request->file('foto');
+                @unlink(public_path('image/profile_bengkel/' . $domain->foto));
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('image/profile_bengkel'), $filename);
+                $domain->foto = $filename;
+            }
+    
+            $domain->save();
+    
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Update Status Berhasil.');
+        } else {
+            session()->flash('alert', 'danger');
+            session()->flash('message', 'Data tidak ditemukan.');
+        }
+    
+        return back();
+    }
+      
+        
+    
     
     
     public function DashboardUser(){

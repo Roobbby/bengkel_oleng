@@ -82,19 +82,18 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-
                     @yield('content')
-
                     <!-- / Content -->
                 </div>
-
+                <!-- Content wrapper -->
+                
                 <!-- Footer -->
                 @include('back.layout.footer')
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
+          
         </div>
         <!-- / Layout page -->
     </div>

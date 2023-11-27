@@ -21,15 +21,17 @@ class AdminController extends Controller
 
     public function Index()
     {
-         // Pastikan pengguna sudah terotentikasi
-         if (!Auth::check()) {
+        // Pastikan pengguna sudah terotentikasi
+        if (!Auth::check()) {
             // Jika belum terotentikasi, arahkan ke halaman login dengan pesan notifikasi
             session()->flash('alert', 'error');
             session()->flash('message', 'Silakan login terlebih dahulu.');
             return redirect('/login');
         }
-        $data = User::where('role', '1')->orderBy('created_at', 'desc')->get();
-        return view('back.admin.admin_manage',compact('data'));
+        $data = User::where('role', '1')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('back.admin.admin_manage', compact('data'));
     }
 
     /**
@@ -47,23 +49,28 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'email'=>'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'name' => 'required',
             // 'username' => 'required',
-            'password'=>'required',
+            'password' => 'required',
             // 'foto' => 'required',
         ]);
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        $data['email'] = $request -> email;
+        $data['email'] = $request->email;
         // $data['username'] = $request -> username;
-        $data['name'] = $request -> name;
+        $data['name'] = $request->name;
         // $data['foto'] = $request -> foto;
-        $data['role'] = $request -> role;
-        $data['password'] = Hash::make($request -> password);
-        
-        if(User::create($data)){
+        $data['role'] = $request->role;
+        $data['password'] = Hash::make($request->password);
+
+        if (User::create($data)) {
             session()->flash('alert', 'success');
             session()->flash('message', 'Berhasil Membuat Data Admin.');
             return redirect()->route('admin.index');
@@ -86,7 +93,7 @@ class AdminController extends Controller
             session()->flash('message', 'Update Status Berhasil.');
             return redirect()->route('admin.index');
         }
-        
+
         session()->flash('alert', 'error');
         session()->flash('message', 'Update Status Gagal.');
         return redirect()->route('admin.index');
@@ -97,7 +104,6 @@ class AdminController extends Controller
 
     public function show(string $id)
     {
-        
     }
 
     /**
@@ -106,7 +112,7 @@ class AdminController extends Controller
 
     public function edit(string $id)
     {
-        $data =  User::find($id);
+        $data = User::find($id);
         return view('back.admin.edit_admin', compact('data'));
     }
 
@@ -118,17 +124,18 @@ class AdminController extends Controller
     {
         $request->validate(
             [
-            'name' => 'required',
-            'email' => 'required',
-            ],[
+                'name' => 'required',
+                'email' => 'required',
+            ],
+            [
                 'name.required' => 'Nama wajib disi',
                 'email.required' => 'Email Perusahaan wajib disi',
-            ]
+            ],
         );
 
         $data = [
-            'name'=>$request->name,
-            'email'=>$request->email,
+            'name' => $request->name,
+            'email' => $request->email,
         ];
         User::where('id', $id)->update($data);
 
@@ -145,12 +152,9 @@ class AdminController extends Controller
     {
         $data = User::find($id);
 
-        if($data){
+        if ($data) {
             $data->delete();
         }
         return redirect()->route('admin.index');
     }
-
-
-    
 }

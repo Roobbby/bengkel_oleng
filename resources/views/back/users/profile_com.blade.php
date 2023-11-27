@@ -21,7 +21,7 @@
                                 <div class="user-avatar-section">
                                     <div class="d-flex align-items-center flex-column">
                                         <img class="img-fluid rounded mb-2 pt-1 mt-4"
-                                            src="{{ !empty($profileDataBengkel->domain->foto) ? url('image/profile_bengkel/' . $profileDataBengkel->domain->foto) : url('image/default_bengkel.png') }} "
+                                            src="{{ !empty($profileDataBengkel->foto) ? url('image/profile_bengkel/' . $profileDataBengkel->foto) : url('image/default_bengkel.png') }} "
                                             height="100" width="100" alt="profile" />
                                         <div class="user-info text-center">
                                             <h4 class="mb-2">{{ $profileDataBengkel->nama_bengkel }}</h4>
@@ -41,7 +41,9 @@
                                         </li>
                                         <li class="mb-2 pt-1">
                                             <span class="fw-medium me-1">Link Landing :</span>
-                                            <span>{{ $profileDataBengkel->domain_user }}</span>
+                                            <a href="{{ route('haut.user', ['domain_user' => auth()->user()->domain->domain_user]) }}">
+                                                {{ auth()->user()->domain->domain_user }}
+                                            </a>                                            
                                         </li>
                                     </ul>
                                     <div class="d-flex justify-content-center">
@@ -58,8 +60,9 @@
                         <div class="card">
                             <h5 class="card-header">Edit Profile Bengkel</h5>
                             <div class="card-body">
-                                <form class="needs-validation" action="" method="POST">
-
+                                <form class="needs-validation" action="{{ route('profile.com.store')}}" method="POST" enctype="multipart/form-data">
+                                    @include('back.alert')
+                                    @csrf
                                     <div class="mb-3">
                                         <label class="form-label" for="bs-validation-name">Nama Bengkel</label>
                                         <input type="text" class="form-control" name="nama_bengkel"
@@ -82,13 +85,14 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <img src="{{ !empty($profileDataBengkel->foto) ? url('image/profile_bengkel/' . $profileDataBengkel->foto) : url('image/default_bengkel.png') }}"
-                                            height="100" width="100" alt="profile" class="mb-3">
-                                        <label class="form-label " for="bs-validation-upload-file">Foto Bengkel</label>
-                                        <input type="file" class="form-control" id="bs-validation-upload-file"
-                                            name="foto" required />
+                                        <label class="form-label" for="bs-validation-upload-file">Foto Bengkel</label>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ !empty($profileDataBengkel->foto) ? url('image/profile_bengkel/' . $profileDataBengkel->foto) : url('image/default_bengkel.png') }}"
+                                                height="100" width="100" alt="profile" class="mb-3 me-3">
+                                            <input type="file" class="form-control" id="bs-validation-upload-file" name="foto" required />
+                                        </div>
                                     </div>
-
+                                    
                                     <div class="mb-3">
                                         <label class="form-label" for="bs-validation-bio">Bio</label>
                                         <textarea class="form-control" id="bs-validation-bio" name="bs-validation-bio" rows="3" required></textarea>
@@ -110,26 +114,27 @@
 
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                $(document).ready(function() {
+                $(document).ready(function () {
                     // Saat halaman dimuat, tampilkan profil dan sembunyikan form edit
                     $(".profile-section").show();
                     $(".edit-section").hide();
-
+            
                     // Ketika tombol "Edit" diklik
-                    $("#editButton").click(function() {
+                    $("#editButton").click(function () {
                         // Sembunyikan profil dan tampilkan form edit
                         $(".profile-section").hide();
                         $(".edit-section").show();
                     });
-
+            
                     // Misalnya, Anda juga ingin menambahkan tombol "Batal" untuk kembali ke profil
-                    $("#cancelButton").click(function() {
+                    $("#cancelButton").click(function () {
                         // Sembunyikan form edit dan tampilkan profil
                         $(".edit-section").hide();
                         $(".profile-section").show();
                     });
                 });
             </script>
+            
 
 
         @endsection

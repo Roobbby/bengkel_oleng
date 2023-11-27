@@ -32,10 +32,24 @@ class HomeController extends Controller
         return view ('front.index');
     }
 
-    public function HautUser(){
+    // public function HautUser(){
     
-    $domain_user = Domain::value('domain_user');
+    // $domain_user = Domain::value('domain_user');
 
-    return redirect()->route('haut.user', ['domain_user' => $domain_user]);
+    // return redirect()->route('haut.user', ['domain_user' => $domain_user]);
+    // }
+    
+    public function HautUser(){
+        // Ambil domain terkait dengan pengguna saat ini
+        $domain_user = optional(auth()->user()->domain)->domain_user;
+    
+        // Jika domain_user tidak null, redirect ke halaman dengan parameter domain_user
+        if ($domain_user) {
+            return redirect()->route('haut.user', ['domain_user' => $domain_user]);
+        } else {
+            // Handle jika pengguna tidak memiliki domain
+            return redirect()->back()->with('error', 'User tidak memiliki domain terkait.');
+        }
     }
+    
 }

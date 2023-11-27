@@ -48,6 +48,8 @@ Route::get('/', function () {
         Route::get('/profile/com', [UserController::class, 'ProfileCom'])->name('profile.com');
         Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
         Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
+        Route::get('/profile/com/edit', [UserController::class, 'ProfileComEdit'])->name('profile.com.edit');
+        Route::post('/profile/com/store', [UserController::class, 'ProfileComStore'])->name('profile.com.store');
         Route::resource('item', ItemsController::class);
     });   
     Route::get('/users/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');

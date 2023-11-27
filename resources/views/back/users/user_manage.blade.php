@@ -69,8 +69,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('haut.user', ['domain_user' => $domainuser]) }}">Ke Halaman
-                                            Utama</a>
+                                 
+                                        @if($user->domain)
+                                            <form action="{{ route('haut.user', ['domain_user' => $user->domain->domain_user]) }}" method="GET">
+                                                <button type="submit">Ke Halaman Utama {{$user->name}}</button>
+                                            </form>
+                                        @else
+                                            <p>User {{$user->name}} tidak memiliki domain terkait.</p>
+                                        @endif
+                                                                                                    
                                     </td>
                                     <td>
                                         <div class="btn-group">
