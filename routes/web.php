@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,21 +38,20 @@ Route::get('/', function () {
     Route::post('/reset-passwords', [AuthController::class, 'ResetPassword'])->name('reset.pass');
     Route::get('/reset-password', [AuthController::class, 'ResetPasswordLink'])->name('reset.password');
     Route::post('/reset-pass',[AuthController::class,'resetpass'])->name('reset.passwords');
-    // Route::get('/reset-password', [AuthController::class, 'ResetPassword'])->name('reset.pass');
+
     
- 
     Route::middleware(['auth','PreventBackHistory', 'role:1,2'])->group(function(){
         Route::get('/dashboard/user', [UserController::class, 'DashboardUser'])->name('dashboard.user');
         
         //Route::get('/profile/id', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
-         
+
         Route::get('/profile/com', [UserController::class, 'ProfileCom'])->name('profile.com');
         Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
         Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
+        Route::resource('item', ItemsController::class);
     });   
     Route::get('/users/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
 
-   
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
         Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');

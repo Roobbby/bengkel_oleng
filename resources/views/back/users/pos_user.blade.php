@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>POS - Customer Order System</title>
+	<title>Halaman POS</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -36,9 +36,9 @@
 					<div class="pos-menu">
 						<!-- BEGIN logo -->
 						<div class="logo">
-							<a href="index.html">
-								<div class="logo-img"><i class="fa fa-bowl-rice"></i></div>
-								<div class="logo-text">Pine & Dine</div>
+							<a href="{{ route('dashboard.user') }}">
+								<div class="logo-img"><i class="fas fa-chevron-circle-left fa-lg"></i></div>
+								<div class="logo-text">Kembali</div>
 							</a>
 						</div>
 						<!-- END logo -->
@@ -139,7 +139,7 @@
 									</a>
 								</div>
 						
-								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
+								<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="drinks">
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-12.jpg)"></div>
 										<div class="info">
@@ -154,7 +154,7 @@
 									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
 										<div class="img" style="background-image: url(assets/img/pos/product-13.jpg)"></div>
 										<div class="info">
-											<div class="title">Vanilla Ice Cream</div>
+											<div class="title">Es Teh</div>
 											<div class="desc">Heavy whipping cream, white sugar, vanilla extract</div>
 											<div class="price">$3.99</div>
 										</div>

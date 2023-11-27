@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Domain;
-use App\Models\Costumer;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -259,14 +259,13 @@ class UserController extends Controller
         }
     }
     
-    
 
     public function PosUser(){
 
         $user = Auth::user();
         $id = $user->domain->id;
 
-        return view('back.users.post_user');
+        return view('back.users.pos_user');
 
     }
 
