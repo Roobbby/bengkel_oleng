@@ -69,15 +69,17 @@
                                         @endif
                                     </td>
                                     <td>
-                                 
-                                        @if($user->domain)
-                                            <form action="{{ route('haut.user', ['domain_user' => $user->domain->domain_user]) }}" method="GET">
-                                                <button type="submit">Ke Halaman Utama {{$user->name}}</button>
+
+                                        @if ($user->domain)
+                                            <form
+                                                action="{{ route('haut.user', ['domain_user' => $user->domain->domain_user]) }}"
+                                                method="GET">
+                                                <button type="submit">Ke Halaman Utama {{ $user->name }}</button>
                                             </form>
                                         @else
-                                            <p>User {{$user->name}} tidak memiliki domain terkait.</p>
+                                            <p>User {{ $user->name }} tidak memiliki domain terkait.</p>
                                         @endif
-                                                                                                    
+
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -144,9 +146,7 @@
                                             </form>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                             {{-- Modal View --}}
                             <div class="modal fade" id="modal-view{{ $user->id }}">
@@ -168,7 +168,8 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">Nama</label>
                                                         <div class="input-group input-group-merge">
-                                                            <span class="input-group-text"><i class="ti ti-user"></i></span>
+                                                            <span class="input-group-text"><i
+                                                                    class="ti ti-user"></i></span>
                                                             <input type="text" class="form-control" name="name"
                                                                 id="basic-icon-default-fullname" placeholder="Nama"
                                                                 aria-label="Nama" value="{{ $user->name }}" required

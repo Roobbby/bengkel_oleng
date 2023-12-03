@@ -133,6 +133,8 @@
     </div>
 
     <!-- / Content -->
+@endsection
+@push('script-auth')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{-- Script untuk validasi nomor --}}
     <script>
@@ -256,4 +258,4 @@
             });
         });
     </script>
-@endsection
+@endpush

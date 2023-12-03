@@ -63,10 +63,11 @@
             </div>
         </div>
     </div>
-
+@endsection
+@push('script-auth')
     <!-- / Content -->
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('editor');
     </script>
-@endsection
+@endpush

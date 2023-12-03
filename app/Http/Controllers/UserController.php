@@ -296,10 +296,11 @@ class UserController extends Controller
 
     public function PosUser(){
 
-        $user = Auth::user();
-        $id = $user->domain->id;
+        $domainId = Auth::user()->domain->id;
 
-        return view('back.users.pos_user');
+        $listproduk = Item::where('domain_id', $domainId)->get();
+        
+        return view('back.users.pos_user', compact('listproduk'));
 
     }
 

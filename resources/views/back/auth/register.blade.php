@@ -221,7 +221,8 @@
             </div>
         </div>
     </div>
-
+@endsection
+@push('script-auth')
     <!-- / Content -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -320,4 +321,4 @@
             });
         });
     </script>
-@endsection
+@endpush

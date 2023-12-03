@@ -34,13 +34,11 @@
                         </div>
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Harga</label>
                         <div class="input-group input-group-merge">
                             <input type="text" class="form-control" name="harga" id="harga"
-                                placeholder="Masukkan Harga" aria-label="Masukkan Harga" aria-describedby="harga"
-                                oninput="formatRupiah(this)" required />
+                                placeholder="Masukkan Harga" aria-label="Masukkan Harga" aria-describedby="harga" required />
                         </div>
                     </div>
 
@@ -56,14 +54,14 @@
                     <div class="mb-3">
                         <label class="form-label" for="inputGroupFile02">Gambar</label>
                         <img id="imagePreview"
-                            style="max-width: 30%; height: auto; margin-top: 10px; margin-bottom: 10px; display: none;"
-                            alt="Preview">
+                        style="max-width: 30%; height: auto; margin-top: 10px; margin-bottom: 10px; display: none;"
+                        alt="Preview">
                         <div class="input-group input-group-merge">
                             <input type="file" class="form-control" name="cover" id="inputGroupFile02"
-                                onchange="previewImage()">
+                            onchange="previewImage()">
                         </div>
                     </div>
-
+                    
 
 
                     <div class="mb-3">
@@ -87,11 +85,14 @@
             </div>
         </div>
     </div>
-
+    @endsection
+    @push('scripts')
+        
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.getElementById('id_category').addEventListener('change', function() {
-
+            
             var selectedIdCategory = this.value;
 
             var categoryOptions = {
@@ -99,48 +100,20 @@
                 '1': 'Suku Cadang',
                 '2': 'Layanan Jasa'
             };
-
+            
             document.getElementById('category').value = categoryOptions[selectedIdCategory];
         });
-    </script>
-
-    <script>
-        function formatRupiah(input) {
-            // Menghapus semua karakter non-digit
-            var nilai = input.value.replace(/[^\d]/g, '');
-
-            // Menetapkan nilai yang di-format ke input
-            input.value = nilai;
-
-            // Mengonversi string yang dihasilkan ke tipe data numerik
-            nilai = parseInt(nilai, 10);
-
-            // Memeriksa apakah nilai bukan NaN
-            if (!isNaN(nilai)) {
-                // Memformat nilai ke dalam format mata uang Rupiah tanpa desimal
-                var hargaFormatted = new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }).format(nilai);
-
-                // Menetapkan nilai yang di-format ke input
-                input.value = hargaFormatted;
-            }
-        }
+        </script>
 
 
-    </script>
+<script>
+    function previewImage() {
+        var input = document.getElementById('inputGroupFile02');
+        var preview = document.getElementById('imagePreview');
 
-    <script>
-        function previewImage() {
-            var input = document.getElementById('inputGroupFile02');
-            var preview = document.getElementById('imagePreview');
-
-            if (input.files && input.files[0]) {
+        if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
+                
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
@@ -170,4 +143,4 @@
         CKEDITOR.replace('deskripsiInput');
     </script>
 
-@endsection
+@endpush

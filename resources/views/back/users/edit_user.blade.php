@@ -52,6 +52,7 @@
 
 
                     <button type="submit" class="btn btn-primary">Ubah</button>
+                    <a href="{{ route('user.index') }}" class="btn btn-danger">kembali</a>
                 </form>
             </div>
         </div>

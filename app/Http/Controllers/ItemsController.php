@@ -21,10 +21,8 @@ class ItemsController extends Controller
     {
         $domainId = Auth::user()->domain->id;
 
-        // Mengambil semua item yang memiliki domain_id sesuai dengan domain_id pengguna yang saat ini login
         $list = Item::where('domain_id', $domainId)->get();
-        
-        // Mengirimkan data ke view
+
         return view('back.users.list_spare', compact('list'));
     }
 
@@ -83,7 +81,9 @@ class ItemsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $list = Item::find($id);
+
+        return view('back.users.edit_spare', compact('list'));
     }
 
     /**
@@ -99,6 +99,11 @@ class ItemsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $lists = User::find($id);
+
+        if($lists){
+            $lists->delete();
+        }
+    return redirect()->route('item.index');
     }
 }

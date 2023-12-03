@@ -41,9 +41,10 @@
                                         </li>
                                         <li class="mb-2 pt-1">
                                             <span class="fw-medium me-1">Link Landing :</span>
-                                            <a href="{{ route('haut.user', ['domain_user' => auth()->user()->domain->domain_user]) }}">
+                                            <a
+                                                href="{{ route('haut.user', ['domain_user' => auth()->user()->domain->domain_user]) }}">
                                                 {{ auth()->user()->domain->domain_user }}
-                                            </a>                                            
+                                            </a>
                                         </li>
                                     </ul>
                                     <div class="d-flex justify-content-center">
@@ -60,7 +61,8 @@
                         <div class="card">
                             <h5 class="card-header">Edit Profile Bengkel</h5>
                             <div class="card-body">
-                                <form class="needs-validation" action="{{ route('profile.com.store')}}" method="POST" enctype="multipart/form-data">
+                                <form class="needs-validation" action="{{ route('profile.com.store') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @include('back.alert')
                                     @csrf
                                     <div class="mb-3">
@@ -89,10 +91,11 @@
                                         <div class="d-flex align-items-center">
                                             <img src="{{ !empty($profileDataBengkel->foto) ? url('image/profile_bengkel/' . $profileDataBengkel->foto) : url('image/default_bengkel.png') }}"
                                                 height="100" width="100" alt="profile" class="mb-3 me-3">
-                                            <input type="file" class="form-control" id="bs-validation-upload-file" name="foto" required />
+                                            <input type="file" class="form-control" id="bs-validation-upload-file"
+                                                name="foto" required />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mb-3">
                                         <label class="form-label" for="bs-validation-bio">Bio</label>
                                         <textarea class="form-control" id="bs-validation-bio" name="bs-validation-bio" rows="3" required></textarea>
@@ -111,30 +114,28 @@
                 </div>
                 <!-- /Bootstrap Validation -->
             </div>
-
+        @endsection
+        @push('scripts')
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     // Saat halaman dimuat, tampilkan profil dan sembunyikan form edit
                     $(".profile-section").show();
                     $(".edit-section").hide();
-            
+
                     // Ketika tombol "Edit" diklik
-                    $("#editButton").click(function () {
+                    $("#editButton").click(function() {
                         // Sembunyikan profil dan tampilkan form edit
                         $(".profile-section").hide();
                         $(".edit-section").show();
                     });
-            
+
                     // Misalnya, Anda juga ingin menambahkan tombol "Batal" untuk kembali ke profil
-                    $("#cancelButton").click(function () {
+                    $("#cancelButton").click(function() {
                         // Sembunyikan form edit dan tampilkan profil
                         $(".edit-section").hide();
                         $(".profile-section").show();
                     });
                 });
             </script>
-            
-
-
-        @endsection
+        @endpush
