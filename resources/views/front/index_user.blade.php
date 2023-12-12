@@ -1,14 +1,16 @@
 @extends('front.layout.landing_page')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Landing Page')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Landing Page user')
 @section('content')
 
 <div data-bs-spy="scroll" class="scrollspy-example">
     <!-- Hero: Start -->
+
+
     <section id="hero-animation">
       <div id="landingHero" class="section-py landing-hero position-relative">
         <div class="container">
           <div class="hero-text-box text-center">
-            <h1 class="text-primary hero-title display-6 fw-bold">One dashboard to manage all your businesses</h1>
+            <h1 class="text-primary hero-title display-6 fw-bold"> {{ $domain_user->nama_bengkel }} One dashboard to manage all your businesses</h1>
             <h2 class="hero-sub-title h6 mb-4 pb-1">
               Production-ready & easy to use Admin Template<br class="d-none d-lg-block" />
               for Reliability and Customizability.

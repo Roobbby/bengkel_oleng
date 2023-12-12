@@ -10,6 +10,12 @@
     </div>
 @endif
 
+@if($errors->has('name'))
+    <div id="namealert" class="alert alert-danger alert-dismissible" role="alert">
+        {{ $errors->first('name') }}
+    </div>
+@endif
+
 <script>
     setTimeout(function() {
         document.getElementById('successAlert').style.display = 'none';
@@ -18,4 +24,11 @@
     setTimeout(function() {
         document.getElementById('errorAlert').style.display = 'none';
     }, 3000);
+
+    setTimeout(function(){
+        var nameAlert = document.getElementById('namealert');
+        nameAlert.style.opacity = '0';
+        nameAlert.style.visibility = 'hidden';
+    }, 3000);
+    
 </script>

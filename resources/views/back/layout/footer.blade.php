@@ -6,11 +6,11 @@
                   <script>
                       document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by <a href="" target="_blank" class="fw-medium">Bengkel Oleng</a>
+                  , made with ❤️ by <a href="#" target="_blank" class="fw-medium">Bengkel Oleng</a>
               </div>
               <div class="d-none d-lg-inline-block">
-                  <a href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/" target="_blank"
-                      class="footer-link me-4">Documentation</a>
+                  <a href="#" target="_blank"
+                      class="footer-link me-4">Solid</a>
               </div>
           </div>
       </div>

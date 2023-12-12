@@ -4,10 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\TransactionController;
+
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ItemsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +53,24 @@ Route::get('/', function () {
 
         Route::get('/profile/com', [UserController::class, 'ProfileCom'])->name('profile.com');
         Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
+        Route::get('/posget', [UserController::class, 'posget'])->name('pos.get');
         Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
         Route::get('/profile/com/edit', [UserController::class, 'ProfileComEdit'])->name('profile.com.edit');
         Route::post('/profile/com/store', [UserController::class, 'ProfileComStore'])->name('profile.com.store');
+        
         Route::resource('item', ItemsController::class);
-    });   
-    Route::get('/users/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
+        
+        //route percobaan
+        Route::get('/pos-base', [UserController::class, 'PosBase'])->name('pos.base');
+        Route::resource('carts', CartController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('products', ProductController::class);
+        Route::resource('transactions', TransactionController::class);
 
+    });   
+
+    Route::get('/users/{domain_user}', [HomeController::class, 'HautUser'])->name('haut.user');
+    
     Route::middleware(['auth','PreventBackHistory'])->group(function(){
         Route::get('/home', [HomeController::class, 'Index'])->name('home');
         Route::get('/dashboard', [HomeController::class, 'Dashboard'])->name('dashboard');
@@ -67,6 +84,7 @@ Route::get('/', function () {
         Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
     }); 
     
+    //tidak terpakai
     Route::middleware(['auth','PreventBackHistory', 'role:0,1'])->group(function(){
         //super admin manage
         Route::get('/manage/superadmin', [SuperAdminController::class, 'Index'])->name('manage.super.admin');
@@ -88,7 +106,4 @@ Route::get('/', function () {
         Route::get('/whatsapp-admin',[UserController::class, 'whatsappadmin'])->name('whatsapp.admin');
     });
     
-    
-
- 
 

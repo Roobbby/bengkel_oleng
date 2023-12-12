@@ -76,6 +76,12 @@
                         <div data-i18n="Page 4">User Management</div>
                     </a>
                 </li>
+                <li class="menu-item {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}">
+                    <a href="{{ route('categories.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-home"></i>
+                        <div data-i18n="Page 5">Category</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ Route::currentRouteName() == 'transaction' ? 'active' : '' }}">
                     <a href="{{ route('transaction') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user-edit"></i>
@@ -96,10 +102,16 @@
                         <div data-i18n="Page 1">Dashboard</div>
                     </a>
                 </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
-                    <a href="{{ route('pos.user') }}" class="menu-link">
+                <li class="menu-item {{ Route::currentRouteName() == 'pos.base' ? 'active' : '' }}">
+                    <a href="{{ route('pos.base') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">POS</div>
+                        <div data-i18n="Page 5">POS Dasar</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::currentRouteName() == 'products.index' ? 'active' : '' }}">
+                    <a href="{{ route('products.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-home"></i>
+                        <div data-i18n="Page 5">Product</div>
                     </a>
                 </li>
                 <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : '' }}">
@@ -114,12 +126,18 @@
                         <div data-i18n="Page 5">Data Transaksi</div>
                     </a>
                 </li>
+                {{-- <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
+                    <a href="{{ route('pos.user') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-home"></i>
+                        <div data-i18n="Page 5">POS</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ Route::currentRouteName() == 'item.index' ? 'active' : '' }}">
                     <a href="{{ route('item.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-home"></i>
                         <div data-i18n="Page 6">Data Sparepart</div>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-home"></i>

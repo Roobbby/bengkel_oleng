@@ -42,7 +42,7 @@
                                         <li class="mb-2 pt-1">
                                             <span class="fw-medium me-1">Link Landing :</span>
                                             <a
-                                                href="{{ route('haut.user', ['domain_user' => auth()->user()->domain->domain_user]) }}">
+                                                href="{{ route('haut.user', ['domain_user' => auth()->user()->domain->domain_user]) }}" target="_blank">
                                                 {{ auth()->user()->domain->domain_user }}
                                             </a>
                                         </li>

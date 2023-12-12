@@ -9,11 +9,13 @@
                 <h5 class="mb-0">Form Edit Sparepart</h5>
                 <small class="text-muted float-end">Edit Sparepart</small>
             </div>
+
             <div class="card-body">
-                <form action="{{ route('item.update', $list->id) }}" method="POST">
+                <form action="{{ route('item.update', $products->id) }}" method="POST">
                     @include('back.alert')
                     @csrf
                     @method('PUT')
+
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Nama Barang</label>
                         <div class="input-group input-group-merge">
@@ -21,7 +23,7 @@
                                     class="ti ti-user"></i></span>
                             <input type="text" class="form-control" name="nama_bengkel" id="basic-icon-default-fullname"
                                 placeholder="Nama Bengkel" aria-label="Nama Bengkel"
-                                aria-describedby="basic-icon-default-fullname2" value="{{ $list->nama_barang }}" required />
+                                aria-describedby="basic-icon-default-fullname2" value="{{ $products->nama_barang }}" required />
                         </div>
                     </div>
 
@@ -29,14 +31,14 @@
                         <label class="form-label">Category</label>
                         <select id="id_category" name="id_category" class="select2 form-select">
                             <option selected="" disabled="">Pilih Category</option>
-                            <option value="0" {{ $list->id_category == '0' ? 'selected' : '' }}>
+                            <option value="0" {{ $products->id_category == '0' ? 'selected' : '' }}>
                                 Aksesoris</option>
-                            <option value="1" {{ $list->id_category == '1' ? 'selected' : '' }}>
+                            <option value="1" {{ $products->id_category == '1' ? 'selected' : '' }}>
                                 Suku Cadang</option>
-                            <option value="2" {{ $list->id_category == '2' ? 'selected' : '' }}>
+                            <option value="2" {{ $products->id_category == '2' ? 'selected' : '' }}>
                                 Layananan Jasa</option>
                         </select>
-                        <input type="text" name="category" id="category" value="{{ $list->category }}">
+                        <input type="text" name="category" id="category" value="{{ $products->category }}">
                     </div>
 
                     <div class="mb-3">
@@ -46,7 +48,7 @@
                                     class="ti ti-user"></i></span>
                             <input type="text" class="form-control" name="gmaps" id="basic-icon-default-username"
                                 placeholder="gmaps" aria-label="Username" aria-describedby="basic-icon-default-username2"
-                                value="{{ $list->harga }}" required />
+                                value="{{ $products->harga }}" required />
                         </div>
                     </div>
 
@@ -57,14 +59,14 @@
                                     class="ti ti-user"></i></span>
                             <input type="text" class="form-control" name="gmaps" id="basic-icon-default-username"
                                 placeholder="gmaps" aria-label="Username" aria-describedby="basic-icon-default-username2"
-                                value="{{ $list->stok }}" required />
+                                value="{{ $products->stok }}" required />
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-username">Gambar</label>
                         <div>
-                            <img src="/image/item/{{ $list->cover }}" alt="profile" class="img-fluid mb-3"
+                            <img src="/image/item/{{ $products->cover }}" alt="profile" class="img-fluid mb-3"
                                 style="max-height: 100px; max-width: 100px;">
                         </div>
                         <div class="input-group input-group-merge">
@@ -72,14 +74,11 @@
                         </div>
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-fullname">Deskripsi</label>
                         <div class="input-group input-group-merge">
                             <div class="container-xxl flex-grow-1 container-p-y">
-
-                                <textarea name="deskripsi" id="deskripsiInput">{{ $list->deskripsi }}</textarea>
-
+                                <textarea name="deskripsi" id="deskripsiInput">{{ $products->deskripsi }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -98,7 +97,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Set nilai awal untuk category pada saat halaman dimuat
-        document.getElementById('category').value = getCategoryName('{{ $list->id_category }}');
+        document.getElementById('category').value = getCategoryName('{{ $products->id_category }}');
 
         // Event listener untuk mengubah nilai category saat id_category berubah
         document.getElementById('id_category').addEventListener('change', function() {

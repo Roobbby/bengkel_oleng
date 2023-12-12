@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Domain;
 use App\Models\Item;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -266,10 +268,6 @@ class UserController extends Controller
     
         return back();
     }
-      
-        
-    
-    
     
     public function DashboardUser(){
         // Memastikan user terotentikasi
@@ -293,15 +291,26 @@ class UserController extends Controller
         }
     }
     
-
+    //tidak terpakai
     public function PosUser(){
 
         $domainId = Auth::user()->domain->id;
 
-        $listproduk = Item::where('domain_id', $domainId)->get();
+        $product = Item::where('domain_id', $domainId)->get();
         
-        return view('back.users.pos_user', compact('listproduk'));
+        return view('back.users.pos_user', compact('product'));
 
+    }
+    
+    
+    
+    public function PosBase(){
+
+        $category = Category::all();
+        $domainId = Auth::user()->domain->id;
+        $products = Product::where('domain_id', $domainId)->get();
+        
+        return view('back.users.pos_base', compact('category','products'));
     }
 
     public function CosUser(){

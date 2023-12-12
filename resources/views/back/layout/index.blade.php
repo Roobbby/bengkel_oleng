@@ -10,7 +10,7 @@
 
     <title>@yield('pageTitle')</title>
 
-    <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/asset/assets/img/favicon/favicon.ico" />
@@ -43,9 +43,6 @@
     <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="/asset/assets/vendor/libs/quill/typography.css" />
-    <link rel="stylesheet" href="/asset/assets/vendor/libs/quill/katex.css" />
-    <link rel="stylesheet" href="/asset/assets/vendor/libs/quill/editor.css" />
 
     <!-- Page CSS -->
 
@@ -122,8 +119,6 @@
 
     <!-- Vendors JS -->
     <script src="/asset/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="/asset/assets/vendor/libs/quill/katex.js"></script>
-    <script src="/asset/assets/vendor/libs/quill/quill.js"></script>
 
     <!-- Main JS -->
     <script src="/asset/assets/js/main.js"></script>

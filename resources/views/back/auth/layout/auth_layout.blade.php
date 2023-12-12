@@ -92,10 +92,6 @@
     <!-- Page JS -->
     <script src="/asset/assets/js/pages-auth.js"></script>
 
-    <!-- Toastr Script -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <!-- End Toastr Script -->
 </body>
 
 </html>

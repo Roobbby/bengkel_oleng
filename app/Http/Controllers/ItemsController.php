@@ -20,10 +20,8 @@ class ItemsController extends Controller
     public function index()
     {
         $domainId = Auth::user()->domain->id;
-
-        $list = Item::where('domain_id', $domainId)->get();
-
-        return view('back.users.list_spare', compact('list'));
+        $product = Item::where('domain_id', $domainId)->get();
+        return view('back.users.list_spare', compact('product'));
     }
 
     /**
@@ -45,7 +43,6 @@ class ItemsController extends Controller
                 $filename = date('YmdHi') . $file->getClientOriginalName();
                 $file->move(public_path('image/item'), $filename);
 
-               
 
                 // Simpan data ke database
                 $item = new Item([
@@ -81,9 +78,9 @@ class ItemsController extends Controller
      */
     public function edit(string $id)
     {
-        $list = Item::find($id);
+        $product = Item::find($id);
 
-        return view('back.users.edit_spare', compact('list'));
+        return view('back.users.edit_spare', compact('product'));
     }
 
     /**
@@ -99,10 +96,10 @@ class ItemsController extends Controller
      */
     public function destroy(string $id)
     {
-        $lists = User::find($id);
+        $product = User::find($id);
 
-        if($lists){
-            $lists->delete();
+        if($product){
+            $product->delete();
         }
     return redirect()->route('item.index');
     }
