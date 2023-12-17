@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -13,8 +14,9 @@ class CartController extends Controller
 {
     public function index()
     {
-        $carts = Cart::all();
-
+        $domainId = Auth::user()->domain->id;
+        $carts = Cart::where('domain_id', $domainId)->get();
+        
         return response()->json([
             'status' => 200,
             'carts' => $carts,
@@ -25,7 +27,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $request->productId ? $product = Product::findOrFail($request->productId) :
-        $product = Product::where('code', $request->productCode)->first();
+        $product = Product::where('id', $request->productCode)->first();
         if($product === null){
             return response()->json([
                 'status' => 500,
@@ -35,7 +37,7 @@ class CartController extends Controller
 
         $isExist = Cart::where('product_id', $product->id)->first();
 
-        // $carts = Cart::where('user_id', auth()->id())->get();
+        // $carts = Cart::where('domain_id', $product->domain_id)->first();
 
 		// $itemQuantity = 0;
 		// if ($carts) {
@@ -62,6 +64,7 @@ class CartController extends Controller
         }else {
             $carts = Cart::updateOrCreate([
                 'product_id' => $product->id,
+                'domain_id' => $product->domain_id,
                 'price' => $product->price,
                 'quantity' => 1,
                 'stock' => $product->quantity,

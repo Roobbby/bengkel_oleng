@@ -19,7 +19,6 @@ return new class extends Migration
             $table->enum('sapaan', ['Pak', 'Bu', 'Mas', 'Mbak', 'Kak', 'Dek'])->nullable();
             $table->string('panggilan')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('telp')->unique()->nullable();
             $table->string('foto_profile')->nullable();

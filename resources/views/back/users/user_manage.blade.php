@@ -115,7 +115,7 @@
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                             data-bs-original-title="Pelanggan"></i></a>
 
-                                                    <a href="{{ route('user.edit', $user->id) }}"
+                                                    <a href="{{ route('products.index', ['domainId' => $user->domain->id]) }}"
                                                         class="btn btn-sm btn-dark "><i class="ti ti-tool"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                             data-bs-original-title="Sparepart"></i></a>
