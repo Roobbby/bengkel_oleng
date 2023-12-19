@@ -13,4 +13,10 @@ class Transaction extends Model
     public function transaction_details(){
         return $this->hasMany(TransactionDetail::class);
     }
+    public function deleteTransactionWithDetails()
+    {
+        $this->transaction_details()->delete();
+
+        $this->delete();
+    }
 }

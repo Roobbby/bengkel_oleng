@@ -36,6 +36,7 @@ class HomeController extends Controller
     
     $domain_user = Domain::where('domain_user',$domain_user)->first();
     return view('front.index_user', ['domain_user' => $domain_user]);
+    
     }
     
 

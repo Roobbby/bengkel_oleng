@@ -52,18 +52,13 @@ Route::get('/', function () {
         //Route::get('/profile/id', [UserController::class, 'ProfileBengkel'])->name('profile.bengkel');
 
         Route::get('/profile/com', [UserController::class, 'ProfileCom'])->name('profile.com');
-        Route::get('/posuser',[UserController::class, 'PosUser'])->name('pos.user');
-        Route::get('/posget', [UserController::class, 'posget'])->name('pos.get');
         Route::get('/cosuser',[UserController::class, 'CosUser'])->name('cos.user');
         Route::get('/profile/com/edit', [UserController::class, 'ProfileComEdit'])->name('profile.com.edit');
         Route::post('/profile/com/store', [UserController::class, 'ProfileComStore'])->name('profile.com.store');
         
-        Route::resource('item', ItemsController::class);
-        
-        //route percobaan
         Route::get('/pos-base', [UserController::class, 'PosBase'])->name('pos.base');
         Route::resource('carts', CartController::class);
-        Route::resource('categories', CategoryController::class);
+        
         Route::resource('products', ProductController::class);
         Route::resource('transactions', TransactionController::class);
 
@@ -104,6 +99,7 @@ Route::get('/', function () {
         Route::post('/check-email', [UserController::class, 'checkEmail'])->name('checkEmail');
         Route::get('/transaction', [UserController::class, 'transaction'])->name('transaction');
         Route::get('/whatsapp-admin',[UserController::class, 'whatsappadmin'])->name('whatsapp.admin');
+        Route::resource('categories', CategoryController::class);
     });
     
 

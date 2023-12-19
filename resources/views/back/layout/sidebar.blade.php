@@ -120,8 +120,8 @@
                         <div data-i18n="Page 5"> Data Pelanggan</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{ Route::currentRouteName() == 'transactions.index' ? 'active' : '' }}">
+                    <a href="{{ route('transactions.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-home"></i>
                         <div data-i18n="Page 5">Data Transaksi</div>
                     </a>

@@ -32,7 +32,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td><span class="badge badge-info">{{ $product->category->name }}</span></td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>{{ number_format($product->price, 0, ',' , '.') }}</td>
                                     <td>{{ $product->quantity }}</td>
                                     <td>
                                         @if ($product->image)

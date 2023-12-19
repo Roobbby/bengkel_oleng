@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 
 class TransactionController extends Controller
 {
     public function index()
     {
-        //
+        $domainId = Auth::user()->domain->id;
+        $transactions = Transaction::where('domain_id', $domainId)->get();;
+
+        return view ('back.users.transaction_index', compact('transactions'));
     }
 
     public function create()
@@ -29,15 +33,19 @@ class TransactionController extends Controller
             
             $transactionParams = [
                 'transaction_code' => 'P' . mt_rand(1,1000),
+                'domain_id' => Auth::user()->domain->id,
                 'name' => auth()->user()->name,
                 'total_price' => $params['total'],
+                'diskon' => $params['diskon'],
+                'subtotal' => $params['subtotal'],
                 'accept' => $params['accept'],
                 'return' => $params['return'],
 			];
 
 			$transaction = Transaction::create($transactionParams);
 
-			$carts = Cart::all();
+            $domainId = Auth::user()->domain->id;
+            $carts = Cart::where('domain_id', $domainId)->get();
 
 			if ($transaction && $carts) {
 				foreach ($carts as $cart) {
@@ -69,16 +77,15 @@ class TransactionController extends Controller
         });
 
 		if ($transaction) {
-			return redirect()->back()->with([
-				'message' => 'Success order',
-				'alert-type' => 'success'
-			]);
+            session()->flash('alert', 'success');
+            session()->flash('message', 'Transakasi Berhasil.');
+			return redirect()->route('transactions.show', $transaction->id);
 		}
     }
 
-    public function show(string $id)
+    public function show(Transaction $transaction)
     {
-        //
+        return view('back.users.transaction_show', compact('transaction'));
     }
 
     public function edit(string $id)
@@ -91,8 +98,12 @@ class TransactionController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->deleteTransactionWithDetails();
+        
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Delet Data Berhasil.');
+        return redirect()->back();
     }
 }

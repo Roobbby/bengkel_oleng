@@ -10,10 +10,10 @@
       <div id="landingHero" class="section-py landing-hero position-relative">
         <div class="container">
           <div class="hero-text-box text-center">
-            <h1 class="text-primary hero-title display-6 fw-bold"> {{ $domain_user->nama_bengkel }} One dashboard to manage all your businesses</h1>
+            <h1 class="text-primary hero-title display-6 fw-bold"> {{ $domain_user->nama_bengkel }}</h1>
             <h2 class="hero-sub-title h6 mb-4 pb-1">
-              Production-ready & easy to use Admin Template<br class="d-none d-lg-block" />
-              for Reliability and Customizability.
+              {{ $domain_user->alamat_bengkel }}<br class="d-none d-lg-block" />
+              {{ $domain_user->gmaps }}
             </h2>
           </div>
           <div id="heroDashboardAnimation" class="hero-animation-img">

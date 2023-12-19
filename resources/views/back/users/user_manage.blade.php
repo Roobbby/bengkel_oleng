@@ -123,8 +123,8 @@
                                             </ul>
                                         </div>
                                     </td>
-                            @endif
-                            <div class="modal fade" id="modal-delete{{ $user->id }}">
+                          
+                            <div class="modal fade" id="modal-delete{{ $user->domain->id }}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -135,7 +135,7 @@
                                             <p>Apakah kamu yakin ingin menghapus data user <b>{{ $user->name }}</b></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="post">
+                                            <form action="{{ route('user.destroy', $user->domain->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-default"
@@ -146,6 +146,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             {{-- Modal View --}}
                             <div class="modal fade" id="modal-view{{ $user->id }}">
                                 <div class="modal-dialog">
@@ -242,6 +243,7 @@
 
                             </tr>
                         @endforeach
+                       
                     </tbody>
                     <tfoot>
                         <tr>

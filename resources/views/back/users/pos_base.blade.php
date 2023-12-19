@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="container-xxl flex-grow-1 container-p-y">
+        @include('back.alert')
         <div class="row">
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="user-cart">
@@ -21,36 +22,36 @@
                         </table>
                     </div>
                 </div>
-                <form action="" method="">
+                <form action="{{ route('transactions.store') }}" method="POST">
                     @csrf
                     <div class="row mt-2">
                         <div class="col">Total:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="total" readonly class="form-control total">
+                            <input type="number" value="" name="total" readonly class="form-control total" id="totalInput">
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col">Dikurangi:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="diskon" class="form-control received diskon">
+                            <input type="number" value="" name="diskon" class="form-control received diskon" id="diskonInput">
                         </div>
                     </div>                    
                     <div class="row mt-2">
                         <div class="col">Subtotal:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="subtotal" readonly class="form-control received">
+                            <input type="number" value="" name="subtotal" readonly class="form-control received" id="subtotalInput">
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col">Diterima:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="accept" class="form-control received">
+                            <input type="number" value="" name="accept" class="form-control received" id="acceptInput">
                         </div>
                     </div>
                     <div class="row my-2">
                         <div class="col">Return:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="return" readonly class="form-control return">
+                            <input type="number" value="" name="return" readonly class="form-control return" id="returnInput">
                         </div>
                     </div>
                     <div class="row">
@@ -95,7 +96,7 @@
                                 <img src="image/item/{{ $product->image }}" width="45px" height="45px" alt="test" />
                             @endif
                             <h6 style="margin: 0;">{{ $product->name }}</h6>
-                            <span>Rp {{ $product->price }}</span>
+                            <span>{{ number_format($product->price, 0 , ',' , '.') }}</span>
                         </button>
                     @endforeach
                 </div>
@@ -105,6 +106,7 @@
 @endsection
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
     <script>
     $(document).ready(function() {
         function getCarts() {
@@ -136,7 +138,7 @@
                                 </td>
                                 
                             <td class="text-right">
-                                $${product.quantity * product.price}
+                                ${product.quantity * product.price}
                             </td>
                             </tr>
                             `)
@@ -150,33 +152,47 @@
             getCarts()
 
             $(document).on('change', 'input[name="total"], input[name="diskon"], input[name="accept"]', function() {
-            const total = parseFloat($('input[name="total"]').val()) || 0;
-            const diskon = parseFloat($('input[name="diskon"]').val()) || 0;
-            const subTotal = total - diskon;
+                const total = parseFloat($('input[name="total"]').val()) || 0;
+                const diskon = parseFloat($('input[name="diskon"]').val()) || 0;
+                const subTotal = total - diskon;
 
-            $('input[name="subtotal"]').val(subTotal);
+                $('input[name="subtotal"]').val(formatRupiah(subTotal));
 
-            if ($(this).attr('name') === 'accept') {
-                const received = parseFloat($('input[name="accept"]').val());
+                if ($(this).attr('name') === 'accept') {
+                    const received = parseFloat($('input[name="accept"]').val());
 
-                // Perbarui cara penggunaan Math.max
-                let change = Math.max(received - subTotal, 0);
+                    let change = Math.max(received - subTotal, 0);
 
-                $('input[name="return"]').val(change);
-            } else {
-                // Bersihkan nilai input "accept" dan "return" jika yang diubah bukan "accept"
-                $('input[name="accept"]').val('').trigger('change');
-                $('input[name="return"]').val('');
-            }
-        });
+                    $('input[name="return"]').val(formatRupiah(change));
+                } else {
+                    $('input[name="accept"]').val(formatRupiah('')).trigger('change');
+                    $('input[name="return"]').val(formatRupiah(''));
+                }
+            });
+
+        // Fungsi untuk mengubah angka menjadi format rupiah
+        function formatRupiah(angka) {
+        var number_string = angka.toString().replace(/[^0-9]/g, ''),
+            split = number_string.split('.'),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] !== undefined ? rupiah + '.' + split[1] : rupiah;
+        return rupiah;
+        }
+
 
         $(document).ready(function () {
-            // Menangkap klik pada tombol
             $('.amount-btn').on('click', function () {
-                // Mengambil nilai tombol yang diklik
+
                 var amountValue = $(this).val();
                 
-                // Mengatur nilai pada input dan memicu event change
                 $('input[name="accept"]').val(amountValue).trigger('change');
             });
         });
@@ -255,5 +271,7 @@
 
             })
         })
+       
     </script>
+    
 @endpush

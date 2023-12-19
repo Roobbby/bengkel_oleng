@@ -151,13 +151,16 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $data = User::find($id);
+        $data = Domain::find($id);
 
         if($data){
             $data->delete();
         }
+
+    session()->flash('alert', 'success');
+    session()->flash('message', 'Hapus Data berhasil.');
     return redirect()->route('user.index');
     }
 
@@ -227,14 +230,7 @@ class UserController extends Controller
         return view('back.users.profile_com', compact('user', 'domainId', 'profileDataBengkel'));
     }
 
-    // public function ProfileComEdit(){
-    //     $user = Auth::user();
-    //     $domainId = optional($user->domain)->id;
-    
-    //     $profileDataBengkel = Domain::find($domainId);
-    
-    //     return view('back.users.profile_com', compact('user', 'domainId', 'profileDataBengkel'));
-    // }
+ 
     public function ProfileComStore(Request $request){
        
         $user = Auth::user();
@@ -315,10 +311,11 @@ class UserController extends Controller
 
     public function CosUser(){
         
-        $user = Auth::user();
-        $id = $user->domain->id;
+        $domainId = Auth::user()->domain->id;
 
-        return view('back.users.costumer_user');
+        $data = User::where('domain_id', $domainId)->get();
+
+        return view('back.users.costumer_user', compact('data'));
     }
     
     public function ProfileBengkel(){
