@@ -28,7 +28,7 @@
                                             fill="#7367F0" />
                                     </svg>
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bold ms-1">Vuexy</span>
+                                <span class="app-brand-text demo text-body fw-bold ms-1">Bengkel Oleng</span>
                             </a>
                         </div>
                         <!-- /Logo -->

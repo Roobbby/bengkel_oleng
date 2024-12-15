@@ -6,9 +6,9 @@
         @include('back.alert')
         <div class="card">
             <div class="card-header py-3 d-flex">
-                <h6 class="m-0 font-weight-bold text-primary">
+                <h3 class="m-0 font-weight-bold text-primary">
                     Data Transaksi
-                </h6>
+                </h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

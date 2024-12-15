@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignIdFor(Transaction::class)->constrained();
             $table->string('name');
             $table->integer('qty');
-            $table->decimal('base_price',50, 2);
-            $table->decimal('base_total', 50, 2);
+            $table->string('base_price');
+            $table->string('base_total');
             $table->timestamps();
         });
     }

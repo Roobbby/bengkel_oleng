@@ -16,9 +16,10 @@
             @include('back.alert')
             <h5 class="card-header">Data Users</h5>
             <div class="card-datatable table-responsive">
-                <div class="header ms-3"><a href="{{ route('user.create') }}"
-                        class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a></div>
-
+                <div class="header ms-3">
+                    <a href="{{ route('user.create') }}" class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a>
+                    <a href="{{ route('user.create') }}" class="btn rounded-pill btn-success waves-effect waves-light">Export Pdf</a>
+                </div>
                 <br>
                 <table class="dt-row-grouping table">
                     <thead>

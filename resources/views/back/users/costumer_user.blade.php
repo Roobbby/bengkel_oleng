@@ -6,7 +6,9 @@
         @include('back.alert')
         <div class="card">
             <div class="card-header py-3 d-flex">
-                <h5 class="">Data Costumers</h5>
+                <h3 class="m-0 font-weight-bold text-primary">
+                    Data Costumers
+                </h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

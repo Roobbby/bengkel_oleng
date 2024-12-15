@@ -17,9 +17,11 @@ return new class extends Migration
             $table->foreignIdFor(Domain::class)->constrained();
             $table->string('transaction_code');
             $table->string('name');
-            $table->decimal('total_price', 50, 2);
-            $table->decimal('accept', 50, 2);
-            $table->decimal('return', 50, 2);
+            $table->string('total_price');
+            $table->string('diskon');
+            $table->string('subtotal');
+            $table->string('accept');
+            $table->string('return');
             $table->timestamps();
         });
     }

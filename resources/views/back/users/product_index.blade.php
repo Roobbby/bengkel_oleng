@@ -11,6 +11,8 @@
                 <div class="col-sm-12 col-md-6 mb-4">
                     <a href="{{ route('products.create') }}"
                         class="btn rounded-pill btn-primary waves-effect waves-light">Tambah Data</a>
+                    <a href="{{ route('products.create') }}"
+                        class="btn rounded-pill btn-success waves-effect waves-light">Export Pdf</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover datatable datatable-product"
@@ -31,7 +33,7 @@
                                 <tr data-entry-id="{{ $product->id }}">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $product->name }}</td>
-                                    <td><span class="badge badge-info">{{ $product->category->name }}</span></td>
+                                    <td><span>{{ $product->category->name }}</span></td>
                                     <td>{{ number_format($product->price, 0, ',' , '.') }}</td>
                                     <td>{{ $product->quantity }}</td>
                                     <td>

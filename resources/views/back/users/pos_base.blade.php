@@ -45,7 +45,7 @@
                     <div class="row mt-2">
                         <div class="col">Diterima:</div>
                         <div class="col text-right">
-                            <input type="number" value="" name="accept" class="form-control received" id="acceptInput">
+                            <input type="number" value="" name="accept" readonly class="form-control received" id="acceptInput">
                         </div>
                     </div>
                     <div class="row my-2">
@@ -144,16 +144,21 @@
                             `)
                         });
 
-                        const test = $('.total').attr('value', `${total}`);
+                        const formattedTotal = formatRupiah(total.toString());
+                        $('.total').val(formattedTotal);
+
                     }
                 })
             }
 
             getCarts()
 
-            $(document).on('change', 'input[name="total"], input[name="diskon"], input[name="accept"]', function() {
-                const total = parseFloat($('input[name="total"]').val()) || 0;
-                const diskon = parseFloat($('input[name="diskon"]').val()) || 0;
+            $(document).on('change', 'input[name="diskon"], input[name="accept"]', function() {
+                const totalString = $('input[name="total"]').val().replace(/[^\d]/g, '') || '0';
+                const diskonString = $('input[name="diskon"]').val().replace(/[^\d]/g, '') || '0';
+
+                const total = parseFloat(totalString);
+                const diskon = parseFloat(diskonString);
                 const subTotal = total - diskon;
 
                 $('input[name="subtotal"]').val(formatRupiah(subTotal));
@@ -170,7 +175,30 @@
                 }
             });
 
-        // Fungsi untuk mengubah angka menjadi format rupiah
+        var elements = document.querySelectorAll('#diskonInput, #totalInput, #acceptInput');
+
+        elements.forEach(function(element) {
+            element.addEventListener('keyup', function(e) {
+                this.value = formatRupiah(this.value);
+            });
+        });
+
+        function formatRupiah(angka, prefix)
+        {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split    = number_string.split(','),
+                sisa     = split[0].length % 3,
+                rupiah     = split[0].substr(0, sisa),
+                ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+                
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
         function formatRupiah(angka) {
         var number_string = angka.toString().replace(/[^0-9]/g, ''),
             split = number_string.split('.'),
