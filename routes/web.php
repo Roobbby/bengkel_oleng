@@ -79,7 +79,6 @@ Route::get('/', function () {
         Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
     }); 
     
-    //tidak terpakai
     Route::middleware(['auth','PreventBackHistory', 'role:0,1'])->group(function(){
         //super admin manage
         Route::get('/manage/superadmin', [SuperAdminController::class, 'Index'])->name('manage.super.admin');

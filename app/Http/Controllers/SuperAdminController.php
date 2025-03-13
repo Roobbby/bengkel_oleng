@@ -23,7 +23,7 @@ class SuperAdminController extends Controller
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
         $data = User::where('role', 0)->orderBy('created_at', 'desc')->get();
-        return view('back.super_admin_manage',compact('data'));
+        return view('back.superadmin.super_admin_manage',compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        return view('back.create_super_admin'); 
+        return view('back.superadmin.create_super_admin'); 
     }
 
     /**
@@ -70,7 +70,7 @@ class SuperAdminController extends Controller
     public function edit(string $id)
     {
         $data =  User::find($id);
-        return view('back.edit_super_admin', compact('data'));
+        return view('back.superadmin.edit', compact('data'));
     }
 
     /**
