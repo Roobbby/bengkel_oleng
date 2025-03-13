@@ -8,7 +8,7 @@
             <small class="text-muted float-end">Tambah Barang</small>
         </div>
         <div class="card-body">
-            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                 @include('back.alert')
                 @csrf
                 <input type="hidden" name="domain_id" value="{{ Auth::user()->domain->id }}">
@@ -22,9 +22,11 @@
                 <div class="mb-3">
                     <label class="form-label" for="category"> Category Barang</label>
                     <select name="category_id" id="category" class="form-control">
-                        <option selected="" disabled="">Pilih Category mu</option>
+                        <option disabled {{ old('category_id', $product->category_id ?? '') == '' ? 'selected' : '' }}>Pilih Category mu</option>
                         @foreach ($categories as $id => $categoryName)
-                        <option value="{{ $id }}">{{ $categoryName }}</option>
+                        <option value="{{ $id }}" {{ old('category_id', $product->category_id ?? '') == $id ? 'selected' : '' }}>
+                            {{ $categoryName }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -102,23 +104,28 @@
     }
     var rupiah = document.getElementById('price');
     rupiah.addEventListener('keyup', function(e) {
-        rupiah.value = formatRupiah(this.value);
+        let rawValue = this.value.replace(/[^0-9]/g, ''); // Simpan angka asli tanpa format
+        this.setAttribute('data-raw', rawValue); // Simpan di atribut data-raw
+        this.value = formatRupiah(rawValue); // Format tampilan input
+    });
+
+    document.getElementById('form').addEventListener('submit', function() {
+        let priceInput = document.getElementById('price');
+        priceInput.value = priceInput.getAttribute('data-raw'); // Ambil nilai asli sebelum submit
     });
 
     /* Fungsi formatRupiah */
     function formatRupiah(angka) {
         var number_string = angka.toString().replace(/[^0-9]/g, ''),
-            split = number_string.split('.'),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            sisa = number_string.length % 3,
+            rupiah = number_string.substr(0, sisa),
+            ribuan = number_string.substr(sisa).match(/\d{3}/gi);
 
         if (ribuan) {
-            separator = sisa ? '.' : '';
+            let separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
 
-        rupiah = split[1] !== undefined ? rupiah + '.' + split[1] : rupiah;
         return rupiah;
     }
 </script>

@@ -55,7 +55,7 @@ class ProductController extends Controller
             $file->move(public_path('image/item'), $filename);
         }
 
-        $product = Product::create([
+        Product::create([
             'name'        => $request->input('name'),
             'domain_id'   => $request->input('domain_id'),
             'category_id' => $request->input('category_id'),
@@ -98,7 +98,35 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        
+        // Cek apakah ada file gambar baru yang diupload
+        if ($request->hasFile('image')) {
+            $file     = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('image/item'), $filename);
+            
+            // Hapus gambar lama jika ada
+            if ($product->image && file_exists(public_path('image/item/' . $product->image))) {
+                unlink(public_path('image/item/' . $product->image));
+            }
+        } else {
+            // Jika tidak ada gambar baru, gunakan gambar lama
+            $filename = $product->image;
+        }
+    
+        $product->update([
+            'name'        => $request->input('name'),
+            'domain_id'   => $request->input('domain_id'),
+            'category_id' => $request->input('category_id'),
+            'quantity'    => $request->input('quantity'),
+            'price'       => $request->input('price'),
+            'image'       => $filename,
+        ]);
+    
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Barang berhasil diperbarui.');
+        return redirect()->route('products.index');
     }
 
     /**

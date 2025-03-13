@@ -11,11 +11,11 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('products.update', $products->id) }}" method="POST">
+            <form id="form" action="{{ route('products.update', $products->id) }}" method="POST">
                 @include('back.alert')
                 @csrf
                 @method('PUT')
-
+                <input type="hidden" name="domain_id" value="{{ Auth::user()->domain->id }}">
                 <div class="mb-3">
                     <label class="form-label" for="name">Nama Barang</label>
                     <div class="input-group input-group-merge">
@@ -26,10 +26,14 @@
 
                 <div class="mb-3">
                     <label class="form-label">Category</label>
-                    <select id="id_category" name="id_category" class="select2 form-select">
-                        <option selected="" disabled="">Pilih Category</option>
-                        @foreach($categories as $id => $categoryName)
-                        <option {{ $id == $products->category->id ? 'selected' : '' }} value="{{ $id }}">{{ $categoryName }}</option>
+                    <select name="category_id" id="category" class="form-control">
+                        <option disabled {{ old('category_id', $products->category_id ?? '') == '' ? 'selected' : '' }}>
+                            Pilih Kategori
+                        </option>
+                        @foreach ($categories as $id => $categoryName)
+                            <option value="{{ $id }}" {{ old('category_id', $products->category_id ?? '') == $id ? 'selected' : '' }}>
+                                {{ $categoryName }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -37,7 +41,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="price">Harga</label>
                     <div class="input-group input-group-merge">
-                        <input type="number" class="form-control" name="price" id="basic-icon-default-username" value="{{ $products->price }}" required />
+                        <input type="text" class="form-control" name="price" id="price" value="{{ $products->price }}" required />
                     </div>
                 </div>
 
@@ -83,6 +87,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script type="text/javascript">
+    CKEDITOR.replace('deskripsiInput');
     $(document).ready(function() {
         $('#imageInput').change(function(e) {
             var reader = new FileReader();
@@ -92,6 +97,32 @@
             reader.readAsDataURL(e.target.files['0']);
         });
     });
-    CKEDITOR.replace('deskripsiInput');
+
+    var rupiah = document.getElementById('price');
+    rupiah.addEventListener('keyup', function(e) {
+        let rawValue = this.value.replace(/[^0-9]/g, ''); // Simpan angka asli tanpa format
+        this.setAttribute('data-raw', rawValue); // Simpan di atribut data-raw
+        this.value = formatRupiah(rawValue); // Format tampilan input
+    });
+
+    document.getElementById('form').addEventListener('submit', function () {
+        let priceInput = document.getElementById('price');
+        priceInput.value = priceInput.getAttribute('data-raw'); // Ambil nilai asli sebelum submit
+    });
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka) {
+        var number_string = angka.toString().replace(/[^0-9]/g, ''),
+        sisa = number_string.length % 3,
+        rupiah = number_string.substr(0, sisa),
+        ribuan = number_string.substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        return rupiah;
+    }
 </script>
 @endpush
