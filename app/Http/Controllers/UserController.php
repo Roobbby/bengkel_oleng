@@ -288,15 +288,15 @@ class UserController extends Controller
     }
     
     //tidak terpakai
-    public function PosUser(){
+    // public function PosUser(){
 
-        $domainId = Auth::user()->domain->id;
+    //     $domainId = Auth::user()->domain->id;
 
-        $product = Item::where('domain_id', $domainId)->get();
+    //     $product = Item::where('domain_id', $domainId)->get();
         
-        return view('back.users.pos_user', compact('product'));
+    //     return view('back.users.pos_user', compact('product'));
 
-    }
+    // }
     
     
     

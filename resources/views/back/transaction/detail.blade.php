@@ -2,9 +2,9 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Transaction Details')
 @section('content')
 
-    <div class="container-xxl flex-grow-1 container-p-y">
-        @include('back.alert')
-        <div class="card">
+<div class="container-xxl flex-grow-1 container-p-y">
+    @include('back.alert')
+    <div class="card">
         <div class="card-header">
             <h6 class="m-0 font-weight-bold text-primary">
                 <a href="{{ route('transactions.index') }}" class="btn btn-dark float-right">
@@ -26,17 +26,17 @@
                     </thead>
                     <tbody>
                         @forelse ($transaction->transaction_details as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->qty }}</td>
-                                <td>{{ number_format($item->base_price, 0, ',', '.') }}</td>
-                                <td>{{ number_format($item->base_total, 0, ',', '.') }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->qty }}</td>
+                            <td>{{ number_format($item->base_price, 0, ',', '.') }}</td>
+                            <td>{{ number_format($item->base_total, 0, ',', '.') }}</td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="6">Order item not found!</td>
-                            </tr>
+                        <tr>
+                            <td colspan="6">Order item not found!</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -47,10 +47,10 @@
             <button class="btn btn-success">Print</button>
         </div>
     </div>
-    </div>
+</div>
 
 @endsection
 
 @push('scripts')
-    
+
 @endpush

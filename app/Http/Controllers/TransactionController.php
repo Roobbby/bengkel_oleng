@@ -9,6 +9,7 @@ use App\Models\TransactionDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -17,7 +18,7 @@ class TransactionController extends Controller
         $domainId = Auth::user()->domain->id;
         $transactions = Transaction::where('domain_id', $domainId)->get();;
 
-        return view ('back.users.transaction_index', compact('transactions'));
+        return view ('back.transaction.index', compact('transactions'));
     }
 
     public function create()
@@ -29,7 +30,7 @@ class TransactionController extends Controller
     {
         $params = $request->all();
 
-        $transaction = \DB::transaction(function() use ($params) {
+        $transaction = DB::transaction(function() use ($params) {
             
             $transactionParams = [
                 'transaction_code' => 'P' . mt_rand(1,1000),
@@ -85,7 +86,7 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction)
     {
-        return view('back.users.transaction_show', compact('transaction'));
+        return view('back.transaction.detail', compact('transaction'));
     }
 
     public function edit(string $id)
@@ -103,7 +104,7 @@ class TransactionController extends Controller
         $transaction->deleteTransactionWithDetails();
         
         session()->flash('alert', 'success');
-        session()->flash('message', 'Delet Data Berhasil.');
+        session()->flash('message', 'Delete Data Berhasil.');
         return redirect()->back();
     }
 }

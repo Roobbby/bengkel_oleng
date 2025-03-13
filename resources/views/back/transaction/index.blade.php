@@ -28,7 +28,11 @@
                             <tr data-entry-id="{{ $transaction->id }}">
                         
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaction->created_at->format('d-m-Y') }}</td>
+                                <td>
+                                    {{ $transaction->created_at->format('d-m-Y') }}(
+                                    {{ $transaction->created_at->format('h-i-s') }}
+                                    )
+                                </td>
                                 <td>{{ $transaction->transaction_code }}</td>
                                 <td>{{ $transaction->name }}</td>
                                 <td>{{  number_format($transaction->total_price, 0, ',', '.')  }}</td>
