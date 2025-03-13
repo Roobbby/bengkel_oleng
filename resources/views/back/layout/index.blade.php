@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="/asset/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-
     <link rel="stylesheet" href="/asset/assets/vendor/libs/node-waves/node-waves.css" />
     <link rel="stylesheet" href="/asset/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/asset/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
@@ -46,9 +45,7 @@
 
     <!-- Page CSS -->
 
-
     <!-- Helpers -->
-
     <script src="/asset/assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
@@ -64,18 +61,14 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-
             <!-- Menu -->
             @include('back.layout.sidebar')
             <!-- / Menu -->
-
             <!-- Layout container -->
             <div class="layout-page">
-
                 <!-- Navbar -->
                 @include('back.layout.navbar')
                 <!-- / Navbar -->
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
@@ -83,14 +76,11 @@
                     <!-- / Content -->
                 </div>
                 <!-- Content wrapper -->
-                
                 <!-- Footer -->
                 @include('back.layout.footer')
                 <!-- / Footer -->
-
                 <div class="content-backdrop fade"></div>
             </div>
-          
         </div>
         <!-- / Layout page -->
     </div>
@@ -114,7 +104,6 @@
     <script src="/asset/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="/asset/assets/vendor/libs/hammer/hammer.js"></script>
     <script src="/asset/assets/vendor/js/menu.js"></script>
-
     <!-- endbuild -->
 
     <!-- Vendors JS -->

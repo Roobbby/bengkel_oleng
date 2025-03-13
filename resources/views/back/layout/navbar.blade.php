@@ -36,8 +36,8 @@
 
                 @php
 
-                    $id = Auth::user()->id;
-                    $profileData = App\Models\User::find($id);
+                $id = Auth::user()->id;
+                $profileData = App\Models\User::find($id);
 
                 @endphp
 
@@ -79,23 +79,23 @@
                             </li>
                             {{-- <li>
                     <a class="dropdown-item" href="{{ route('change.password') }}">
-                      <i class="ti ti-lock-cog me-2 ti-sm"></i>
-                      <span class="align-middle">Change Password</span>
-                    </a>
-                  </li> --}}
+                            <i class="ti ti-lock-cog me-2 ti-sm"></i>
+                            <span class="align-middle">Change Password</span>
+                            </a>
+                    </li> --}}
 
-                            <li>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}">
-                                    <i class="ti ti-logout me-2 ti-sm"></i>
-                                    <span class="align-middle">Log Out</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <li>
+                        <div class="dropdown-divider"></div>
                     </li>
-                    <!--/ User -->
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}">
+                            <i class="ti ti-logout me-2 ti-sm"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+                </li>
+                <!--/ User -->
                 </ul>
             </div>
         </nav>

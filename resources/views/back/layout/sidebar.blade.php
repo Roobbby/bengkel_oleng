@@ -27,130 +27,130 @@
     <div class="menu-inner-shadow"></div>
 
     @php
-        $userStatus = auth()->user()->status;
-        $userRole = auth()->user()->role;
-        $user = Auth::user();
+    $userStatus = auth()->user()->status;
+    $userRole   = auth()->user()->role;
+    $user       = Auth::user();
     @endphp
 
     <ul class="menu-inner py-1">
         <!-- Page -->
         @if ($userStatus == 0) {{-- Status 0, Semua User --}}
-            <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
-                <a href="{{ route('dashboard') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-home"></i>
-                    <div data-i18n="Page 1">Dashboard</div>
-                </a>
-            </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 1">Dashboard</div>
+            </a>
+        </li>
         @elseif ($userStatus == 1)
-            @if ($userRole == 0)
-                {{-- Status 1 dan Role Super Admin --}}
-                <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 1">Dashboard</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
-                    <a href="{{ route('admin.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-user-cog"></i>
-                        <div data-i18n="Page 3">Admin Management</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-                    <a href="{{ route('user.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                        <div data-i18n="Page 4">User Management</div>
-                    </a>
-                </li>
-            @elseif ($userRole == 1)
-                {{-- Status 1 dan Role Admin --}}
-                <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 1">Dashboard</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
-                    <a href="{{ route('user.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                        <div data-i18n="Page 4">User Management</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}">
-                    <a href="{{ route('categories.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">Category</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'transaction' ? 'active' : '' }}">
-                    <a href="{{ route('transaction') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                        <div data-i18n="Page 4">Data Transaksi</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'whatsapp.admin' ? 'active' : '' }}">
-                    <a href="{{ route('whatsapp.admin') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-user-edit"></i>
-                        <div data-i18n="Page 4">WhatsApp</div>
-                    </a>
-                </li>
-            @elseif ($userRole == 2)
-                {{-- Status 1 dan Role User --}}
-                <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.user') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 1">Dashboard</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'pos.base' ? 'active' : '' }}">
-                    <a href="{{ route('pos.base') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">POS Dasar</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'products.index' ? 'active' : '' }}">
-                    <a href="{{ route('products.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">Product</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : '' }}">
-                    <a href="{{ route('cos.user') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5"> Data Pelanggan</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'transactions.index' ? 'active' : '' }}">
-                    <a href="{{ route('transactions.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">Data Transaksi</div>
-                    </a>
-                </li>
-                {{-- <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
-                    <a href="{{ route('pos.user') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 5">POS</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'item.index' ? 'active' : '' }}">
-                    <a href="{{ route('item.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 6">Data Sparepart</div>
-                    </a>
-                </li> --}}
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 6">Laporan</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
-                    <a href="{{ route('profile.com') }}" class="menu-link ">
-                        <i class="menu-icon tf-icons ti ti-home"></i>
-                        <div data-i18n="Page 7">Profile</div>
-                    </a>
-                </li>
-            @endif
+        @if ($userRole == 0)
+        {{-- Status 1 dan Role Super Admin --}}
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 1">Dashboard</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
+            <a href="{{ route('admin.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-cog"></i>
+                <div data-i18n="Page 3">Admin Management</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">User Management</div>
+            </a>
+        </li>
+        @elseif ($userRole == 1)
+        {{-- Status 1 dan Role Admin --}}
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 1">Dashboard</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">User Management</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}">
+            <a href="{{ route('categories.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 5">Category</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'transaction' ? 'active' : '' }}">
+            <a href="{{ route('transaction') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">Data Transaksi</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'whatsapp.admin' ? 'active' : '' }}">
+            <a href="{{ route('whatsapp.admin') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-user-edit"></i>
+                <div data-i18n="Page 4">WhatsApp</div>
+            </a>
+        </li>
+        @elseif ($userRole == 2)
+        {{-- Status 1 dan Role User --}}
+        <li class="menu-item {{ Route::currentRouteName() == 'dashboard.user' ? 'active' : '' }}">
+            <a href="{{ route('dashboard.user') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 1">Dashboard</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'pos.base' ? 'active' : '' }}">
+            <a href="{{ route('pos.base') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 5">POS Dasar</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'products.index' ? 'active' : '' }}">
+            <a href="{{ route('products.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 5">Product</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'cos.user' ? 'active' : '' }}">
+            <a href="{{ route('cos.user') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 5"> Data Pelanggan</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'transactions.index' ? 'active' : '' }}">
+            <a href="{{ route('transactions.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 5">Data Transaksi</div>
+            </a>
+        </li>
+        {{-- <li class="menu-item {{ Route::currentRouteName() == 'pos.user' ? 'active' : '' }}">
+        <a href="{{ route('pos.user') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-home"></i>
+            <div data-i18n="Page 5">POS</div>
+        </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'item.index' ? 'active' : '' }}">
+            <a href="{{ route('item.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 6">Data Sparepart</div>
+            </a>
+        </li> --}}
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 6">Laporan</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'profile.com' ? 'active' : '' }}">
+            <a href="{{ route('profile.com') }}" class="menu-link ">
+                <i class="menu-icon tf-icons ti ti-home"></i>
+                <div data-i18n="Page 7">Profile</div>
+            </a>
+        </li>
+        @endif
         @endif
     </ul>
 </aside>
