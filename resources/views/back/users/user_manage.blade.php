@@ -74,7 +74,7 @@
                                             <form
                                                 action="{{ route('haut.user',['domain_user' => $user->domain->domain_user]) }}"
                                                 method="GET" target="_blank">
-                                                <button type="submit">Ke Halaman Utama {{ $user->name }}</button>
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Ke Halaman Utama</button>
                                             </form>
                                         @else
                                             <p>User {{ $user->name }} tidak memiliki domain terkait.</p>

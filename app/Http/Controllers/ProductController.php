@@ -21,7 +21,7 @@ class ProductController extends Controller
         $domainId = Auth::user()->domain->id;
         $products = Product::where('domain_id', $domainId)->get();
 
-        return view('back.users.product_index', compact('products'));
+        return view('back.product.index', compact('products'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ProductController extends Controller
     {
         $categories = Category::all()->pluck('name','id');
 
-        return view('back.users.create_product', compact('categories'));
+        return view('back.product.create', compact('categories'));
     }
 
     /**
@@ -40,28 +40,28 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name'        => 'required',
             'category_id' => 'required',
-            'quantity' => 'required',
-            'price' => 'required',
+            'quantity'    => 'required',
+            'price'       => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         if ($request->file('image')) {
-            $file = $request->file('image');
+            $file     = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('image/item'), $filename);
         }
 
         $product = Product::create([
-            'name' => $request->input('name'),
-            'domain_id' =>$request->input('domain_id'),
+            'name'        => $request->input('name'),
+            'domain_id'   => $request->input('domain_id'),
             'category_id' => $request->input('category_id'),
-            'quantity' => $request->input('quantity'),
-            'price' => $request->input('price'),
-            'image' => $filename,
+            'quantity'    => $request->input('quantity'),
+            'price'       => $request->input('price'),
+            'image'       => $filename,
         ]);
     
         
@@ -76,7 +76,10 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categories = Category::all()->pluck('name','id');
+        $products   = Product::findOrFail($id);
+
+        return view('back.product.detail', compact('products', 'categories'));
     }
 
     /**
@@ -85,9 +88,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $categories = Category::all()->pluck('name','id');
-        $products = Product::findOrFail($id);
+        $products   = Product::findOrFail($id);
 
-        return view('back.users.edit_product', compact('products', 'categories'));
+        return view('back.product.edit', compact('products', 'categories'));
     }
 
     /**
