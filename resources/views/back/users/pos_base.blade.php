@@ -1,7 +1,57 @@
 @extends('back.layout.index')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Pos Management')
 @section('content')
+@push('styles')
+    <style>
+        .user-cart .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
 
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
+        .amount-btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(to right, #007bff, #0056b3);
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .amount-btn:hover {
+            background: linear-gradient(to right, #0056b3, #004085);
+            transform: scale(1.05);
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 12px;
+            background:rgb(154, 104, 193);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .item img {
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+    </style>
+@endpush
     <div class="container-xxl flex-grow-1 container-p-y">
         @include('back.alert')
         <div class="row">
@@ -81,7 +131,7 @@
                     <label for=""> Pilih Kategori </label>
                     <div class="col">
                        @foreach ($category as $cat)
-                            <button type="button" value="{{ $cat->id }}">
+                            <button type="button" class="btn btn-primary btn-block" value="{{ $cat->id }}">
                                 <span> {{ $cat->name }}</span>
                             </button>
                        @endforeach
@@ -93,7 +143,7 @@
                         <button type="button" class="item" style="cursor: pointer; border: none; width: 15%; height: 15%;"
                             value="{{ $product->id }}">
                             @if ($product->image)
-                                <img src="image/item/{{ $product->image }}" width="45px" height="45px" alt="test" />
+                                <img src="{{ $product->image ? asset('storage/item/' . $product->image) : asset('image/default_item.png') }}" width="45px" height="45px" alt="test" />
                             @endif
                             <h6 style="margin: 0;">{{ $product->name }}</h6>
                             <span>{{ number_format($product->price, 0 , ',' , '.') }}</span>
@@ -108,197 +158,127 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  
     <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         function getCarts() {
-                $.ajax({
-                    type: 'get',
-                    url: "carts",
-                    dataType: "json",
-                    success: function(response) {
-                        let total = 0;
-                        $('tbody').html("");
-                        $.each(response.carts, function(key, product) {
-                            total += product.price * product.quantity
-                            $('tbody').append(`
+            $.ajax({
+                type: 'get',
+                url: "carts",
+                dataType: "json",
+                success: function (response) {
+                    let total = 0;
+                    const tbody = $('tbody').empty();
+                    
+                    $.each(response.carts, function (key, product) {
+                        total += product.price * product.quantity;
+                        const stockOptions = Array.from({ length: product.stock }, (_, index) => (
+                            `<option ${product.quantity == index + 1 ? 'selected' : ''} value="${index + 1}">
+                                ${index + 1}
+                            </option>`
+                        )).join('');
+
+                        tbody.append(`
                             <tr>
                                 <td>${product.name}</td>
                                 <td class="d-flex">
-                                <select class="form-control qty">
-                                    ${Array.from({ length: product.stock }, (_, index) => (
-                                        `<option ${product.quantity == index + 1 ? 'selected' : ''} value="${index + 1}">
-                                            ${index + 1}
-                                        </option>`
-                                    )).join('')}
-                                </select>
-                                
-                                <input type="hidden" class="cartId" value="${product.id}" />
-                                <button type="button" class="btn btn-danger btn-sm delete" style="font-size: 12px; padding: 5px 5px;" value="${product.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                    <select class="form-control qty">${stockOptions}</select>
+                                    <input type="hidden" class="cartId" value="${product.id}" />
+                                    <button type="button" class="btn btn-danger btn-sm delete" style="font-size: 12px; padding: 5px 5px;" value="${product.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </td>
-                                
-                            <td class="text-right">
-                                ${product.quantity * product.price}
-                            </td>
+                                <td class="text-right">${formatRupiah(product.quantity * product.price)}</td>
                             </tr>
-                            `)
-                        });
+                        `);
+                    });
 
-                        const formattedTotal = formatRupiah(total.toString());
-                        $('.total').val(formattedTotal);
-
-                    }
-                })
-            }
-
-            getCarts()
-
-            $(document).on('change', 'input[name="diskon"], input[name="accept"]', function() {
-                const totalString = $('input[name="total"]').val().replace(/[^\d]/g, '') || '0';
-                const diskonString = $('input[name="diskon"]').val().replace(/[^\d]/g, '') || '0';
-
-                const total = parseFloat(totalString);
-                const diskon = parseFloat(diskonString);
-                const subTotal = total - diskon;
-
-                $('input[name="subtotal"]').val(formatRupiah(subTotal));
-
-                if ($(this).attr('name') === 'accept') {
-                    const received = parseFloat($('input[name="accept"]').val());
-
-                    let change = Math.max(received - subTotal, 0);
-
-                    $('input[name="return"]').val(formatRupiah(change));
-                } else {
-                    $('input[name="accept"]').val(formatRupiah('')).trigger('change');
-                    $('input[name="return"]').val(formatRupiah(''));
+                    $('.total').val(formatRupiah(total));
                 }
             });
-
-        var elements = document.querySelectorAll('#diskonInput, #totalInput, #acceptInput');
-
-        elements.forEach(function(element) {
-            element.addEventListener('keyup', function(e) {
-                this.value = formatRupiah(this.value);
-            });
-        });
-
-        function formatRupiah(angka, prefix)
-        {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split    = number_string.split(','),
-                sisa     = split[0].length % 3,
-                rupiah     = split[0].substr(0, sisa),
-                ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
-                
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-            
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
+
+        getCarts();
+
         function formatRupiah(angka) {
-        var number_string = angka.toString().replace(/[^0-9]/g, ''),
-            split = number_string.split('.'),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        rupiah = split[1] !== undefined ? rupiah + '.' + split[1] : rupiah;
-        return rupiah;
-        }
+        $(document).on('change keyup', 'input[name="diskon"], input[name="accept"]', function () {
+            const total = parseFloat($('input[name="total"]').val().replace(/[^\d]/g, '') || '0');
+            const diskon = parseFloat($('input[name="diskon"]').val().replace(/[^\d]/g, '') || '0');
+            const subTotal = total - diskon;
 
+            $('input[name="subtotal"]').val(formatRupiah(subTotal));
 
-        $(document).ready(function () {
-            $('.amount-btn').on('click', function () {
+            if ($(this).attr('name') === 'accept') {
+                const received = parseFloat($('input[name="accept"]').val() || '0');
+                $('input[name="return"]').val(formatRupiah(Math.max(received - subTotal, 0)));
+            } else {
+                $('input[name="accept"], input[name="return"]').val('');
+            }
+        });
 
-                var amountValue = $(this).val();
-                
-                $('input[name="accept"]').val(amountValue).trigger('change');
-            });
+        $('.amount-btn').on('click', function () {
+            let currentValue = parseInt($('input[name="accept"]').val().replace(/[^\d]/g, '') || '0');
+            let addValue = parseInt($(this).val());
+
+            let newValue = currentValue + addValue;
+            $('input[name="accept"]').val(newValue).trigger('change');
+        });
+
+        $('input[name="accept"]').on('change', function () {
+            let formattedValue = formatRupiah($(this).val());
+            $(this).val(formattedValue);
         });
 
 
-        $(document).on('change', '.qty', function() {
+        $(document).on('change', '.qty', function () {
             const qty = $(this).val();
-            const cartId = $(this).closest('td').find('.cartId').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            const cartId = $(this).siblings('.cartId').val();
 
             $.ajax({
                 type: 'put',
                 url: `carts/${cartId}`,
-                data: {
-                    qty
-                },
+                data: { qty },
                 dataType: 'json',
-                success: function(response) {
-                    if (response.status === 400) {
-                        alert(response.message);
-                    }
-                    getCarts()
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    if (response.status === 400) alert(response.message);
+                    getCarts();
                 }
-            })
-        })
+            });
+        });
 
-        $(document).on('click', '.delete', function() {
-                const cartId = $(this).val();
+        $(document).on('click', '.delete', function () {
+            const cartId = $(this).val();
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            $.ajax({
+                type: 'delete',
+                url: `carts/${cartId}`,
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    if (response.status === 400) alert(response.message);
+                    getCarts();
+                }
+            });
+        });
 
-                $.ajax({
-                    type: 'delete',
-                    url: `carts/${cartId}`,
-                    success: function(response) {
-                        if (response.status === 400) {
-                            alert(response.message);
-                        }
-                        getCarts()
-                    }
-                })
-            })
+        $(document).on('click', '.item', function () {
+            const productId = $(this).val();
 
-            $(document).on('click', '.item', function() {
-                const productId = $(this).val();
+            $.ajax({
+                type: 'post',
+                url: "carts",
+                data: { productId },
+                dataType: 'json',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    if (response.status === 400) alert(response.message);
+                    getCarts();
+                }
+            });
+        });
+    });
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: 'post',
-                    url: `carts`,
-                    data: {
-                        productId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status === 400) {
-                            alert(response.message);
-                        }
-                        getCarts()
-                    }
-                })
-
-            })
-        })
        
     </script>
     

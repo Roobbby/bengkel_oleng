@@ -42,8 +42,9 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer text-right">
-            <h3>Total : {{ number_format($transaction->total_price, 0, ',' , '.') }}</h3>
+        <div class="card-footer text-end">
+            <h3>Diskon : {{ number_format($transaction->diskon, 0, ',', '.')}}</h3>
+            <h3>Total : {{ $transaction->total_price }}</h3>
             <button class="btn btn-success">Print</button>
         </div>
     </div>

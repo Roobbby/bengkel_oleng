@@ -35,7 +35,9 @@
                                 </td>
                                 <td>{{ $transaction->transaction_code }}</td>
                                 <td>{{ $transaction->name }}</td>
-                                <td>{{  number_format($transaction->total_price, 0, ',', '.')  }}</td>
+                                <td class="text-end">
+                                    {{  $transaction->total_price  }}
+                                </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-info">
