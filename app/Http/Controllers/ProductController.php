@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -29,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all()->pluck('name','id');
+        $categories = Category::all()->pluck('name', 'id');
 
         return view('back.product.create', compact('categories'));
     }
@@ -44,15 +45,20 @@ class ProductController extends Controller
             'category_id' => 'required',
             'quantity'    => 'required',
             'price'       => 'required',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        if ($request->file('image')) {
-            $file     = $request->file('image');
+        $filename = null;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/item'), $filename);
+
+            // Simpan file ke storage/app/public/item/
+            $file->storeAs('public/item', $filename);
         }
 
         Product::create([
@@ -63,12 +69,11 @@ class ProductController extends Controller
             'price'       => $request->input('price'),
             'image'       => $filename,
         ]);
-    
-        
+
         session()->flash('alert', 'success');
         session()->flash('message', 'Barang berhasil ditambahkan.');
-        return redirect()->route('products.index');
 
+        return redirect()->route('products.index');
     }
 
     /**
@@ -76,7 +81,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $categories = Category::all()->pluck('name','id');
+        $categories = Category::all()->pluck('name', 'id');
         $products   = Product::findOrFail($id);
 
         return view('back.product.detail', compact('products', 'categories'));
@@ -87,7 +92,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all()->pluck('name','id');
+        $categories = Category::all()->pluck('name', 'id');
         $products   = Product::findOrFail($id);
 
         return view('back.product.edit', compact('products', 'categories'));
@@ -98,23 +103,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Product::findOrFail($id);
         
+        $product = Product::findOrFail($id);
+        $filename = $product->image;
+       
         // Cek apakah ada file gambar baru yang diupload
         if ($request->hasFile('image')) {
-            $file     = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/item'), $filename);
-            
-            // Hapus gambar lama jika ada
-            if ($product->image && file_exists(public_path('image/item/' . $product->image))) {
-                unlink(public_path('image/item/' . $product->image));
+            $file = $request->file('image');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+
+            // Simpan file baru ke storage/app/public/item/
+            $file->storeAs('public/item', $filename);
+
+            // Hapus gambar lama jika ada dan file-nya masih tersedia
+            if (!empty($product->image) && Storage::exists('public/item/' . $product->image)) {
+                Storage::delete('public/item/' . $product->image);
             }
-        } else {
-            // Jika tidak ada gambar baru, gunakan gambar lama
-            $filename = $product->image;
         }
-    
+
         $product->update([
             'name'        => $request->input('name'),
             'domain_id'   => $request->input('domain_id'),
@@ -123,7 +129,7 @@ class ProductController extends Controller
             'price'       => $request->input('price'),
             'image'       => $filename,
         ]);
-    
+
         session()->flash('alert', 'success');
         session()->flash('message', 'Barang berhasil diperbarui.');
         return redirect()->route('products.index');
@@ -133,11 +139,11 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
-    {            
+    {
         $product->delete();
 
-    session()->flash('alert', 'success');
-    session()->flash('message', 'Barang berhasil ditambahkan.');
-    return redirect()->route('products.index');
+        session()->flash('alert', 'success');
+        session()->flash('message', 'Barang berhasil ditambahkan.');
+        return redirect()->route('products.index');
     }
 }

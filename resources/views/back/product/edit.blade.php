@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-body">
-            <form id="form" action="{{ route('products.update', $products->id) }}" method="POST">
+            <form id="form" action="{{ route('products.update', $products->id) }}" method="POST" enctype="multipart/form-data">
                 @include('back.alert')
                 @csrf
                 @method('PUT')
@@ -31,9 +31,9 @@
                             Pilih Kategori
                         </option>
                         @foreach ($categories as $id => $categoryName)
-                            <option value="{{ $id }}" {{ old('category_id', $products->category_id ?? '') == $id ? 'selected' : '' }}>
-                                {{ $categoryName }}
-                            </option>
+                        <option value="{{ $id }}" {{ old('category_id', $products->category_id ?? '') == $id ? 'selected' : '' }}>
+                            {{ $categoryName }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="price">Harga</label>
                     <div class="input-group input-group-merge">
-                        <input type="text" class="form-control" name="price" id="price" value="{{ $products->price }}" required />
+                        <input type="text" class="form-control" name="price" id="price" value="{{ number_format($products->price, 0, ',', '.') }}" required />
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                     <label class="form-label mb-2" for="image">Gambar</label>
                     @if ($products->image)
                     <div>
-                        <img src="/image/item/{{ $products->image }}" alt="profile" class="img-fluid mb-3" style="max-height: 250px; max-width: 250px;" id="existingImage">
+                        <img src="{{ $products->image ? asset('storage/item/' . $products->image) : asset('image/default_item.png') }}" alt="profile" class="img-fluid mb-3" style="max-height: 250px; max-width: 250px;" id="existingImage">
                     </div>
                     @endif
                     <div class="input-group input-group-merge">
@@ -98,31 +98,45 @@
         });
     });
 
-    var rupiah = document.getElementById('price');
-    rupiah.addEventListener('keyup', function(e) {
-        let rawValue = this.value.replace(/[^0-9]/g, ''); // Simpan angka asli tanpa format
-        this.setAttribute('data-raw', rawValue); // Simpan di atribut data-raw
-        this.value = formatRupiah(rawValue); // Format tampilan input
-    });
-
-    document.getElementById('form').addEventListener('submit', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         let priceInput = document.getElementById('price');
-        priceInput.value = priceInput.getAttribute('data-raw'); // Ambil nilai asli sebelum submit
-    });
 
-    /* Fungsi formatRupiah */
-    function formatRupiah(angka) {
-        var number_string = angka.toString().replace(/[^0-9]/g, ''),
-        sisa = number_string.length % 3,
-        rupiah = number_string.substr(0, sisa),
-        ribuan = number_string.substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            let separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+        // Simpan nilai asli jika ada di value
+        if (priceInput.value) {
+            let rawValue = priceInput.value.replace(/[^0-9]/g, '');
+            priceInput.setAttribute('data-raw', rawValue);
+            priceInput.value = formatRupiah(rawValue);
         }
 
-        return rupiah;
-    }
+        // Event listener untuk format angka saat diketik
+        priceInput.addEventListener('keyup', function(e) {
+            let rawValue = this.value.replace(/[^0-9]/g, ''); // Simpan angka asli tanpa format
+            this.setAttribute('data-raw', rawValue); // Simpan nilai asli
+            this.value = formatRupiah(rawValue); // Format tampilan input
+        });
+
+        // Saat form submit, kembalikan nilai asli
+        document.getElementById('form').addEventListener('submit', function() {
+            let priceRaw = priceInput.getAttribute('data-raw');
+            if (priceRaw) {
+                priceInput.value = priceRaw; // Kembalikan angka asli sebelum dikirim
+            }
+        });
+
+        // Fungsi format Rupiah
+        function formatRupiah(angka) {
+            var number_string = angka.toString().replace(/[^0-9]/g, ''),
+                sisa = number_string.length % 3,
+                rupiah = number_string.substr(0, sisa),
+                ribuan = number_string.substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return rupiah;
+        }
+    });
 </script>
 @endpush

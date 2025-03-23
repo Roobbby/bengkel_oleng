@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -46,12 +47,20 @@ class ProfileController extends Controller
         $data->gender = $request->gender;
         
 
-        if ($request->file('foto_profile')) {
+        if ($request->hasFile('foto_profile')) {
             $file = $request->file('foto_profile');
-            @unlink(public_path('image/profile/'.$data->foto_profile));
-            $filename = date('YmdHi').$file->getClientOriginalName(); 
-            $file->move(public_path('image/profile'),$filename);
-            $data['foto_profile'] = $filename;
+        
+            // Hapus file lama jika ada
+            if ($data->foto_profile) {
+                Storage::delete('profile/' . $data->foto_profile);
+            }
+        
+            // Simpan file ke storage/app/profile
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->storeAs('public/profile', $filename);
+            
+            // Simpan nama file ke database
+            $data->foto_profile = $filename;
         }
         
         $data->save();

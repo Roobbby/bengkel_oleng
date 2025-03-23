@@ -38,11 +38,11 @@
                             <td>{{ $product->quantity }}</td>
                             <td>
                                 @if ($product->image)
-                                <a href="image/item/{{ $product->image }}" target="_blank">
-                                    <img src="image/item/{{ $product->image }}" width="45px" height="45px" />
-                                </a>
+                                    <a href="{{ asset('storage/item/' . $product->image) }}" target="_blank">
+                                        <img src="{{ asset('storage/item/' . $product->image) }}" width="45px" height="45px" />
+                                    </a>
                                 @else
-                                <span class="badge badge-warning">no image</span>
+                                    <span class="badge badge-warning">No Image</span>
                                 @endif
                             </td>
                             <td>

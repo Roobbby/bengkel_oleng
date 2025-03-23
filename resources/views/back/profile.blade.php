@@ -26,7 +26,7 @@
                             <div class="user-avatar-section">
                                 <div class="d-flex align-items-center flex-column">
                                     <img class="img-fluid rounded mb-2 pt-1 mt-4"
-                                        src="{{ !empty($profileData->foto_profile) ? url('image/profile/' . $profileData->foto_profile) : url('image/default-avatar.png') }} "
+                                        src="{{ !empty($profileData->foto_profile) ? asset('storage/profile/' . $profileData->foto_profile) : asset('image/default-avatar.png') }}"
                                         height="100" width="100" alt="profile" />
                                     <div class="user-info text-center">
                                         <h4 class="mb-2">{{ $profileData->name }}</h4>

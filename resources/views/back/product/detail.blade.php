@@ -52,7 +52,7 @@
                     <label class="form-label mb-2" for="image">Gambar</label>
                     @if ($products->image)
                     <div>
-                        <img src="/image/item/{{ $products->image }}" alt="profile" class="img-fluid mb-3" style="max-height: 250px; max-width: 250px;" id="existingImage">
+                        <img src="{{ $product->image ? asset('storage/item/' . $product->image) : asset('image/default_item.png') }}" alt="profile" class="img-fluid mb-3" style="max-height: 250px; max-width: 250px;" id="existingImage">
                     </div>
                     @endif
                     <!-- <div class="input-group input-group-merge">

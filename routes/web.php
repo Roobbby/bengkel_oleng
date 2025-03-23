@@ -13,7 +13,7 @@ use App\Http\Controllers\TransactionController;
 
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ItemsController;
-
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,13 @@ use App\Http\Controllers\ItemsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//Menjalankan Storage link diserver
+Route::get('/buat-storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage link berhasil dibuat!';
+});
+
 
 Route::get('/', function () {
     return redirect('/bengkel_oleng');
